@@ -2042,23 +2042,23 @@ footer{text-align:center;padding:18px 14px;color:var(--muted);font-size:13px;bor
       </div>
     </section>
 
-    <!-- ==================== TAB 6: TRẠNG THÁI ĐỒNG BỘ INTERNET TỰ ĐỘNG ==================== -->
+    <!-- ==================== TAB 6: TRUNG TÂM ĐỒNG BỘ GOOGLE DRIVE 400GB & INTERNET CLOUD ==================== -->
     <section id="tab-cloud" class="tab-content panel">
       <div class="section-header glass-bar toolbar-4d">
         <div>
-          <h2>🌐 Trung Tâm Đồng Bộ Thời Gian Thực (Super Sync v14)</h2>
-          <div class="small">Nén Gzip 90% · Đồng bộ đa tầng (Tab tức thì + Real-time Push + Cloud Mirror + Tự hỏi dữ liệu máy đang online)</div>
+          <h2>🌐 Trung Tâm Đồng Bộ Chuẩn Google Drive 400GB (Sync v18)</h2>
+          <div class="small">Lấy Google Drive 400GB làm kho gốc duy nhất · Không giới hạn 4KB · Tách file Admin & Học viên · Đồng bộ 100% mọi thiết bị & tài khoản</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="ai-btn toolbar-4d" id="btnCloudPullNow" onclick="forcePullFromInternetNow()">📥 Kéo bản mới nhất ngay</button>
-          <button class="success toolbar-4d" id="btnCloudPushNow" onclick="forcePushToInternetNow()">🚀 Đẩy dữ liệu lên Cloud ngay</button>
+          <button class="ai-btn toolbar-4d" id="btnCloudPullNow" onclick="forcePullFromInternetNow()">📥 Kéo bản mới nhất từ Drive</button>
+          <button class="success toolbar-4d" id="btnCloudPushNow" onclick="forcePushToInternetNow()">🚀 Đẩy toàn bộ lên Drive 400GB</button>
         </div>
       </div>
 
       <!-- Thanh tiến trình đồng bộ trực tiếp -->
       <div id="cloudSyncProgressWrap" style="display:none;background:#eff6ff;border:1.5px solid #93c5fd;border-radius:13px;padding:12px 15px;margin-bottom:14px">
         <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:700;color:var(--primary-dark)">
-          <span id="cloudSyncProgressText">⚡ Đang nén & đồng bộ dữ liệu...</span>
+          <span id="cloudSyncProgressText">⚡ Đang đồng bộ với Google Drive 400GB...</span>
           <span id="cloudSyncProgressPct">0%</span>
         </div>
         <div class="ai-progress-bar-wrap" style="margin:6px 0 0">
@@ -2066,13 +2066,56 @@ footer{text-align:center;padding:18px 14px;color:var(--muted);font-size:13px;bor
         </div>
       </div>
 
+      <!-- THẺ KẾT NỐI CHÍNH: GOOGLE DRIVE 400GB (SINGLE SOURCE OF TRUTH) -->
+      <div style="background:linear-gradient(135deg,#ecfdf5 0%,#eff6ff 55%,#f5f3ff 100%);border:2px solid #2563eb;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 8px 26px rgba(37,99,235,0.1)">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+          <div>
+            <strong style="font-size:16.5px;color:var(--primary-dark);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span>📁 Kho Chuẩn Google Drive 400GB (Apps Script Web App)</span>
+              <span class="badge ok" id="driveConnBadge">Chưa gắn link /exec</span>
+            </strong>
+            <div class="small" style="color:#1e293b;margin-top:3px">
+              Tách biệt <b>admin_catalog.json</b>, <b>shared_tests.json</b>, <b>meta.json</b> và thư mục <b>users/</b> trên Google Drive 400GB — không bao giờ kẹt phiên bản hay lệch kho giữa các máy & tài khoản.
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+          <input type="text" id="driveScriptUrlInput" placeholder="Dán link Google Apps Script Web App kết thúc bằng /exec (https://script.google.com/macros/s/.../exec)" style="flex:1;min-width:240px;font-size:13.5px;background:white;border-color:#93c5fd">
+          <button type="button" class="primary toolbar-4d" onclick="saveDriveScriptUrl()">💾 Lưu & Đồng bộ Drive</button>
+          <button type="button" class="success toolbar-4d" onclick="pingDriveConnection()">🔌 Kiểm tra kết nối</button>
+          <button type="button" class="danger" onclick="clearDriveScriptUrl()">Gỡ Drive</button>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="ai-btn" style="font-size:12.5px;padding:7px 13px" onclick="copyInstantSyncLink()">🔗 Sao chép Link tự gắn Drive cho máy khác</button>
+          <button type="button" style="font-size:12.5px;padding:7px 13px;background:white" onclick="copyDriveAppsScriptCode()">📋 Sao chép mã Code.gs (Apps Script)</button>
+          <button type="button" style="font-size:12.5px;padding:7px 12px;background:white" onclick="exportBackupJson()">💾 Xuất sao lưu (.json)</button>
+          <label style="cursor:pointer;padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:white;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px">
+            📂 Nhập sao lưu (.json)
+            <input type="file" accept=".json" style="display:none" onchange="importBackupJsonFile(event)">
+          </label>
+        </div>
+
+        <details style="margin-top:12px;background:rgba(255,255,255,0.88);padding:10px 13px;border-radius:11px;border:1px solid #bfdbfe">
+          <summary style="cursor:pointer;font-weight:700;font-size:13px;color:var(--primary-dark)">📖 Hướng dẫn nhanh 4 bước gắn Google Drive 400GB (Làm 1 lần dùng vĩnh viễn)</summary>
+          <ol style="margin:8px 0 0;padding-left:20px;font-size:12.5px;color:#334155;line-height:1.65">
+            <li>Bấm nút <b>📋 Sao chép mã Code.gs</b> ở trên.</li>
+            <li>Mở <a href="https://script.google.com" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700">script.google.com</a> ➔ <b>Dự án mới</b> ➔ xóa hết code cũ, dán mã vừa chép rồi bấm <b>Lưu</b>.</li>
+            <li>Bấm <b>Triển khai (Deploy)</b> ➔ <b>Tùy chọn triển khai mới</b> ➔ chọn loại <b>Ứng dụng web</b> ➔ Thực thi: <b>Tôi</b> · Quyền truy cập: <b>Bất kỳ ai (Anyone)</b> ➔ <b>Triển khai</b>.</li>
+            <li>Sao chép link <b>/exec</b> dán vào ô phía trên rồi bấm <b>💾 Lưu & Đồng bộ Drive</b> (hoặc dán vào hằng số <code>DEFAULT_DRIVE_SCRIPT_URL</code> trong file <code>index.html</code> trước khi đẩy lên GitHub Pages để mọi thiết bị tự kết nối không cần dán lại).</li>
+          </ol>
+        </details>
+      </div>
+
+      <!-- BẢNG CHẨN ĐOÁN ĐỒNG BỘ THỜI GIAN THỰC -->
       <div style="background:white;border:1.5px solid #bfdbfe;border-radius:16px;padding:18px;margin-bottom:16px">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px">
           <div>
-            <strong style="font-size:16px;color:var(--primary-dark);display:block">⚡ Kiến Trúc Đồng Bộ 4 Tầng Tự Phục Hồi (Auto-Heal)</strong>
-            <span class="small">Tự nén gọn từ vựng gấp 10 lần, tự hỏi lại máy đang online nếu dữ liệu mới bị lệch, và xác nhận biên lai cập nhật tức thì cho từng tài khoản.</span>
+            <strong style="font-size:15.5px;color:var(--primary-dark);display:block">⚡ Trạng Thái Đồng Bộ Đa Thiết Bị & Đa Tài Khoản</strong>
+            <span class="small">Kiểm tra tự động <code>meta.json</code> mỗi 7 giây · Chỉ tải khi có phiên bản mới · Báo đúng trạng thái lỗi thật (không báo xanh giả).</span>
           </div>
-          <span class="badge ok" id="cloudOverallHealthBadge" style="font-size:12.5px;padding:5px 12px">✓ Hệ thống đồng bộ sẵn sàng</span>
+          <span class="badge ok" id="cloudOverallHealthBadge" style="font-size:12.5px;padding:5px 12px">✓ Sẵn sàng</span>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(175px, 1fr));gap:10px;margin-bottom:14px">
@@ -2085,16 +2128,16 @@ footer{text-align:center;padding:18px 14px;color:var(--muted);font-size:13px;bor
             <strong id="cloudDiagVersion" style="color:var(--primary)">v1 · 0 từ</strong>
           </div>
           <div style="background:#f8fafc;padding:11px;border-radius:12px;border:1px solid var(--line)">
-            <div class="small">Kênh Push Real-time (SSE)</div>
-            <strong id="cloudDiagSse" style="color:var(--accent)">● Đang kết nối...</strong>
+            <div class="small">Kho chuẩn (Single Source)</div>
+            <strong id="cloudDiagMirror" style="color:var(--primary-dark)">● Chưa gắn Drive</strong>
           </div>
           <div style="background:#f8fafc;padding:11px;border-radius:12px;border:1px solid var(--line)">
-            <div class="small">Lưu trữ Cloud (Mirror)</div>
-            <strong id="cloudDiagMirror" style="color:var(--primary-dark)">● Tự động</strong>
+            <div class="small">Phiên bản nhánh (Cat / Test)</div>
+            <strong id="cloudDiagSse" style="color:var(--accent)">Cat r1 · Test r1</strong>
           </div>
           <div style="background:#f8fafc;padding:11px;border-radius:12px;border:1px solid var(--line)">
-            <div class="small">Dung lượng gói nén</div>
-            <strong id="cloudDiagPayloadSize" style="color:var(--ink)">—</strong>
+            <div class="small">Hàng đợi đồng bộ bù</div>
+            <strong id="cloudDiagPayloadSize" style="color:var(--ink)">0 mục chờ</strong>
           </div>
           <div style="background:#f8fafc;padding:11px;border-radius:12px;border:1px solid var(--line)">
             <div class="small">Lần đồng bộ gần nhất</div>
@@ -2102,34 +2145,23 @@ footer{text-align:center;padding:18px 14px;color:var(--muted);font-size:13px;bor
           </div>
         </div>
 
-        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <button type="button" class="primary" style="font-size:12.5px;padding:7px 12px" onclick="copyInstantSyncLink()">🔗 Sao chép Link đồng bộ tức thì</button>
-          <button type="button" style="font-size:12.5px;padding:7px 12px" onclick="exportBackupJson()">💾 Xuất sao lưu (.json)</button>
-          <label style="cursor:pointer;padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:white;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:5px">
-            📂 Nhập sao lưu (.json)
-            <input type="file" accept=".json" style="display:none" onchange="importBackupJsonFile(event)">
-          </label>
-          <button type="button" class="warning" style="font-size:12.5px;padding:7px 12px" onclick="reconnectRealtimeChannels()">🔌 Kết nối lại kênh Push</button>
-        </div>
-
-        <details style="margin-top:12px;background:#f8fafc;padding:10px 13px;border-radius:11px;border:1px solid var(--line)">
-          <summary style="cursor:pointer;font-weight:700;font-size:13px;color:var(--primary-dark)">🔥 Tùy chọn nâng cao: Gắn Firebase Realtime DB riêng (Lưu trữ vĩnh viễn 100% miễn phí)</summary>
+        <details style="margin-top:8px;background:#f8fafc;padding:10px 13px;border-radius:11px;border:1px solid var(--line)">
+          <summary style="cursor:pointer;font-weight:700;font-size:13px;color:var(--muted)">🔥 Tùy chọn dự phòng: Gắn thêm Firebase Realtime DB (Nếu muốn chạy song song)</summary>
           <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
             <input type="text" id="firebaseDbUrlInput" placeholder="https://ten-du-an-default-rtdb.firebaseio.com" style="flex:1;min-width:220px;font-size:13px">
             <button type="button" class="primary" style="font-size:12.5px" onclick="saveFirebaseDbUrl()">Lưu Firebase & Đồng bộ</button>
             <button type="button" class="danger" style="font-size:12.5px" onclick="clearFirebaseDbUrl()">Gỡ Firebase</button>
           </div>
-          <div class="small" style="margin-top:6px">Mặc định trang web đã tự đồng bộ qua mạng Internet không cần cài đặt. Nếu lớp học cần lưu dữ liệu nhiều tháng liên tục, dán link Firebase Realtime Database (bật quyền read/write) vào ô trên.</div>
         </details>
       </div>
 
       <div style="background:white;border:1.5px solid #86efac;border-radius:16px;padding:18px;margin-bottom:16px">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
           <div>
-            <strong style="font-size:15.5px;color:#15803d;display:block">📋 Báo Cáo Hệ Thống: Tài Khoản Đã Được Cập Nhật Từ Vựng & Đề Kiểm Tra</strong>
-            <span class="small">Tự động nhập từ vựng mới của Admin vào kho cá nhân của Thành viên & Quản trị viên, đồng thời nhận biên lai xác nhận trực tuyến từng tài khoản</span>
+            <strong style="font-size:15.5px;color:#15803d;display:block">📋 Báo Cáo Hệ Thống: Tài Khoản Đã Đồng Nhất Kho HSK Admin & Kho Thành Viên</strong>
+            <span class="small">Mọi tài khoản trên mọi thiết bị đều tự động đồng nhất 100% cây HSK ➔ Bài ➔ Text chuẩn từ Drive (giữ nguyên các từ cá nhân tự thêm)</span>
           </div>
-          <span class="badge ok" id="cloudUpdatedAccSummary">0 tài khoản đã cập nhật</span>
+          <span class="badge ok" id="cloudUpdatedAccSummary">0 tài khoản đã đồng bộ</span>
         </div>
         <div class="vocab-list" id="cloudAccountReceiptsList" style="max-height:260px;margin-top:0"></div>
       </div>
@@ -2691,32 +2723,39 @@ if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => 
 // ==================== 1. KHO DỮ LIỆU MẶC ĐỊNH ADMIN (TRỐNG HOÀN TOÀN ĐỂ TỰ ĐẨY VÀO) ====================
 const DEFAULT_ADMIN_CATALOG = [];
 
-// ==================== 2. SUPER SYNC ENGINE v14 (ARRAY-PACKED GZIP + MULTI-CLOUD + PEER AUTO-HEAL + REALTIME) ====================
-const GLOBAL_SITE_CHANNEL = 'cvm-hsk-super-sync-2026-v16';
-const LOCAL_TAB_BC_NAME = 'cvm_instant_dual_sync_bc_v16';
+// ==================== 2. GOOGLE DRIVE 400GB SINGLE-SOURCE SYNC ENGINE v18 ====================
+// 👉 MẸO DÙNG VĨNH VIỄN TRÊN GITHUB PAGES: Dán link /exec của bạn vào dòng dưới đây rồi đẩy lên GitHub,
+// mọi thiết bị & mọi tài khoản mở web sẽ tự động kết nối Google Drive 400GB không cần cài đặt gì thêm!
+const DEFAULT_DRIVE_SCRIPT_URL = '';
 
+const GLOBAL_SITE_CHANNEL = 'cvm-hsk-drive-sync-2026-v18';
+const LOCAL_TAB_BC_NAME = 'cvm_instant_dual_sync_bc_v18';
+
+let driveScriptUrl = localStorage.getItem('cvm_drive_script_url') || DEFAULT_DRIVE_SCRIPT_URL || '';
 let firebaseDbUrl = localStorage.getItem('cvm_firebase_url') || '';
-let sharedCloudBlobId = localStorage.getItem('cvm_shared_blob_id_' + GLOBAL_SITE_CHANNEL) || '';
 let geminiApiKey = localStorage.getItem('cvm_gemini_api_key') || '';
 
-// Đọc tham số đồng bộ nhanh nếu mở từ Link chia sẻ (#sync=blobId hoặc #fb=url)
+// Đọc tham số đồng bộ nhanh nếu mở từ Link chia sẻ (#drive=url hoặc #fb=url)
 (function parseSyncHashParams() {
   try {
     const h = window.location.hash || '';
-    const mBlob = h.match(/sync=([a-zA-Z0-9\-_]+)/);
-    if (mBlob && mBlob[1]) {
-      sharedCloudBlobId = mBlob[1];
-      localStorage.setItem('cvm_shared_blob_id_' + GLOBAL_SITE_CHANNEL, sharedCloudBlobId);
+    const mDrive = h.match(/drive=([^&]+)/);
+    if (mDrive && mDrive[1]) {
+      const decoded = decodeURIComponent(mDrive[1]).trim();
+      if (/^https:\/\/script\.google\.com\/macros\/s\//i.test(decoded)) {
+        driveScriptUrl = decoded;
+        localStorage.setItem('cvm_drive_script_url', driveScriptUrl);
+      }
     }
     const mFb = h.match(/fb=([^&]+)/);
     if (mFb && mFb[1]) {
-      firebaseDbUrl = decodeURIComponent(mFb[1]);
+      firebaseDbUrl = decodeURIComponent(mFb[1]).trim();
       localStorage.setItem('cvm_firebase_url', firebaseDbUrl);
     }
   } catch (e) {}
 })();
 
-// Luôn yêu cầu đăng nhập bằng tài khoản & mật khẩu khi mở trang — không tự động đăng nhập Admin
+// Luôn yêu cầu đăng nhập bằng tài khoản & mật khẩu cho quyền Admin khi mở trang mới
 localStorage.removeItem('cvm_admin_unlocked');
 let adminUnlocked = false;
 let currentUserId = (() => {
@@ -2728,15 +2767,11 @@ let currentUserId = (() => {
   return savedUid;
 })();
 
-let sseSource = null;
-let sseReconnectTimer = null;
 let isSyncing = false;
-let lastPublishedFingerprint = '';
-let lastPeerBroadcastAt = 0;
-let lastAckSentRev = 0;
+let pendingPushScopes = new Set(); // Hàng đợi tự đẩy bù nếu có thao tác lúc đang đồng bộ hoặc mất mạng
+let lastConfirmedDriveSyncAt = '';
+let lastMetaCheckAt = 0;
 const MY_CLIENT_ID = 'cli_' + Math.random().toString(36).slice(2, 9);
-const incomingChunkBuffers = {};
-const processedTxIds = new Set();
 const instantTabChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel(LOCAL_TAB_BC_NAME) : null;
 
 function getDefaultAppState() {
@@ -2744,6 +2779,7 @@ function getDefaultAppState() {
     version: 1,
     catalogRevision: 1,
     testsRevision: 1,
+    usersRevision: 1,
     catalogUpdatedAt: Date.now(),
     lastSystemUpdate: null,
     accountUpdateReceipts: {},
@@ -2808,7 +2844,9 @@ function ensureSystemAdminProfile() {
       role: "admin",
       totalScore: 0,
       wrongWords: [],
+      personalCatalog: [],
       personalSets: [{ id: "pset_admin", name: "Từ vựng quản trị", words: [] }],
+      pushInboxLog: [],
       history: [],
       resumeSession: null,
       updatedAt: Date.now()
@@ -2822,6 +2860,7 @@ if (appState.users[currentUserId] && appState.users[currentUserId].role === 'adm
 }
 if (typeof appState.catalogRevision !== 'number') appState.catalogRevision = 1;
 if (typeof appState.testsRevision !== 'number') appState.testsRevision = 1;
+if (typeof appState.usersRevision !== 'number') appState.usersRevision = 1;
 if (!Array.isArray(appState.generatedTests)) appState.generatedTests = [];
 if (!appState.accountUpdateReceipts || typeof appState.accountUpdateReceipts !== 'object') appState.accountUpdateReceipts = {};
 
@@ -2831,11 +2870,10 @@ function countWordsInCatalog(catalog) {
   return c;
 }
 
-// Đảm bảo mỗi tài khoản đều có cây phân loại cá nhân 3 tầng HSK -> Bài -> Text giống bên Admin
 function ensureUserPersonalCatalog(userObj) {
   if (!userObj) return [];
   if (!Array.isArray(userObj.personalCatalog)) {
-    userObj.personalCatalog = JSON.parse(JSON.stringify(appState.adminCatalog || []));
+    userObj.personalCatalog = [];
   }
   return userObj.personalCatalog;
 }
@@ -2845,7 +2883,7 @@ function countWordsInUserPersonalCatalog(userObj) {
   return countWordsInCatalog(userObj.personalCatalog);
 }
 
-// Gộp (merge) đúng cấu trúc HSK -> Bài -> Text từ kho Admin vào kho cá nhân của 1 thành viên (không mất từ cũ, lọc trùng chữ Hán)
+// Gộp (merge) có chủ đích khi Admin bấm nút "Đẩy vào kho thành viên"
 function mergeCatalogItemsIntoUser(userObj, itemsToPush) {
   ensureUserPersonalCatalog(userObj);
   let totalAdded = 0;
@@ -2853,19 +2891,19 @@ function mergeCatalogItemsIntoUser(userObj, itemsToPush) {
   itemsToPush.forEach(({ hskName, lessonId, lessonName, textId, textName, words }) => {
     let hNode = userObj.personalCatalog.find(h => h.hsk === hskName);
     if (!hNode) {
-      hNode = { hsk: hskName, lessons: [] };
+      hNode = { hsk: hskName, fromAdmin: true, lessons: [] };
       userObj.personalCatalog.push(hNode);
     }
 
     let lNode = hNode.lessons.find(l => l.id === lessonId || l.name === lessonName);
     if (!lNode) {
-      lNode = { id: lessonId || ('ml_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5)), name: lessonName, texts: [] };
+      lNode = { id: lessonId || ('ml_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5)), name: lessonName, fromAdmin: true, texts: [] };
       hNode.lessons.push(lNode);
     }
 
     let tNode = lNode.texts.find(t => t.id === textId || t.name === textName);
     if (!tNode) {
-      tNode = { id: textId || ('mt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5)), name: textName, words: [] };
+      tNode = { id: textId || ('mt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 5)), name: textName, fromAdmin: true, words: [] };
       lNode.texts.push(tNode);
     }
 
@@ -2877,7 +2915,8 @@ function mergeCatalogItemsIntoUser(userObj, itemsToPush) {
           id: w.id || ('mp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)),
           zh: w.zh,
           pinyin: w.pinyin || '',
-          vi: w.vi || ''
+          vi: w.vi || '',
+          fromAdmin: true
         });
         totalAdded++;
       }
@@ -2887,72 +2926,118 @@ function mergeCatalogItemsIntoUser(userObj, itemsToPush) {
   return totalAdded;
 }
 
-// Đồng bộ toàn bộ cấu trúc HSK -> Bài -> Text hiện tại của Admin vào personalCatalog của thành viên
+// ĐỒNG NHẤT 100% CÂY HSK -> BÀI -> TEXT TỪ KHO ADMIN VÀO KHO THÀNH VIÊN (BẢO TOÀN 100% TỪ CÁ NHÂN isCustom:true)
+// Giải quyết triệt để lỗi lệch số lượng từ giữa Admin và các tài khoản trên cùng 1 máy hay khác thiết bị!
 function syncAdminCatalogStructureIntoUser(userObj) {
   if (!userObj) return 0;
-  const allItems = [];
-  (appState.adminCatalog || []).forEach(h => {
-    (h.lessons || []).forEach(l => {
-      (l.texts || []).forEach(t => {
-        allItems.push({
-          hskName: h.hsk,
-          lessonId: l.id,
-          lessonName: l.name,
-          textId: t.id,
-          textName: t.name,
-          words: t.words || []
+  ensureUserPersonalCatalog(userObj);
+
+  const oldCat = userObj.personalCatalog || [];
+  const nextCat = [];
+
+  // 1. Dựng lại toàn bộ nhánh chuẩn từ appState.adminCatalog (thêm mới, cập nhật sửa, tự gỡ từ Admin đã xóa)
+  (appState.adminCatalog || []).forEach(admH => {
+    const prevH = oldCat.find(h => h.hsk === admH.hsk);
+    const mergedLessons = [];
+
+    (admH.lessons || []).forEach(admL => {
+      const prevL = prevH?.lessons?.find(l => l.id === admL.id || l.name === admL.name);
+      const mergedTexts = [];
+
+      (admL.texts || []).forEach(admT => {
+        const prevT = prevL?.texts?.find(t => t.id === admT.id || t.name === admT.name);
+        const words = (admT.words || []).map(w => ({
+          id: w.id || ('adm_' + Math.random().toString(36).slice(2, 8)),
+          zh: w.zh,
+          pinyin: w.pinyin || '',
+          vi: w.vi || '',
+          fromAdmin: true
+        }));
+        const adminZhSet = new Set(words.map(w => w.zh));
+
+        // Giữ nguyên mọi từ do chính thành viên tự thêm riêng trong Text này (isCustom: true)
+        (prevT?.words || []).forEach(pw => {
+          if (pw && pw.isCustom && pw.zh && !adminZhSet.has(pw.zh)) {
+            adminZhSet.add(pw.zh);
+            words.push({ ...pw, isCustom: true });
+          }
+        });
+
+        mergedTexts.push({
+          id: admT.id,
+          name: admT.name,
+          fromAdmin: true,
+          words
         });
       });
+
+      // Giữ các mục Text do thành viên tự tạo riêng trong Bài này
+      (prevL?.texts || []).forEach(pt => {
+        if (pt && pt.isCustom && !mergedTexts.some(x => x.id === pt.id || x.name === pt.name)) {
+          mergedTexts.push(pt);
+        }
+      });
+
+      mergedLessons.push({
+        id: admL.id,
+        name: admL.name,
+        fromAdmin: true,
+        texts: mergedTexts
+      });
+    });
+
+    // Giữ các Bài học do thành viên tự tạo riêng trong cấp HSK này
+    (prevH?.lessons || []).forEach(pl => {
+      if (pl && pl.isCustom && !mergedLessons.some(x => x.id === pl.id || x.name === pl.name)) {
+        mergedLessons.push(pl);
+      }
+    });
+
+    nextCat.push({
+      hsk: admH.hsk,
+      fromAdmin: true,
+      lessons: mergedLessons
     });
   });
-  return mergeCatalogItemsIntoUser(userObj, allItems);
+
+  // 2. Giữ các cấp độ HSK do thành viên tự tạo riêng (isCustom: true)
+  oldCat.forEach(ph => {
+    if (ph && ph.isCustom && !nextCat.some(x => x.hsk === ph.hsk)) {
+      nextCat.push(ph);
+    }
+  });
+
+  userObj.personalCatalog = nextCat;
+  return countWordsInCatalog(nextCat);
 }
 
-// Đồng bộ 1 bộ từ vựng chuẩn xác từ kho Admin vào tài khoản (Admin & Học viên) để 2 bên luôn có cùng dữ liệu
+// Đồng bộ 100% kho Admin vào 1 tài khoản (cả personalCatalog 3 tầng lẫn bộ master)
 function syncAdminWordsToUserProfile(userObj, specificWords = null) {
-  ensureUserPersonalCatalog(userObj);
-  syncAdminCatalogStructureIntoUser(userObj);
   if (!userObj) return 0;
-  if (!Array.isArray(userObj.personalSets)) userObj.personalSets = [];
+  const mirroredTotal = syncAdminCatalogStructureIntoUser(userObj);
 
+  if (!Array.isArray(userObj.personalSets)) userObj.personalSets = [];
   userObj.personalSets = userObj.personalSets.filter(s => !String(s.id || '').startsWith('pset_admin_lesson_'));
 
   let masterAdminSet = userObj.personalSets.find(s => s.id === 'pset_admin_auto_master');
   if (!masterAdminSet) {
     masterAdminSet = {
       id: 'pset_admin_auto_master',
-      name: '📥 Kho từ vựng Admin & Học viên (Đồng bộ tự động)',
+      name: '📥 Kho từ vựng Admin & Học viên (Đồng bộ chuẩn 100%)',
       words: []
     };
     userObj.personalSets.unshift(masterAdminSet);
   } else {
-    masterAdminSet.name = '📥 Kho từ vựng Admin & Học viên (Đồng bộ tự động)';
+    masterAdminSet.name = '📥 Kho từ vựng Admin & Học viên (Đồng bộ chuẩn 100%)';
   }
 
-  const unifiedWords = [];
-  const seenZh = new Set();
-
-  if (Array.isArray(specificWords)) {
-    specificWords.forEach(w => {
-      if (w && w.zh && !seenZh.has(w.zh)) {
-        seenZh.add(w.zh);
-        unifiedWords.push({
-          id: w.id || ('adm_' + Math.random().toString(36).slice(2, 8)),
-          zh: w.zh,
-          pinyin: w.pinyin || '',
-          vi: w.vi || ''
-        });
-      }
-    });
-  }
-
+  const allAdminFlat = [];
   (appState.adminCatalog || []).forEach(h => {
     (h.lessons || []).forEach(l => {
       (l.texts || []).forEach(t => {
         (t.words || []).forEach(w => {
-          if (w && w.zh && !seenZh.has(w.zh)) {
-            seenZh.add(w.zh);
-            unifiedWords.push({
+          if (w && w.zh) {
+            allAdminFlat.push({
               id: w.id || ('adm_' + Math.random().toString(36).slice(2, 8)),
               zh: w.zh,
               pinyin: w.pinyin || '',
@@ -2963,12 +3048,12 @@ function syncAdminWordsToUserProfile(userObj, specificWords = null) {
       });
     });
   });
-
-  masterAdminSet.words = unifiedWords;
-  return unifiedWords.length;
+  masterAdminSet.words = allAdminFlat;
+  userObj.syncedCatalogRevision = appState.catalogRevision || 1;
+  return mirroredTotal;
 }
 
-// Thêm từ vựng vào KHO ADMIN và KHO HỌC VIÊN cùng một lúc cho tất cả tài khoản trên hệ thống
+// Đồng nhất Kho Admin vào TẤT CẢ tài khoản hiện có (Admin & Học viên) cùng lúc
 function syncAdminVocabToAllAccounts(newWords = null) {
   ensureSystemAdminProfile();
   const nowStr = new Date().toLocaleString('vi-VN');
@@ -2976,7 +3061,6 @@ function syncAdminVocabToAllAccounts(newWords = null) {
 
   Object.values(appState.users).forEach(u => {
     const count = syncAdminWordsToUserProfile(u, newWords);
-    u.updatedAt = Date.now();
     const isAdm = u.role === 'admin' || u.uid === SYSTEM_ADMIN_CRED.uid;
     appState.accountUpdateReceipts[u.uid] = {
       uid: u.uid,
@@ -2984,24 +3068,20 @@ function syncAdminVocabToAllAccounts(newWords = null) {
       email: u.email || u.uid,
       role: isAdm ? 'Quản trị viên' : 'Học viên',
       syncedVersion: targetVer,
+      syncedCatalogRevision: appState.catalogRevision || 1,
       syncedAt: nowStr,
       totalSyncedWords: count
     };
   });
 }
 
-// Lấy danh sách từ của một đề kiểm tra đã tạo (tự lấy trực tiếp từ adminCatalog để không phải nhân bản dữ liệu)
 function getWordsForGeneratedExam(exam) {
   if (!exam) return [];
-  if (Array.isArray(exam.words) && exam.words.length > 0) {
-    return exam.words;
-  }
+  if (Array.isArray(exam.words) && exam.words.length > 0) return exam.words;
   const hObj = appState.adminCatalog?.[exam.hskIndex];
   const lObj = hObj?.lessons?.[exam.lessonIndex];
   const tObj = lObj?.texts?.[exam.textIndex];
-  if (tObj && Array.isArray(tObj.words) && tObj.words.length > 0) {
-    return tObj.words;
-  }
+  if (tObj && Array.isArray(tObj.words) && tObj.words.length > 0) return tObj.words;
   return [];
 }
 
@@ -3034,7 +3114,6 @@ function registerAdminGeneratedExam(hIdx, lIdx, tIdx, addedWordsCount = 0) {
   if (existIdx >= 0) appState.generatedTests.splice(existIdx, 1);
   appState.generatedTests.unshift(examObj);
 
-  // Thêm cùng lúc vào kho từ vựng của Admin và tất cả Học viên
   syncAdminVocabToAllAccounts(tObj.words);
 
   const totalCatalogWords = getAllAdminWordsCount();
@@ -3066,7 +3145,6 @@ function registerAdminGeneratedExam(hIdx, lIdx, tIdx, addedWordsCount = 0) {
   if (tObj.words.length > 0) {
     launchTestWithWords([...tObj.words], examObj.title, 0, 0);
   }
-
   return examObj;
 }
 
@@ -3082,8 +3160,10 @@ async function publishAdminCatalogNow() {
     appState.catalogUpdatedAt = Date.now();
     syncAdminVocabToAllAccounts();
   }
-  await pushCloudState("Admin xuất bản đồng bộ toàn hệ thống");
-  showToast(`⚡ Đã đẩy ${getAllAdminWordsCount()} từ vựng lên Internet cho cả Admin & Học viên!`);
+  const ok = await pushCloudState("Admin xuất bản đồng bộ toàn hệ thống", 'admin');
+  if (ok) {
+    showToast(`⚡ Đã đẩy ${getAllAdminWordsCount()} từ vựng lên Google Drive 400GB cho toàn bộ thiết bị!`);
+  }
 }
 
 function launchGeneratedExamById(examId) {
@@ -3123,8 +3203,6 @@ function dismissSystemUpdateBanner() {
   }
 }
 
-syncAdminWordsToUserProfile(getCurrentUser());
-
 function getCurrentUser() {
   if (!appState.users[currentUserId]) {
     appState.users[currentUserId] = {
@@ -3135,17 +3213,19 @@ function getCurrentUser() {
       role: "student",
       totalScore: 0,
       wrongWords: [],
+      personalCatalog: [],
       personalSets: [{ id: "pset_1", name: "Bộ từ cá nhân 1", words: [] }],
+      pushInboxLog: [],
       history: [],
       resumeSession: null,
       updatedAt: Date.now()
     };
-    if (typeof syncAdminWordsToUserProfile === 'function') {
-      syncAdminWordsToUserProfile(appState.users[currentUserId]);
-    }
+    syncAdminWordsToUserProfile(appState.users[currentUserId]);
   }
   return appState.users[currentUserId];
 }
+
+syncAdminWordsToUserProfile(getCurrentUser());
 
 function logCloudEvent(msg) {
   const box = $('cloudSyncLogBox');
@@ -3167,6 +3247,37 @@ function setCloudProgressUI(visible, text = '', pct = 0) {
   }
 }
 
+function updateCloudStatusPill(state, text) {
+  const dot = $('cloudDot');
+  const lbl = $('cloudStatusLabel');
+  if (dot) {
+    dot.className = 'net-dot' + (state === 'syncing' ? ' syncing' : (state === 'offline' || state === 'error' ? ' offline' : ''));
+    if (state === 'warn') dot.style.background = '#f59e0b';
+    else dot.style.background = '';
+  }
+  if (lbl) lbl.textContent = text;
+  if ($('cloudDiagVersion')) $('cloudDiagVersion').textContent = `v${appState.version || 1} · ${getAllAdminWordsCount()} từ`;
+  if ($('cloudDiagSse')) $('cloudDiagSse').textContent = `Cat r${appState.catalogRevision || 1} · Test r${appState.testsRevision || 1}`;
+  if ($('cloudDiagPayloadSize')) $('cloudDiagPayloadSize').textContent = `${pendingPushScopes.size} mục chờ`;
+  if ($('driveConnBadge')) {
+    if (!driveScriptUrl) {
+      $('driveConnBadge').className = 'badge new';
+      $('driveConnBadge').textContent = '⚠ Chưa gắn link /exec';
+    } else if (state === 'error' || state === 'offline') {
+      $('driveConnBadge').className = 'badge err';
+      $('driveConnBadge').textContent = '✕ Lỗi kết nối Drive';
+    } else {
+      $('driveConnBadge').className = 'badge ok';
+      $('driveConnBadge').textContent = '✓ Đã kết nối Google Drive 400GB';
+    }
+  }
+  if ($('cloudDiagMirror')) {
+    $('cloudDiagMirror').textContent = driveScriptUrl
+      ? (firebaseDbUrl ? '● Drive 400GB + Firebase' : '● Google Drive 400GB')
+      : (firebaseDbUrl ? '● Firebase Realtime DB' : '⚠ Chưa gắn Drive (/exec)');
+  }
+}
+
 function saveLocalState(broadcastToTabs = true) {
   try {
     localStorage.setItem('cvm_app_state_v16_clean', JSON.stringify(appState));
@@ -3179,7 +3290,7 @@ function saveLocalState(broadcastToTabs = true) {
   refreshAllUI();
 }
 
-// Tầng 1: Đồng bộ tức thì (< 5ms) giữa các tab / cửa sổ trình duyệt trên cùng máy
+// Tầng 1: Đồng bộ 0ms giữa các tab / cửa sổ cùng trình duyệt
 if (instantTabChannel) {
   instantTabChannel.onmessage = (ev) => {
     if (ev.data && ev.data.type === 'cvm_tab_state' && ev.data.from !== MY_CLIENT_ID && ev.data.state) {
@@ -3189,179 +3300,40 @@ if (instantTabChannel) {
 }
 window.addEventListener('storage', (e) => {
   if (e.key === 'cvm_app_state_v16_clean' && e.newValue) {
-    try {
-      mergeCloudState(JSON.parse(e.newValue), false);
-    } catch (err) {}
+    try { mergeCloudState(JSON.parse(e.newValue), false); } catch (err) {}
   }
 });
 
-// ==================== ĐÓNG GÓI SIÊU GỌN (ARRAY-PACKED + GZIP) GIẢM >92% DUNG LƯỢNG ====================
-function packAdminCatalog(catalog) {
-  return (catalog || []).map(h => [
-    h.hsk,
-    (h.lessons || []).map(l => [
-      l.id,
-      l.name,
-      (l.texts || []).map(t => [
-        t.id,
-        t.name,
-        (t.words || []).map(w => [w.zh, w.pinyin || '', w.vi || ''])
-      ])
-    ])
-  ]);
+// Chuẩn hóa bản sao 1 User để đẩy gọn lên Drive (GIỮ ĐẦY ĐỦ resumeSession, passwordHash, personalCatalog!)
+function serializeSingleUserForCloud(u) {
+  if (!u) return null;
+  const customSets = (u.personalSets || [])
+    .filter(s => s.id !== 'pset_admin_auto_master' && !String(s.id || '').startsWith('pset_admin_lesson_'));
+  return {
+    uid: u.uid,
+    name: u.name,
+    email: u.email || '',
+    passwordHash: u.passwordHash || '',
+    provider: u.provider || 'local',
+    role: u.role || 'student',
+    totalScore: u.totalScore || 0,
+    wrongWords: u.wrongWords || [],
+    personalSets: customSets,
+    personalCatalog: u.personalCatalog || [],
+    pushInboxLog: (u.pushInboxLog || []).slice(0, 15),
+    history: (u.history || []).slice(0, 50),
+    resumeSession: u.resumeSession || null,
+    syncedCatalogRevision: u.syncedCatalogRevision || appState.catalogRevision || 1,
+    updatedAt: u.updatedAt || Date.now()
+  };
 }
 
-function unpackAdminCatalog(packed) {
-  if (!Array.isArray(packed)) return [];
-  if (packed.length > 0 && !Array.isArray(packed[0])) return packed; // Đã ở dạng object chuẩn
-  return packed.map((h, hi) => ({
-    hsk: h[0],
-    lessons: (h[1] || []).map((l, li) => ({
-      id: l[0],
-      name: l[1],
-      texts: (l[2] || []).map((t, ti) => ({
-        id: t[0],
-        name: t[1],
-        words: (t[2] || []).map((w, wi) => ({
-          id: `w_${hi}_${li}_${ti}_${wi}`,
-          zh: w[0],
-          pinyin: w[1] || '',
-          vi: w[2] || ''
-        }))
-      }))
-    }))
-  }));
-}
-
-function buildCompactCloudPayload() {
-  const slimUsers = {};
+function serializeAllUsersForCloud() {
+  const out = {};
   for (const [uid, u] of Object.entries(appState.users || {})) {
-    const customSets = (u.personalSets || [])
-      .filter(s => s.id !== 'pset_admin_auto_master' && !String(s.id || '').startsWith('pset_admin_lesson_'))
-      .map(s => ({
-        id: s.id,
-        name: s.name,
-        words: (s.words || []).map(w => [w.zh, w.pinyin || '', w.vi || ''])
-      }));
-    slimUsers[uid] = {
-      uid: u.uid,
-      name: u.name,
-      email: u.email || '',
-      passwordHash: u.passwordHash || '',
-      provider: u.provider || 'local',
-      role: u.role || 'student',
-      totalScore: u.totalScore || 0,
-      wrongWords: (u.wrongWords || []).map(w => [w.zh, w.pinyin || '', w.vi || '']),
-      personalSets: customSets,
-      pcat: packAdminCatalog(u.personalCatalog || []),
-      pushInboxLog: (u.pushInboxLog || []).slice(0, 8),
-      history: (u.history || []).slice(0, 25),
-      updatedAt: u.updatedAt || 0
-    };
+    out[uid] = serializeSingleUserForCloud(u);
   }
-  const slimTests = (appState.generatedTests || []).slice(0, 25).map(ex => ({
-    id: ex.id,
-    title: ex.title,
-    pathLabel: ex.pathLabel || '',
-    sourceType: ex.sourceType || 'admin',
-    hskIndex: ex.hskIndex,
-    lessonIndex: ex.lessonIndex,
-    textIndex: ex.textIndex,
-    wordCount: ex.wordCount || (ex.words ? ex.words.length : 0),
-    addedWordsCount: ex.addedWordsCount || 0,
-    w: Array.isArray(ex.words) ? ex.words.map(item => [item.zh, item.pinyin || '', item.vi || '']) : null,
-    createdAt: ex.createdAt,
-    createdBy: ex.createdBy
-  }));
-  return {
-    fmt: 2,
-    v: appState.version || 1,
-    rev: appState.catalogRevision || 1,
-    tRev: appState.testsRevision || 1,
-    catAt: appState.catalogUpdatedAt || 0,
-    pcat: packAdminCatalog(appState.adminCatalog),
-    tests: slimTests,
-    lastUpd: appState.lastSystemUpdate || null,
-    receipts: appState.accountUpdateReceipts || {},
-    users: slimUsers
-  };
-}
-
-function unpackCloudPayload(pkt) {
-  if (!pkt || typeof pkt !== 'object') return null;
-  if (pkt.adminCatalog) return pkt;
-  const unpackedUsers = {};
-  for (const [uid, u] of Object.entries(pkt.users || {})) {
-    const unpackWords = arr => (arr || []).map((w, idx) => Array.isArray(w)
-      ? { id: `uw_${idx}`, zh: w[0], pinyin: w[1] || '', vi: w[2] || '' }
-      : w
-    );
-    unpackedUsers[uid] = {
-      ...u,
-      wrongWords: unpackWords(u.wrongWords),
-      personalSets: (u.personalSets || []).map(s => ({
-        id: s.id,
-        name: s.name,
-        words: unpackWords(s.words)
-      })),
-      personalCatalog: u.pcat ? unpackAdminCatalog(u.pcat) : (u.personalCatalog || []),
-      pushInboxLog: Array.isArray(u.pushInboxLog) ? u.pushInboxLog : [],
-      resumeSession: appState.users?.[uid]?.resumeSession || null
-    };
-  }
-  const unpackedTests = (pkt.tests || []).map(ex => ({
-    ...ex,
-    words: Array.isArray(ex.w)
-      ? ex.w.map((item, wi) => ({ id: `tw_${wi}`, zh: item[0], pinyin: item[1] || '', vi: item[2] || '' }))
-      : (Array.isArray(ex.words) ? ex.words : undefined)
-  }));
-  return {
-    version: pkt.v || 1,
-    catalogRevision: pkt.rev || 1,
-    testsRevision: pkt.tRev || pkt.testsRevision || 1,
-    catalogUpdatedAt: pkt.catAt || 0,
-    adminCatalog: pkt.pcat ? unpackAdminCatalog(pkt.pcat) : (pkt.cat || []),
-    generatedTests: unpackedTests,
-    lastSystemUpdate: pkt.lastUpd || null,
-    accountUpdateReceipts: pkt.receipts || {},
-    users: unpackedUsers
-  };
-}
-
-function computeStateFingerprint() {
-  return `${appState.catalogRevision || 1}_${appState.testsRevision || 1}_${(appState.generatedTests || []).length}_${getAllAdminWordsCount()}_${Object.keys(appState.users || {}).length}_${getCurrentUser().totalScore || 0}_${(getCurrentUser().wrongWords || []).length}_${(getCurrentUser().history || []).length}`;
-}
-
-async function compressStringToBase64(str) {
-  if (typeof CompressionStream === 'undefined') return { enc: 'raw', data: str };
-  try {
-    const cs = new CompressionStream('gzip');
-    const writer = cs.writable.getWriter();
-    writer.write(new TextEncoder().encode(str));
-    writer.close();
-    const buf = await new Response(cs.readable).arrayBuffer();
-    const bytes = new Uint8Array(buf);
-    let bin = '';
-    for (let i = 0; i < bytes.length; i += 8192) {
-      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
-    }
-    return { enc: 'gzip_b64', data: btoa(bin) };
-  } catch (e) {
-    return { enc: 'raw', data: str };
-  }
-}
-
-async function decompressPayloadToString(enc, data) {
-  if (enc !== 'gzip_b64' || typeof DecompressionStream === 'undefined') return data;
-  const bin = atob(data);
-  const bytes = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-  const ds = new DecompressionStream('gzip');
-  const writer = ds.writable.getWriter();
-  writer.write(bytes);
-  writer.close();
-  const outBuf = await new Response(ds.readable).arrayBuffer();
-  return new TextDecoder().decode(outBuf);
+  return out;
 }
 
 function mergeUserHistory(localHist = [], remoteHist = []) {
@@ -3371,40 +3343,43 @@ function mergeUserHistory(localHist = [], remoteHist = []) {
     const key = `${item.title}__${item.date || ''}`;
     if (!map.has(key)) map.set(key, item);
   });
-  return Array.from(map.values()).slice(0, 50);
+  return Array.from(map.values()).slice(0, 60);
 }
 
-function mergeCloudState(remote, rebroadcast = true) {
+// Hợp nhất dữ liệu chuẩn từ Google Drive 400GB / Firebase về máy hiện tại
+function mergeCloudState(remote, rebroadcast = true, fromAuthoritativeDrive = false) {
   if (!remote || typeof remote !== 'object') return false;
   let changed = false;
   let catalogUpdated = false;
 
-  const remoteRev = remote.catalogRevision || 1;
-  const localRev = appState.catalogRevision || 1;
-  const remoteCatAt = remote.catalogUpdatedAt || 0;
+  const meta = remote.meta || {};
+  const remoteCatRev = meta.catalogRevision || remote.catalogRevision || 1;
+  const localCatRev = appState.catalogRevision || 1;
+  const remoteCatAt = meta.catalogUpdatedAt || remote.catalogUpdatedAt || 0;
   const localCatAt = appState.catalogUpdatedAt || 0;
   const remoteWordTotal = countWordsInCatalog(remote.adminCatalog);
   const localWordTotal = getAllAdminWordsCount();
 
-  // Hỗ trợ đồng bộ cả khi cập nhật mới lẫn khi Admin chủ động xóa mục / xóa trắng (catalogRevision cao hơn)
+  // Nếu từ Google Drive chuẩn: luôn nhận khi revision cao hơn, HOẶC khi máy hiện tại đang trống còn Drive có từ
   const shouldTakeCatalog = Array.isArray(remote.adminCatalog) && (
-    remoteRev > localRev ||
-    (remoteRev === localRev && remoteWordTotal > localWordTotal) ||
-    (remoteRev === localRev && remoteWordTotal === localWordTotal && remoteCatAt > localCatAt)
+    remoteCatRev > localCatRev ||
+    (remoteCatRev === localCatRev && remoteWordTotal > localWordTotal) ||
+    (fromAuthoritativeDrive && localWordTotal === 0 && remoteWordTotal > 0) ||
+    (remoteCatRev === localCatRev && remoteWordTotal === localWordTotal && remoteCatAt > localCatAt)
   );
 
   if (shouldTakeCatalog) {
     appState.adminCatalog = remote.adminCatalog;
-    appState.catalogRevision = remoteRev;
-    appState.catalogUpdatedAt = remoteCatAt;
+    appState.catalogRevision = remoteCatRev;
+    appState.catalogUpdatedAt = remoteCatAt || Date.now();
     changed = true;
     catalogUpdated = true;
   }
 
-  const remoteTestsRev = remote.testsRevision || 1;
+  const remoteTestsRev = meta.testsRevision || remote.testsRevision || 1;
   const localTestsRev = appState.testsRevision || 1;
   if (Array.isArray(remote.generatedTests)) {
-    if (remoteTestsRev > localTestsRev) {
+    if (remoteTestsRev > localTestsRev || (fromAuthoritativeDrive && appState.generatedTests.length === 0 && remote.generatedTests.length > 0)) {
       appState.generatedTests = remote.generatedTests;
       appState.testsRevision = remoteTestsRev;
       changed = true;
@@ -3414,543 +3389,449 @@ function mergeCloudState(remote, rebroadcast = true) {
     }
   }
 
-  if (remote.lastSystemUpdate && typeof remote.lastSystemUpdate === 'object') {
-    const remUpdRev = remote.lastSystemUpdate.catalogRevision || remote.lastSystemUpdate.version || 0;
+  const remoteLastUpd = meta.lastSystemUpdate || remote.lastSystemUpdate;
+  if (remoteLastUpd && typeof remoteLastUpd === 'object') {
+    const remUpdRev = remoteLastUpd.catalogRevision || remoteLastUpd.version || 0;
     const locUpdRev = appState.lastSystemUpdate?.catalogRevision || appState.lastSystemUpdate?.version || 0;
     if (!appState.lastSystemUpdate || remUpdRev > locUpdRev) {
-      appState.lastSystemUpdate = { ...remote.lastSystemUpdate, dismissed: false };
+      appState.lastSystemUpdate = { ...remoteLastUpd, dismissed: false };
       changed = true;
     }
   }
 
-  if (remote.accountUpdateReceipts && typeof remote.accountUpdateReceipts === 'object') {
-    for (const [uid, rec] of Object.entries(remote.accountUpdateReceipts)) {
+  const remoteReceipts = remote.accountUpdateReceipts || {};
+  if (remoteReceipts && typeof remoteReceipts === 'object') {
+    for (const [uid, rec] of Object.entries(remoteReceipts)) {
       const localRec = appState.accountUpdateReceipts[uid];
-      if (!localRec || (rec.syncedVersion || 0) > (localRec.syncedVersion || 0) || (rec.totalSyncedWords || 0) > (localRec.totalSyncedWords || 0)) {
+      if (!localRec || (rec.syncedVersion || 0) > (localRec.syncedVersion || 0) || (rec.syncedCatalogRevision || 0) > (localRec.syncedCatalogRevision || 0)) {
         appState.accountUpdateReceipts[uid] = rec;
         changed = true;
       }
     }
   }
 
-  if (remote.users && typeof remote.users === 'object') {
-    for (const [uid, rUser] of Object.entries(remote.users)) {
+  const remoteUsers = remote.users || {};
+  if (remoteUsers && typeof remoteUsers === 'object') {
+    for (const [uid, rUser] of Object.entries(remoteUsers)) {
+      if (!rUser || !rUser.uid) continue;
       const lUser = appState.users[uid];
       if (!lUser) {
-        if (Array.isArray(rUser.personalSets)) {
-          rUser.personalSets = rUser.personalSets.filter(s => s.id !== 'pset_admin_auto_master' && !String(s.id || '').startsWith('pset_admin_lesson_'));
-        }
         appState.users[uid] = rUser;
         changed = true;
       } else {
         const mergedScore = Math.max(lUser.totalScore || 0, rUser.totalScore || 0);
         const mergedHistory = mergeUserHistory(lUser.history || [], rUser.history || []);
-        if ((rUser.updatedAt || 0) > (lUser.updatedAt || 0)) {
-          if (Array.isArray(rUser.personalSets)) {
-            rUser.personalSets = rUser.personalSets.filter(s => s.id !== 'pset_admin_auto_master' && !String(s.id || '').startsWith('pset_admin_lesson_'));
-          }
+        const rUpd = rUser.updatedAt || 0;
+        const lUpd = lUser.updatedAt || 0;
+
+        if (rUpd > lUpd) {
           appState.users[uid] = {
             ...rUser,
             totalScore: mergedScore,
             history: mergedHistory,
-            resumeSession: lUser.resumeSession || rUser.resumeSession || null
+            resumeSession: rUser.resumeSession || lUser.resumeSession || null
           };
           changed = true;
-        } else if (mergedScore !== (lUser.totalScore || 0) || mergedHistory.length !== (lUser.history || []).length) {
+        } else if (mergedScore !== (lUser.totalScore || 0) || mergedHistory.length !== (lUser.history || []).length || (!lUser.resumeSession && rUser.resumeSession)) {
           lUser.totalScore = mergedScore;
           lUser.history = mergedHistory;
+          if (!lUser.resumeSession && rUser.resumeSession) lUser.resumeSession = rUser.resumeSession;
           changed = true;
         }
       }
     }
   }
 
-  if ((remote.version || 0) > (appState.version || 0)) {
-    appState.version = remote.version;
+  const remVer = meta.version || remote.version || 0;
+  if (remVer > (appState.version || 0)) {
+    appState.version = remVer;
+    changed = true;
+  }
+  const remUsersRev = meta.usersRevision || remote.usersRevision || 0;
+  if (remUsersRev > (appState.usersRevision || 0)) {
+    appState.usersRevision = remUsersRev;
     changed = true;
   }
 
   if (changed) {
+    // Đồng nhất lại 100% kho Admin vào tất cả tài khoản trên máy hiện tại
     Object.values(appState.users).forEach(u => {
       const count = syncAdminWordsToUserProfile(u);
       const isAdm = u.role === 'admin' || u.uid === SYSTEM_ADMIN_CRED.uid;
-      if (!appState.accountUpdateReceipts[u.uid]) {
-        appState.accountUpdateReceipts[u.uid] = {
-          uid: u.uid,
-          name: u.name,
-          email: u.email || u.uid,
-          role: isAdm ? 'Quản trị viên' : 'Học viên',
-          syncedVersion: appState.version,
-          syncedAt: new Date().toLocaleString('vi-VN'),
-          totalSyncedWords: count
-        };
-      } else {
-        appState.accountUpdateReceipts[u.uid].totalSyncedWords = count;
-      }
+      appState.accountUpdateReceipts[u.uid] = {
+        uid: u.uid,
+        name: u.name,
+        email: u.email || u.uid,
+        role: isAdm ? 'Quản trị viên' : 'Học viên',
+        syncedVersion: appState.version,
+        syncedCatalogRevision: appState.catalogRevision,
+        syncedAt: appState.accountUpdateReceipts[u.uid]?.syncedAt || new Date().toLocaleString('vi-VN'),
+        totalSyncedWords: count
+      };
     });
 
     const curUser = getCurrentUser();
     const isAdm = curUser.role === 'admin' || adminUnlocked;
-    const masterSet = (curUser.personalSets || []).find(s => s.id === 'pset_admin_auto_master');
-    const nowStr = new Date().toLocaleString('vi-VN');
-
+    const curTotal = countWordsInUserPersonalCatalog(curUser);
     appState.accountUpdateReceipts[curUser.uid] = {
       uid: curUser.uid,
       name: curUser.name,
       email: curUser.email || curUser.uid,
       role: isAdm ? 'Quản trị viên' : 'Học viên',
       syncedVersion: appState.version,
-      syncedAt: nowStr,
-      totalSyncedWords: masterSet ? masterSet.words.length : 0
+      syncedCatalogRevision: appState.catalogRevision,
+      syncedAt: new Date().toLocaleString('vi-VN'),
+      totalSyncedWords: curTotal
     };
 
     if (catalogUpdated) {
       const latestExam = appState.generatedTests?.[0];
       const latestWords = getWordsForGeneratedExam(latestExam);
-      if (latestExam && latestWords.length) {
+      if (latestExam && latestWords.length && !testSession.words.length) {
         launchTestWithWords([...latestWords], latestExam.title, 0, 0);
       }
-      showToast(`🔔 ĐÃ ĐỒNG BỘ DỮ LIỆU MỚI (${getAllAdminWordsCount()} từ)! Kho Admin & Học viên đã đồng nhất.`);
-      logCloudEvent(`✅ Tài khoản [${curUser.name}] đã nhận ${getAllAdminWordsCount()} từ vựng & đề kiểm tra mới (Rev ${appState.catalogRevision})!`);
-
-      // Gửi biên lai xác nhận siêu nhẹ (< 200 bytes) lên kênh chung để Admin thấy ngay tài khoản này đã cập nhật
-      if (lastAckSentRev < appState.catalogRevision && navigator.onLine) {
-        lastAckSentRev = appState.catalogRevision;
-        sendLightSignalPacket({
-          t: 'cvm_ack',
-          from: MY_CLIENT_ID,
-          uid: curUser.uid,
-          name: curUser.name,
-          email: curUser.email || curUser.uid,
-          role: isAdm ? 'Quản trị viên' : 'Học viên',
-          rev: appState.catalogRevision,
-          v: appState.version,
-          words: masterSet ? masterSet.words.length : getAllAdminWordsCount(),
-          at: nowStr
-        });
-      }
+      showToast(`☁️ ĐÃ ĐỒNG BỘ MỚI TỪ GOOGLE DRIVE (${getAllAdminWordsCount()} từ · v${appState.version})!`);
+      logCloudEvent(`⬇️ Đã tải bản mới v${appState.version} (${getAllAdminWordsCount()} từ, ${appState.generatedTests.length} đề) và đồng nhất 100% kho Admin & Học viên!`);
     }
 
-    lastPublishedFingerprint = computeStateFingerprint();
     saveLocalState(rebroadcast);
   }
   return changed;
 }
 
-function sendLightSignalPacket(obj) {
-  if (!navigator.onLine) return;
-  fetch(`https://ntfy.sh/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}`, {
-    method: 'POST',
-    headers: { 'Title': obj.t || 'cvm-sig', 'Cache': 'yes' },
-    body: JSON.stringify(obj)
-  }).catch(() => {});
+// Tự động phân loại phạm vi đẩy lên Drive: 'admin' | 'user' | 'full'
+function inferPushScope(reason, explicitScope) {
+  if (explicitScope && explicitScope !== 'auto') return explicitScope;
+  const r = String(reason || '').toLowerCase();
+  if (r.includes('khôi phục') || r.includes('thủ công') || r.includes('khởi tạo') || r.includes('kết nối')) return 'full';
+  if (r.includes('admin') || r.includes('đề test') || r.includes('xuất bản') || r.includes('hệ thống')) return 'admin';
+  return 'user';
 }
 
-// Đọc dữ liệu từ JSONBlob (nếu có blobId)
-async function fetchFromJsonBlob(blobId) {
-  if (!blobId) return null;
-  try {
-    const res = await fetch(`https://jsonblob.com/api/jsonBlob/${encodeURIComponent(blobId)}?t=${Date.now()}`, {
-      headers: { 'Accept': 'application/json' },
-      cache: 'no-store'
-    });
-    if (res && res.ok) {
-      const data = await res.json();
-      if (data && (data.pcat || data.cat || data.adminCatalog)) {
-        sharedCloudBlobId = blobId;
-        localStorage.setItem('cvm_shared_blob_id_' + GLOBAL_SITE_CHANNEL, blobId);
-        return data;
-      }
-    }
-  } catch (e) {}
-  return null;
-}
-
-async function ingestSignalOrChunk(parsed) {
-  if (!parsed || typeof parsed !== 'object') return false;
-  if (parsed.from && parsed.from === MY_CLIENT_ID) return false;
-
-  // 1) Biên lai xác nhận cập nhật từ tài khoản thành viên khác
-  if (parsed.t === 'cvm_ack' && parsed.uid) {
-    const existing = appState.accountUpdateReceipts[parsed.uid];
-    if (!existing || (parsed.v || 0) >= (existing.syncedVersion || 0)) {
-      appState.accountUpdateReceipts[parsed.uid] = {
-        uid: parsed.uid,
-        name: parsed.name,
-        email: parsed.email || parsed.uid,
-        role: parsed.role || 'Học viên',
-        syncedVersion: parsed.v || appState.version,
-        syncedAt: parsed.at || new Date().toLocaleString('vi-VN'),
-        totalSyncedWords: parsed.words || getAllAdminWordsCount()
-      };
-      if (!appState.users[parsed.uid]) {
-        appState.users[parsed.uid] = {
-          uid: parsed.uid,
-          name: parsed.name,
-          email: parsed.email || '',
-          provider: 'cloud',
-          role: parsed.role === 'Quản trị viên' ? 'admin' : 'student',
-          totalScore: 0,
-          wrongWords: [],
-          personalSets: [],
-          history: [],
-          resumeSession: null,
-          updatedAt: Date.now()
-        };
-        syncAdminWordsToUserProfile(appState.users[parsed.uid]);
-      }
-      logCloudEvent(`📋 Xác nhận: Tài khoản "${parsed.name}" (${parsed.role}) đã cập nhật đủ ${parsed.words} từ!`);
-      saveLocalState(false);
-      return true;
-    }
-    return false;
-  }
-
-  // 2) Yêu cầu đồng bộ từ một máy mới vào (Peer Auto-Heal)
-  if (parsed.t === 'cvm_req') {
-    const peerRev = parsed.rev || 1;
-    const peerWords = parsed.words || 0;
-    const myRev = appState.catalogRevision || 1;
-    const myWords = getAllAdminWordsCount();
-    const now = Date.now();
-    if ((myRev > peerRev || myWords > peerWords) && (now - lastPeerBroadcastAt > 8000) && !isSyncing) {
-      lastPeerBroadcastAt = now;
-      logCloudEvent(`🤝 Phát hiện thiết bị mới cần dữ liệu (${peerWords} từ < ${myWords} từ) ➔ Tự động phát bản mới nhất!`);
-      pushCloudState("Tự động gửi bản mới cho thiết bị vừa kết nối");
-    }
-    return false;
-  }
-
-  // 3) Gói dữ liệu nén (1 gói hoặc đa gói)
-  if (parsed.t === 'cvm_chunk' && parsed.tx) {
-    if (processedTxIds.has(parsed.tx)) return false;
-    if (parsed.blobId && parsed.blobId !== sharedCloudBlobId) {
-      sharedCloudBlobId = parsed.blobId;
-      localStorage.setItem('cvm_shared_blob_id_' + GLOBAL_SITE_CHANNEL, parsed.blobId);
-    }
-    if (!incomingChunkBuffers[parsed.tx]) {
-      incomingChunkBuffers[parsed.tx] = {
-        total: parsed.total,
-        rev: parsed.rev || 1,
-        v: parsed.v || 1,
-        enc: parsed.enc || 'raw',
-        chunks: {}
-      };
-    }
-    const buf = incomingChunkBuffers[parsed.tx];
-    buf.chunks[parsed.idx] = parsed.data;
-
-    if (Object.keys(buf.chunks).length === buf.total) {
-      let joined = '';
-      for (let i = 0; i < buf.total; i++) {
-        if (typeof buf.chunks[i] !== 'string') return false;
-        joined += buf.chunks[i];
-      }
-      const encoding = buf.enc;
-      processedTxIds.add(parsed.tx);
-      delete incomingChunkBuffers[parsed.tx];
-      try {
-        const fullJsonStr = await decompressPayloadToString(encoding, joined);
-        const unpacked = unpackCloudPayload(JSON.parse(fullJsonStr));
-        return mergeCloudState(unpacked, true);
-      } catch (e) {}
-    }
-    return false;
-  }
-
-  // 4) Con trỏ tới JSONBlob
-  if (parsed.t === 'cvm_ptr' && parsed.blobId) {
-    const data = await fetchFromJsonBlob(parsed.blobId);
-    if (data) return mergeCloudState(unpackCloudPayload(data), true);
-  }
-
-  return false;
-}
-
-// Đẩy dữ liệu đồng bộ đa tầng: BroadcastChannel + Firebase (nếu có) + JSONBlob + Gzipped ntfy.sh
-async function pushCloudState(reason = "Cập nhật dữ liệu") {
+// ==================== ĐẨY DỮ LIỆU LÊN GOOGLE DRIVE 400GB (+ FIREBASE DỰ PHÒNG) ====================
+async function pushCloudState(reason = "Cập nhật dữ liệu", explicitScope = 'auto') {
+  const scope = inferPushScope(reason, explicitScope);
   const user = getCurrentUser();
   user.updatedAt = Date.now();
   appState.version = (appState.version || 1) + 1;
-  lastPublishedFingerprint = computeStateFingerprint();
+  if (scope === 'user') appState.usersRevision = (appState.usersRevision || 1) + 1;
+
+  // Luôn giữ kho tài khoản hiện tại khớp tuyệt đối với Admin trên máy trước khi lưu
+  syncAdminWordsToUserProfile(user);
   saveLocalState(true);
 
   if (!navigator.onLine) {
-    $('cloudDot').className = 'net-dot offline';
-    $('cloudStatusLabel').textContent = 'Offline · Đã lưu máy';
+    pendingPushScopes.add(scope);
+    updateCloudStatusPill('offline', `Offline (${pendingPushScopes.size} chờ)`);
+    logCloudEvent(`⚠ Mất mạng: Đã lưu cục bộ (${reason}), sẽ tự đẩy lên Drive khi có mạng.`);
+    return false;
+  }
+
+  if (!driveScriptUrl && !firebaseDbUrl) {
+    updateCloudStatusPill('warn', `Chưa gắn Drive · v${appState.version}`);
+    if ($('cloudOverallHealthBadge')) {
+      $('cloudOverallHealthBadge').className = 'badge new';
+      $('cloudOverallHealthBadge').textContent = '⚠ Hãy dán link Google Drive /exec ở trên';
+    }
+    logCloudEvent(`ℹ Đã lưu máy (${reason}). Gắn link Google Apps Script /exec trong tab 🌐 Internet để đồng bộ đa thiết bị!`);
+    return false;
+  }
+
+  if (isSyncing) {
+    pendingPushScopes.add(scope);
+    updateCloudStatusPill('syncing', `Đang xếp hàng (${pendingPushScopes.size})...`);
     return false;
   }
 
   isSyncing = true;
-  $('cloudDot').className = 'net-dot syncing';
-  $('cloudStatusLabel').textContent = 'Đang đồng bộ...';
-  setCloudProgressUI(true, `⚡ Đang đóng gói & nén dữ liệu (${getAllAdminWordsCount()} từ)...`, 15);
+  updateCloudStatusPill('syncing', 'Đang đẩy Drive...');
+  setCloudProgressUI(true, `⬆️ Đang ghi lên Google Drive 400GB (${reason})...`, 35);
 
   try {
-    const compactObj = buildCompactCloudPayload();
-    const rawJsonStr = JSON.stringify(compactObj);
-    const compressed = await compressStringToBase64(rawJsonStr);
-
-    const rawKB = (rawJsonStr.length / 1024).toFixed(1);
-    const compKB = (compressed.data.length / 1024).toFixed(1);
-    if ($('cloudDiagPayloadSize')) $('cloudDiagPayloadSize').textContent = `${compKB} KB (Gốc ${rawKB} KB)`;
-
-    let mirrorStatus = [];
     let anySuccess = false;
+    const channelsOk = [];
 
-    // Tầng A: Firebase Realtime Database (nếu người dùng đã cấu hình)
+    // KÊNH 1 (CHÍNH): GOOGLE DRIVE 400GB APPS SCRIPT (/exec)
+    // Dùng text/plain;charset=UTF-8 để vượt CORS Preflight mượt mà trên GitHub Pages, iOS, Android & file://
+    if (driveScriptUrl) {
+      let bodyObj = {};
+      if (scope === 'admin') {
+        bodyObj = {
+          action: 'pushAdmin',
+          actor: user.name,
+          reason,
+          clientVersion: appState.version,
+          catalogRevision: appState.catalogRevision,
+          testsRevision: appState.testsRevision,
+          catalogUpdatedAt: appState.catalogUpdatedAt,
+          adminCatalog: appState.adminCatalog,
+          generatedTests: appState.generatedTests,
+          lastSystemUpdate: appState.lastSystemUpdate,
+          accountUpdateReceipts: appState.accountUpdateReceipts,
+          users: serializeAllUsersForCloud()
+        };
+      } else if (scope === 'full') {
+        bodyObj = {
+          action: 'pushFull',
+          actor: user.name,
+          reason,
+          clientVersion: appState.version,
+          catalogRevision: appState.catalogRevision,
+          testsRevision: appState.testsRevision,
+          usersRevision: appState.usersRevision,
+          catalogUpdatedAt: appState.catalogUpdatedAt,
+          adminCatalog: appState.adminCatalog,
+          generatedTests: appState.generatedTests,
+          lastSystemUpdate: appState.lastSystemUpdate,
+          accountUpdateReceipts: appState.accountUpdateReceipts,
+          users: serializeAllUsersForCloud()
+        };
+      } else {
+        bodyObj = {
+          action: 'pushUser',
+          actor: user.name,
+          reason,
+          uid: user.uid,
+          user: serializeSingleUserForCloud(user),
+          receipt: appState.accountUpdateReceipts[user.uid] || {
+            uid: user.uid,
+            name: user.name,
+            email: user.email || user.uid,
+            role: (user.role === 'admin' || adminUnlocked) ? 'Quản trị viên' : 'Học viên',
+            syncedVersion: appState.version,
+            syncedCatalogRevision: appState.catalogRevision,
+            syncedAt: new Date().toLocaleString('vi-VN'),
+            totalSyncedWords: countWordsInUserPersonalCatalog(user)
+          }
+        };
+      }
+
+      const driveRes = await fetch(driveScriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify(bodyObj)
+      });
+
+      if (!driveRes.ok) {
+        throw new Error(`Google Drive HTTP ${driveRes.status}`);
+      }
+      const driveJson = await driveRes.json();
+      if (!driveJson || !driveJson.ok) {
+        throw new Error(driveJson?.error || 'Google Apps Script trả về lỗi');
+      }
+
+      if (driveJson.meta) {
+        if (driveJson.meta.version > appState.version) appState.version = driveJson.meta.version;
+        if (driveJson.meta.catalogRevision > appState.catalogRevision) appState.catalogRevision = driveJson.meta.catalogRevision;
+        if (driveJson.meta.testsRevision > appState.testsRevision) appState.testsRevision = driveJson.meta.testsRevision;
+        if (driveJson.meta.usersRevision > appState.usersRevision) appState.usersRevision = driveJson.meta.usersRevision;
+      }
+      channelsOk.push('Google Drive 400GB');
+      anySuccess = true;
+    }
+
+    // KÊNH 2 (DỰ PHÒNG NẾU CÓ): FIREBASE REALTIME DB
     if (firebaseDbUrl) {
-      setCloudProgressUI(true, '🔥 Đang lưu lên Firebase Realtime Database...', 35);
-      const cleanFb = firebaseDbUrl.replace(/\/$/, '');
-      const fbRes = await fetch(`${cleanFb}/cvm_super_sync/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}.json`, {
+      setCloudProgressUI(true, '🔥 Đang đồng bộ song song lên Firebase...', 75);
+      const cleanFb = firebaseDbUrl.replace(/\/+$/, '');
+      const fbPayload = {
+        version: appState.version,
+        catalogRevision: appState.catalogRevision,
+        testsRevision: appState.testsRevision,
+        usersRevision: appState.usersRevision,
+        catalogUpdatedAt: appState.catalogUpdatedAt,
+        adminCatalog: appState.adminCatalog,
+        generatedTests: appState.generatedTests,
+        lastSystemUpdate: appState.lastSystemUpdate,
+        accountUpdateReceipts: appState.accountUpdateReceipts,
+        users: serializeAllUsersForCloud()
+      };
+      const fbRes = await fetch(`${cleanFb}/cvm_drive_mirror/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-        body: rawJsonStr
+        body: JSON.stringify(fbPayload)
       }).catch(() => null);
       if (fbRes && fbRes.ok) {
-        mirrorStatus.push('Firebase OK');
+        channelsOk.push('Firebase');
         anySuccess = true;
       }
     }
 
-    // Tầng B: JSONBlob Persistent Cloud Storage
-    setCloudProgressUI(true, '☁️ Đang lưu kho lưu trữ đám mây (JSONBlob)...', 50);
-    let blobSaved = false;
-    if (sharedCloudBlobId) {
-      const putRes = await fetch(`https://jsonblob.com/api/jsonBlob/${encodeURIComponent(sharedCloudBlobId)}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: rawJsonStr
-      }).catch(() => null);
-      if (putRes && putRes.ok) blobSaved = true;
-      else sharedCloudBlobId = '';
-    }
-    if (!sharedCloudBlobId) {
-      const postRes = await fetch('https://jsonblob.com/api/jsonBlob', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: rawJsonStr
-      }).catch(() => null);
-      if (postRes && postRes.ok) {
-        const loc = postRes.headers.get('Location') || postRes.headers.get('X-jsonblob') || '';
-        const newId = loc.split('/').pop();
-        if (newId) {
-          sharedCloudBlobId = newId;
-          localStorage.setItem('cvm_shared_blob_id_' + GLOBAL_SITE_CHANNEL, newId);
-          blobSaved = true;
-        }
-      }
-    }
-    if (blobSaved) {
-      mirrorStatus.push('JSONBlob OK');
-      anySuccess = true;
+    if (!anySuccess) {
+      throw new Error('Không ghi được lên máy chủ Cloud');
     }
 
-    // Tầng C: Phát sóng Real-time nén Gzip qua ntfy.sh (mỗi gói <= 2.9 KB, tự thử lại nếu lỗi tạm thời)
-    const CHUNK_SIZE = 2900;
-    const totalChunks = Math.max(1, Math.ceil(compressed.data.length / CHUNK_SIZE));
-    const txId = 'tx_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
-    processedTxIds.add(txId);
-
-    let chunksSent = 0;
-    for (let i = 0; i < totalChunks; i++) {
-      const sliceData = compressed.data.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
-      const packet = JSON.stringify({
-        t: 'cvm_chunk',
-        from: MY_CLIENT_ID,
-        tx: txId,
-        idx: i,
-        total: totalChunks,
-        rev: appState.catalogRevision || 1,
-        v: appState.version,
-        enc: compressed.enc,
-        blobId: sharedCloudBlobId || '',
-        data: sliceData
-      });
-
-      const pct = Math.min(95, 55 + Math.round(((i + 1) / totalChunks) * 40));
-      setCloudProgressUI(true, `📡 Đang phát gói ${i + 1}/${totalChunks} (${compKB} KB Gzip)...`, pct);
-
-      let sentThis = false;
-      for (let attempt = 0; attempt < 2; attempt++) {
-        const res = await fetch(`https://ntfy.sh/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}`, {
-          method: 'POST',
-          headers: {
-            'Title': `cvm-${txId}-${i + 1}/${totalChunks}`,
-            'Cache': 'yes'
-          },
-          body: packet
-        }).catch(() => null);
-        if (res && res.ok) {
-          sentThis = true;
-          break;
-        }
-        await new Promise(r => setTimeout(r, 350));
-      }
-      if (sentThis) chunksSent++;
-      if (i + 1 < totalChunks) await new Promise(r => setTimeout(r, 150));
+    lastConfirmedDriveSyncAt = new Date().toLocaleTimeString('vi-VN');
+    saveLocalState(false);
+    setCloudProgressUI(true, `✅ Đã ghi lên ${channelsOk.join(' + ')} (v${appState.version})!`, 100);
+    setTimeout(() => setCloudProgressUI(false), 1500);
+    updateCloudStatusPill('ok', `Drive 400GB · v${appState.version}`);
+    if ($('cloudDiagTime')) $('cloudDiagTime').textContent = lastConfirmedDriveSyncAt;
+    if ($('cloudOverallHealthBadge')) {
+      $('cloudOverallHealthBadge').className = 'badge ok';
+      $('cloudOverallHealthBadge').textContent = `✓ Đã đồng bộ (${channelsOk.join(' + ')})`;
     }
-
-    if (chunksSent === totalChunks) {
-      mirrorStatus.push(`Push ${totalChunks} gói OK`);
-      anySuccess = true;
-    }
-
-    if (anySuccess) {
-      setCloudProgressUI(true, `✅ Đồng bộ hoàn tất! (${mirrorStatus.join(' · ')})`, 100);
-      setTimeout(() => setCloudProgressUI(false), 1800);
-      $('cloudDot').className = 'net-dot';
-      $('cloudStatusLabel').textContent = `Đã đồng bộ · v${appState.version}`;
-      if ($('cloudDiagVersion')) $('cloudDiagVersion').textContent = `v${appState.version} · ${getAllAdminWordsCount()} từ`;
-      if ($('cloudDiagMirror')) $('cloudDiagMirror').textContent = `● ${mirrorStatus.join(' + ')}`;
-      if ($('cloudDiagTime')) $('cloudDiagTime').textContent = new Date().toLocaleTimeString('vi-VN');
-      if ($('cloudOverallHealthBadge')) $('cloudOverallHealthBadge').textContent = `✓ Đã đồng bộ (${compKB} KB)`;
-      logCloudEvent(`✓ Đẩy thành công (${reason}) -> v${appState.version} · ${getAllAdminWordsCount()} từ · ${compKB} KB (${mirrorStatus.join(', ')})`);
-      return true;
-    } else {
-      throw new Error("Tất cả kênh Cloud đều không phản hồi (kiểm tra tường lửa / mạng)");
-    }
+    logCloudEvent(`✅ Ghi thành công [${scope.toUpperCase()}] (${reason}) ➔ v${appState.version} · ${getAllAdminWordsCount()} từ (${channelsOk.join(' + ')})`);
+    return true;
   } catch (err) {
+    pendingPushScopes.add(scope);
     setCloudProgressUI(false);
-    $('cloudDot').className = 'net-dot offline';
-    $('cloudStatusLabel').textContent = 'Lỗi đồng bộ';
-    if ($('cloudOverallHealthBadge')) $('cloudOverallHealthBadge').textContent = '⚠ Lỗi kết nối Cloud';
-    logCloudEvent(`⚠ Lỗi đẩy Cloud: ${err.message}`);
+    updateCloudStatusPill('error', `Lỗi Drive (${pendingPushScopes.size} chờ)`);
+    if ($('cloudOverallHealthBadge')) {
+      $('cloudOverallHealthBadge').className = 'badge err';
+      $('cloudOverallHealthBadge').textContent = `✕ Lỗi Drive: ${err.message}`;
+    }
+    logCloudEvent(`❌ Lỗi đẩy Drive [${scope}]: ${err.message}`);
+    return false;
+  } finally {
+    isSyncing = false;
+    // Tự động xả hàng đợi nếu có thao tác phát sinh trong lúc đang đẩy
+    if (pendingPushScopes.size > 0 && navigator.onLine) {
+      const nextScope = pendingPushScopes.has('full') ? 'full' : (pendingPushScopes.has('admin') ? 'admin' : 'user');
+      pendingPushScopes.clear();
+      setTimeout(() => pushCloudState("Đồng bộ hàng đợi tự động", nextScope), 450);
+    }
+  }
+}
+
+// ==================== KÉO DỮ LIỆU TỪ GOOGLE DRIVE 400GB (META CHECK SIÊU NHẸ -> PULL) ====================
+async function pullCloudState(silent = true, forceFullPull = false) {
+  if (!navigator.onLine || isSyncing) return false;
+  if (!driveScriptUrl && !firebaseDbUrl) {
+    updateCloudStatusPill('warn', `Chưa gắn Drive · v${appState.version}`);
+    if (!silent) showToast('⚠️ Bạn chưa dán link Google Drive (/exec)! Hãy mở tab 🌐 Đồng bộ Internet để dán link.');
+    return false;
+  }
+
+  isSyncing = true;
+  let anyUpdated = false;
+
+  try {
+    if (!silent) {
+      updateCloudStatusPill('syncing', 'Đang kéo Drive...');
+      setCloudProgressUI(true, '🔍 Đang kiểm tra phiên bản trên Google Drive 400GB...', 30);
+    }
+
+    if (driveScriptUrl) {
+      let needFullPull = forceFullPull;
+
+      // Bước 1: Kiểm tra file meta.json siêu nhẹ (~200 byte) nếu không ép kéo toàn bộ
+      if (!needFullPull) {
+        const metaRes = await fetch(`${driveScriptUrl}?action=meta&t=${Date.now()}`, { cache: 'no-store' });
+        if (!metaRes.ok) throw new Error(`Drive meta HTTP ${metaRes.status}`);
+        const metaJson = await metaRes.json();
+        if (metaJson && metaJson.ok && metaJson.meta) {
+          const m = metaJson.meta;
+          lastMetaCheckAt = Date.now();
+          if (
+            (m.version || 0) > (appState.version || 0) ||
+            (m.catalogRevision || 0) > (appState.catalogRevision || 0) ||
+            (m.testsRevision || 0) > (appState.testsRevision || 0) ||
+            (m.usersRevision || 0) > (appState.usersRevision || 0) ||
+            (getAllAdminWordsCount() === 0 && (m.totalAdminWords || 0) > 0)
+          ) {
+            needFullPull = true;
+          } else if (m.isEmpty && (getAllAdminWordsCount() > 0 || (appState.generatedTests || []).length > 0)) {
+            // Drive vừa tạo mới hoàn toàn (trống), còn máy này đã có dữ liệu -> Đẩy khởi tạo lên Drive!
+            isSyncing = false;
+            await pushCloudState("Khởi tạo dữ liệu lên Google Drive 400GB", 'full');
+            return true;
+          }
+        }
+      }
+
+      // Bước 2: Tải dữ liệu đầy đủ từ Drive nếu có phiên bản mới hoặc bấm Kéo thủ công
+      if (needFullPull) {
+        if (!silent) setCloudProgressUI(true, '📥 Đang tải kho Admin, Đề Test & Tài khoản từ Drive 400GB...', 70);
+        const pullUrl = `${driveScriptUrl}?action=pull&uid=${encodeURIComponent(currentUserId)}&t=${Date.now()}`;
+        const pullRes = await fetch(pullUrl, { cache: 'no-store' });
+        if (!pullRes.ok) throw new Error(`Drive pull HTTP ${pullRes.status}`);
+        const pullJson = await pullRes.json();
+        if (!pullJson || !pullJson.ok) throw new Error(pullJson?.error || 'Drive pull lỗi');
+
+        if (mergeCloudState(pullJson, true, true)) {
+          anyUpdated = true;
+        } else if (pullJson.meta?.isEmpty && (getAllAdminWordsCount() > 0 || (appState.generatedTests || []).length > 0)) {
+          isSyncing = false;
+          await pushCloudState("Khởi tạo dữ liệu lên Google Drive 400GB", 'full');
+          return true;
+        }
+      }
+
+      lastConfirmedDriveSyncAt = new Date().toLocaleTimeString('vi-VN');
+      updateCloudStatusPill('ok', `Drive 400GB · v${appState.version}`);
+      if ($('cloudDiagTime')) $('cloudDiagTime').textContent = lastConfirmedDriveSyncAt;
+      if ($('cloudOverallHealthBadge')) {
+        $('cloudOverallHealthBadge').className = 'badge ok';
+        $('cloudOverallHealthBadge').textContent = '✓ Đồng bộ chuẩn Google Drive 400GB';
+      }
+    } else if (firebaseDbUrl) {
+      const cleanFb = firebaseDbUrl.replace(/\/+$/, '');
+      const fbRes = await fetch(`${cleanFb}/cvm_drive_mirror/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}.json?t=${Date.now()}`, { cache: 'no-store' });
+      if (fbRes.ok) {
+        const fbData = await fbRes.json();
+        if (fbData && mergeCloudState(fbData, true, true)) anyUpdated = true;
+        updateCloudStatusPill('ok', `Firebase · v${appState.version}`);
+      }
+    }
+
+    if (!silent) {
+      setCloudProgressUI(true, anyUpdated ? `✅ Đã cập nhật bản mới nhất (${getAllAdminWordsCount()} từ · v${appState.version})!` : `✓ Đang ở bản mới nhất trên Drive (${getAllAdminWordsCount()} từ · v${appState.version})!`, 100);
+      setTimeout(() => setCloudProgressUI(false), 1600);
+      if (!anyUpdated) showToast(`✓ Đã kiểm tra Google Drive 400GB — Đang ở bản mới nhất (${getAllAdminWordsCount()} từ · v${appState.version})!`);
+    }
+    return anyUpdated;
+  } catch (err) {
+    if (!silent) {
+      setCloudProgressUI(false);
+      showToast(`❌ Lỗi kéo dữ liệu từ Drive: ${err.message}`);
+    }
+    updateCloudStatusPill('error', 'Lỗi kết nối Drive');
+    if ($('cloudOverallHealthBadge')) {
+      $('cloudOverallHealthBadge').className = 'badge err';
+      $('cloudOverallHealthBadge').textContent = `✕ Lỗi Drive: ${err.message}`;
+    }
+    logCloudEvent(`❌ Lỗi kéo Drive: ${err.message}`);
     return false;
   } finally {
     isSyncing = false;
   }
 }
 
-async function pullCloudState(silent = true, requestPeersIfEmpty = false) {
-  if (!navigator.onLine || isSyncing) return false;
-  try {
-    let anyUpdated = false;
-    let foundRemote = false;
-
-    if (!silent) setCloudProgressUI(true, '🔍 Đang kiểm tra bản cập nhật mới nhất trên Internet...', 30);
-
-    // 1. Kiểm tra Firebase Realtime Database (nếu đã cấu hình)
-    if (firebaseDbUrl) {
-      const cleanFb = firebaseDbUrl.replace(/\/$/, '');
-      const fbRes = await fetch(`${cleanFb}/cvm_super_sync/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}.json?t=${Date.now()}`, {
-        cache: 'no-store'
-      }).catch(() => null);
-      if (fbRes && fbRes.ok) {
-        const fbData = await fbRes.json();
-        if (fbData) {
-          foundRemote = true;
-          if (mergeCloudState(unpackCloudPayload(fbData), true)) anyUpdated = true;
-        }
-      }
-    }
-
-    // 2. Kiểm tra kênh phát sóng toàn cầu ntfy.sh (lấy toàn bộ lịch sử cache)
-    const ntfyRes = await fetch(`https://ntfy.sh/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}/json?poll=1&since=all`, {
-      cache: 'no-store'
-    }).catch(() => null);
-
-    if (ntfyRes && ntfyRes.ok) {
-      const rawBody = await ntfyRes.text();
-      const lines = rawBody.trim().split('\n').filter(Boolean);
-      for (let i = 0; i < lines.length; i++) {
-        try {
-          const ev = JSON.parse(lines[i]);
-          if (ev.message && ev.message.trim().startsWith('{')) {
-            const parsed = JSON.parse(ev.message);
-            if (parsed.t === 'cvm_chunk' || parsed.t === 'cvm_ptr' || parsed.t === 'cvm_ack') {
-              foundRemote = true;
-              if (await ingestSignalOrChunk(parsed)) anyUpdated = true;
-            }
-          }
-        } catch (e) {}
-      }
-    }
-
-    // 3. Nếu đã biết sharedCloudBlobId mà chưa có bản mới hơn -> tải thẳng từ JSONBlob
-    if (sharedCloudBlobId && !anyUpdated) {
-      const blobData = await fetchFromJsonBlob(sharedCloudBlobId);
-      if (blobData) {
-        foundRemote = true;
-        if (mergeCloudState(unpackCloudPayload(blobData), true)) anyUpdated = true;
-      }
-    }
-
-    // 4. Nếu máy chủ chưa có gói nào (hoặc người dùng bấm Kéo thủ công) -> gửi tín hiệu hỏi các máy đang online (Auto-Heal)
-    if ((!foundRemote || requestPeersIfEmpty) && navigator.onLine) {
-      sendLightSignalPacket({
-        t: 'cvm_req',
-        from: MY_CLIENT_ID,
-        rev: appState.catalogRevision || 1,
-        v: appState.version || 1,
-        words: getAllAdminWordsCount()
-      });
-    }
-
-    $('cloudDot').className = 'net-dot';
-    $('cloudStatusLabel').textContent = `Đã đồng bộ · v${appState.version}`;
-    if ($('cloudDiagVersion')) $('cloudDiagVersion').textContent = `v${appState.version} · ${getAllAdminWordsCount()} từ`;
-    if ($('cloudDiagTime')) $('cloudDiagTime').textContent = new Date().toLocaleTimeString('vi-VN');
-
-    if (!silent) {
-      setCloudProgressUI(true, anyUpdated ? `✅ Đã cập nhật dữ liệu mới (${getAllAdminWordsCount()} từ)!` : `✓ Đang ở bản mới nhất (${getAllAdminWordsCount()} từ)!`, 100);
-      setTimeout(() => setCloudProgressUI(false), 1600);
-      if (!anyUpdated) showToast(`✓ Đã kiểm tra xong! Hiện tại có ${getAllAdminWordsCount()} từ (v${appState.version}).`);
-    }
-
-    // Nếu máy chủ trống nhưng máy hiện tại đã có kho từ Admin nhiều hơn mặc định -> tự động đẩy lên Cloud
-    const curFp = computeStateFingerprint();
-    if (!foundRemote && ((appState.catalogRevision || 1) > 1 || (appState.testsRevision || 1) > 1 || getAllAdminWordsCount() > 0 || (appState.generatedTests || []).length > 0) && lastPublishedFingerprint !== curFp) {
-      pushCloudState("Tự động khởi tạo kho dữ liệu lên Cloud");
-    }
-
-    return anyUpdated;
-  } catch (e) {
-    if (!silent) setCloudProgressUI(false);
-    return false;
-  }
-}
-
 function startRealtimePushListener() {
-  if (sseSource) { try { sseSource.close(); } catch (e) {} sseSource = null; }
-  if (sseReconnectTimer) { clearTimeout(sseReconnectTimer); sseReconnectTimer = null; }
-  if (!navigator.onLine || typeof EventSource === 'undefined') return;
-
-  try {
-    sseSource = new EventSource(`https://ntfy.sh/${encodeURIComponent(GLOBAL_SITE_CHANNEL)}/sse`);
-    sseSource.onopen = () => {
-      if ($('cloudDiagSse')) $('cloudDiagSse').textContent = '● Real-time Push Active';
-      logCloudEvent('📡 Đã kết nối kênh đẩy thời gian thực (SSE) toàn cầu');
-    };
-    sseSource.onmessage = async (event) => {
-      try {
-        const wrapper = JSON.parse(event.data);
-        if (wrapper.message && wrapper.message.trim().startsWith('{')) {
-          const parsed = JSON.parse(wrapper.message);
-          await ingestSignalOrChunk(parsed);
-        }
-      } catch (e) {}
-    };
-    sseSource.onerror = () => {
-      if ($('cloudDiagSse')) $('cloudDiagSse').textContent = '● Đang tự kết nối lại...';
-      if (sseSource) { try { sseSource.close(); } catch (e) {} sseSource = null; }
-      sseReconnectTimer = setTimeout(() => startRealtimePushListener(), 5000);
-    };
-  } catch (e) {}
+  // Kiểm tra meta.json định kỳ mỗi 7 giây (cực nhẹ ~200 byte)
+  if (window._cvmDrivePollInterval) clearInterval(window._cvmDrivePollInterval);
+  window._cvmDrivePollInterval = setInterval(() => {
+    if (!document.hidden && navigator.onLine) {
+      if (pendingPushScopes.size > 0) {
+        const nextScope = pendingPushScopes.has('full') ? 'full' : (pendingPushScopes.has('admin') ? 'admin' : 'user');
+        pendingPushScopes.clear();
+        pushCloudState("Tự động đẩy bù hàng đợi", nextScope);
+      } else {
+        pullCloudState(true, false);
+      }
+    }
+  }, 7000);
 }
 
-setInterval(() => pullCloudState(true, false), 6000);
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) pullCloudState(true, false);
+  if (!document.hidden && navigator.onLine) pullCloudState(true, false);
+});
+window.addEventListener('focus', () => {
+  if (navigator.onLine && Date.now() - lastMetaCheckAt > 3500) pullCloudState(true, false);
 });
 window.addEventListener('online', () => {
   if ($('cloudDiagNet')) $('cloudDiagNet').textContent = '● Trực tuyến (Online)';
-  startRealtimePushListener();
-  pullCloudState(true, true);
+  if (pendingPushScopes.size > 0) {
+    const nextScope = pendingPushScopes.has('full') ? 'full' : (pendingPushScopes.has('admin') ? 'admin' : 'user');
+    pendingPushScopes.clear();
+    pushCloudState("Đồng bộ bù sau khi có mạng", nextScope);
+  } else {
+    pullCloudState(true, true);
+  }
 });
 window.addEventListener('offline', () => {
-  $('cloudDot').className = 'net-dot offline';
-  $('cloudStatusLabel').textContent = 'Offline';
+  updateCloudStatusPill('offline', 'Offline · Lưu máy');
   if ($('cloudDiagNet')) $('cloudDiagNet').textContent = '● Mất kết nối mạng';
 });
 
@@ -3959,37 +3840,237 @@ function forcePullFromInternetNow() {
 }
 function forcePushToInternetNow() {
   syncAdminVocabToAllAccounts();
-  pushCloudState("Đẩy đồng bộ thủ công toàn hệ thống");
+  pushCloudState("Đẩy đồng bộ thủ công toàn bộ lên Google Drive 400GB", 'full');
 }
 function forceFullSyncNow() {
   forcePullFromInternetNow();
 }
-function reconnectRealtimeChannels() {
-  startRealtimePushListener();
-  pullCloudState(false, true);
-  showToast("🔌 Đã khởi động lại kênh đồng bộ thời gian thực!");
+
+async function saveDriveScriptUrl() {
+  const raw = ($('driveScriptUrlInput')?.value || '').trim();
+  if (!raw) return alert("Vui lòng dán đường dẫn Google Apps Script Web App kết thúc bằng /exec!");
+  if (!/^https:\/\/script\.google\.com\/macros\/s\//i.test(raw)) {
+    return alert("Đường dẫn chưa đúng định dạng Google Apps Script! Link đúng có dạng:\nhttps://script.google.com/macros/s/.../exec");
+  }
+  driveScriptUrl = raw;
+  localStorage.setItem('cvm_drive_script_url', driveScriptUrl);
+  showToast("🔌 Đã lưu link Google Drive 400GB! Đang kiểm tra & đồng bộ...");
+  const ok = await pingDriveConnection(true);
+  if (ok) {
+    await pullCloudState(false, true);
+  }
 }
+
+async function pingDriveConnection(silentToast = false) {
+  const url = ($('driveScriptUrlInput')?.value || driveScriptUrl || '').trim();
+  if (!url) return alert("Hãy dán đường dẫn /exec của Google Apps Script trước!");
+  updateCloudStatusPill('syncing', 'Đang kiểm tra Drive...');
+  try {
+    const res = await fetch(`${url}?action=meta&t=${Date.now()}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data || !data.ok) throw new Error(data?.error || 'Phản hồi không hợp lệ');
+    driveScriptUrl = url;
+    localStorage.setItem('cvm_drive_script_url', driveScriptUrl);
+    updateCloudStatusPill('ok', `Drive 400GB · v${data.meta?.version || appState.version}`);
+    logCloudEvent(`✅ Kết nối thành công Google Drive 400GB! Thư mục: ${data.folderName || 'Chinese_Vocab_Master_400GB_DB'} · Rev trên Drive: v${data.meta?.version || 1} (${data.meta?.totalAdminWords || 0} từ)`);
+    if (!silentToast) showToast(`✅ Kết nối Google Drive 400GB thành công! (${data.meta?.totalAdminWords || 0} từ trên Drive)`);
+    return true;
+  } catch (err) {
+    updateCloudStatusPill('error', 'Lỗi kết nối Drive');
+    logCloudEvent(`❌ Kiểm tra Drive thất bại: ${err.message}`);
+    alert(`Không kết nối được link Google Apps Script (${err.message}).\nHãy kiểm tra lại:\n1. Link phải kết thúc bằng /exec\n2. Khi Triển khai (Deploy) phải chọn "Người có quyền truy cập: Bất kỳ ai (Anyone)".`);
+    return false;
+  }
+}
+
+function clearDriveScriptUrl() {
+  driveScriptUrl = '';
+  localStorage.removeItem('cvm_drive_script_url');
+  if ($('driveScriptUrlInput')) $('driveScriptUrlInput').value = '';
+  updateCloudStatusPill('warn', `Chưa gắn Drive · v${appState.version}`);
+  showToast("Đã gỡ link Google Drive trên thiết bị này.");
+}
+
 function copyInstantSyncLink() {
   const baseUrl = window.location.href.split('#')[0].split('?')[0];
-  let params = [];
-  if (sharedCloudBlobId) params.push('sync=' + encodeURIComponent(sharedCloudBlobId));
+  const params = [];
+  if (driveScriptUrl) params.push('drive=' + encodeURIComponent(driveScriptUrl));
   if (firebaseDbUrl) params.push('fb=' + encodeURIComponent(firebaseDbUrl));
   const shareUrl = params.length ? `${baseUrl}#${params.join('&')}` : baseUrl;
   navigator.clipboard.writeText(shareUrl);
-  showToast("🔗 Đã sao chép Link đồng bộ tức thì! Mở trên bất kỳ máy nào sẽ tự tải đủ dữ liệu.");
+  showToast(driveScriptUrl
+    ? "🔗 Đã sao chép Link tự gắn Google Drive 400GB! Mở trên điện thoại / máy tính khác sẽ tự đồng bộ 100%."
+    : "🔗 Đã sao chép Link web (Lưu ý: gắn link Drive /exec trước để máy khác tự kết nối Drive).");
 }
+
 function saveFirebaseDbUrl() {
   firebaseDbUrl = ($('firebaseDbUrlInput')?.value || '').trim();
   if (!firebaseDbUrl) return alert("Vui lòng nhập đường dẫn Firebase Realtime Database!");
   localStorage.setItem('cvm_firebase_url', firebaseDbUrl);
-  pushCloudState("Kết nối Firebase Realtime DB");
-  showToast("🔥 Đã lưu Firebase Realtime DB & bắt đầu đồng bộ vĩnh viễn!");
+  pushCloudState("Kết nối Firebase Realtime DB", 'full');
+  showToast("🔥 Đã lưu Firebase Realtime DB & bắt đầu đồng bộ!");
 }
+
 function clearFirebaseDbUrl() {
   firebaseDbUrl = '';
   localStorage.removeItem('cvm_firebase_url');
   if ($('firebaseDbUrlInput')) $('firebaseDbUrlInput').value = '';
-  showToast("Đã gỡ cấu hình Firebase — quay về chế độ đồng bộ tự động mặc định.");
+  updateCloudStatusPill(driveScriptUrl ? 'ok' : 'warn', driveScriptUrl ? `Drive 400GB · v${appState.version}` : `Chưa gắn Drive · v${appState.version}`);
+  showToast("Đã gỡ cấu hình Firebase.");
+}
+
+// Mã nguồn Google Apps Script (Code.gs) tương thích 100% với bộ đồng bộ v18 trên Drive 400GB
+const GOOGLE_DRIVE_CODE_GS_TEMPLATE = [
+  'const ROOT_FOLDER_NAME = "Chinese_Vocab_Master_400GB_DB";',
+  'const USERS_FOLDER_NAME = "users";',
+  '',
+  'function getOrCreateFolder(parent, name) {',
+  '  const it = parent.getFoldersByName(name);',
+  '  return it.hasNext() ? it.next() : parent.createFolder(name);',
+  '}',
+  '',
+  'function getDbFolders() {',
+  '  const root = getOrCreateFolder(DriveApp.getRootFolder(), ROOT_FOLDER_NAME);',
+  '  const usersDir = getOrCreateFolder(root, USERS_FOLDER_NAME);',
+  '  return { root, usersDir };',
+  '}',
+  '',
+  'function readJson(folder, fileName, fallback) {',
+  '  const it = folder.getFilesByName(fileName);',
+  '  if (!it.hasNext()) return fallback;',
+  '  try {',
+  '    const txt = it.next().getBlob().getDataAsString("UTF-8");',
+  '    return txt ? JSON.parse(txt) : fallback;',
+  '  } catch (e) { return fallback; }',
+  '}',
+  '',
+  'function writeJson(folder, fileName, data) {',
+  '  const txt = JSON.stringify(data);',
+  '  const it = folder.getFilesByName(fileName);',
+  '  if (it.hasNext()) { const f = it.next(); f.setContent(txt); return f; }',
+  '  return folder.createFile(fileName, txt, MimeType.PLAIN_TEXT);',
+  '}',
+  '',
+  'function safeId(raw) {',
+  '  return String(raw || "guest").replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 90);',
+  '}',
+  '',
+  'function countAdminWords(cat) {',
+  '  let c = 0;',
+  '  (cat || []).forEach(h => (h.lessons || []).forEach(l => (l.texts || []).forEach(t => c += (t.words || []).length)));',
+  '  return c;',
+  '}',
+  '',
+  'function jsonOut(obj) {',
+  '  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);',
+  '}',
+  '',
+  'function defaultMeta() {',
+  '  return { isEmpty: true, version: 1, catalogRevision: 1, testsRevision: 1, usersRevision: 1, catalogUpdatedAt: 0, totalAdminWords: 0, updatedAt: "", updatedBy: "System", lastSystemUpdate: null };',
+  '}',
+  '',
+  'function doGet(e) {',
+  '  const p = (e && e.parameter) ? e.parameter : {};',
+  '  const action = p.action || "meta";',
+  '  const { root } = getDbFolders();',
+  '  const meta = readJson(root, "meta.json", defaultMeta());',
+  '',
+  '  if (action === "meta") {',
+  '    return jsonOut({ ok: true, folderName: ROOT_FOLDER_NAME, meta });',
+  '  }',
+  '  if (action === "pull") {',
+  '    const adminCatalog = readJson(root, "admin_catalog.json", []);',
+  '    const generatedTests = readJson(root, "shared_tests.json", []);',
+  '    const accountUpdateReceipts = readJson(root, "users_receipts.json", {});',
+  '    const users = readJson(root, "users_snapshot.json", {});',
+  '    return jsonOut({ ok: true, meta, adminCatalog, generatedTests, accountUpdateReceipts, users });',
+  '  }',
+  '  return jsonOut({ ok: false, error: "Invalid action" });',
+  '}',
+  '',
+  'function doPost(e) {',
+  '  const lock = LockService.getScriptLock();',
+  '  try {',
+  '    lock.waitLock(20000);',
+  '    const body = JSON.parse((e && e.postData && e.postData.contents) ? e.postData.contents : "{}");',
+  '    const action = body.action || "";',
+  '    const { root, usersDir } = getDbFolders();',
+  '    const meta = readJson(root, "meta.json", defaultMeta());',
+  '    const nowStr = Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "HH:mm:ss dd/MM/yyyy");',
+  '',
+  '    if (action === "pushAdmin" || action === "pushFull") {',
+  '      if (Array.isArray(body.adminCatalog)) {',
+  '        writeJson(root, "admin_catalog.json", body.adminCatalog);',
+  '        meta.totalAdminWords = countAdminWords(body.adminCatalog);',
+  '      }',
+  '      if (Array.isArray(body.generatedTests)) {',
+  '        writeJson(root, "shared_tests.json", body.generatedTests);',
+  '      }',
+  '      if (body.accountUpdateReceipts && typeof body.accountUpdateReceipts === "object") {',
+  '        const oldRec = readJson(root, "users_receipts.json", {});',
+  '        Object.keys(body.accountUpdateReceipts).forEach(k => { oldRec[k] = body.accountUpdateReceipts[k]; });',
+  '        writeJson(root, "users_receipts.json", oldRec);',
+  '      }',
+  '      if (body.users && typeof body.users === "object") {',
+  '        const snap = readJson(root, "users_snapshot.json", {});',
+  '        Object.keys(body.users).forEach(uid => {',
+  '          const inc = body.users[uid];',
+  '          if (!inc || !inc.uid) return;',
+  '          const cur = snap[uid];',
+  '          if (!cur || (inc.updatedAt || 0) >= (cur.updatedAt || 0) || action === "pushFull") {',
+  '            snap[uid] = inc;',
+  '            writeJson(usersDir, "user_" + safeId(uid) + ".json", inc);',
+  '          }',
+  '        });',
+  '        writeJson(root, "users_snapshot.json", snap);',
+  '      }',
+  '      meta.isEmpty = false;',
+  '      meta.version = Math.max(meta.version || 1, body.clientVersion || 1) + 1;',
+  '      meta.catalogRevision = Math.max(meta.catalogRevision || 1, body.catalogRevision || 1);',
+  '      meta.testsRevision = Math.max(meta.testsRevision || 1, body.testsRevision || 1);',
+  '      meta.usersRevision = Math.max(meta.usersRevision || 1, body.usersRevision || 1) + 1;',
+  '      meta.catalogUpdatedAt = body.catalogUpdatedAt || Date.now();',
+  '      meta.updatedAt = nowStr;',
+  '      meta.updatedBy = body.actor || "Admin";',
+  '      if (body.lastSystemUpdate) meta.lastSystemUpdate = body.lastSystemUpdate;',
+  '      writeJson(root, "meta.json", meta);',
+  '      return jsonOut({ ok: true, meta });',
+  '    }',
+  '',
+  '    if (action === "pushUser") {',
+  '      const uid = body.uid;',
+  '      if (!uid || !body.user) return jsonOut({ ok: false, error: "Missing user payload" });',
+  '      const snap = readJson(root, "users_snapshot.json", {});',
+  '      snap[uid] = body.user;',
+  '      writeJson(usersDir, "user_" + safeId(uid) + ".json", body.user);',
+  '      writeJson(root, "users_snapshot.json", snap);',
+  '      if (body.receipt) {',
+  '        const rec = readJson(root, "users_receipts.json", {});',
+  '        rec[uid] = body.receipt;',
+  '        writeJson(root, "users_receipts.json", rec);',
+  '      }',
+  '      meta.isEmpty = false;',
+  '      meta.version = (meta.version || 1) + 1;',
+  '      meta.usersRevision = (meta.usersRevision || 1) + 1;',
+  '      meta.updatedAt = nowStr;',
+  '      meta.updatedBy = body.actor || uid;',
+  '      writeJson(root, "meta.json", meta);',
+  '      return jsonOut({ ok: true, meta });',
+  '    }',
+  '',
+  '    return jsonOut({ ok: false, error: "Unknown POST action" });',
+  '  } catch (err) {',
+  '    return jsonOut({ ok: false, error: err.toString() });',
+  '  } finally {',
+  '    lock.releaseLock();',
+  '  }',
+  '}'
+].join('\n');
+
+function copyDriveAppsScriptCode() {
+  navigator.clipboard.writeText(GOOGLE_DRIVE_CODE_GS_TEMPLATE);
+  showToast("📋 Đã sao chép mã Code.gs chuẩn Google Drive 400GB! Dán vào script.google.com rồi Triển khai.");
 }
 
 function exportBackupJson() {
@@ -4010,16 +4091,18 @@ async function importBackupJsonFile(event) {
     const parsed = JSON.parse(txt);
     if (!parsed || !parsed.adminCatalog) return alert("File sao lưu không hợp lệ!");
     appState.catalogRevision = Math.max(appState.catalogRevision || 1, parsed.catalogRevision || 1) + 1;
+    appState.testsRevision = Math.max(appState.testsRevision || 1, parsed.testsRevision || 1) + 1;
     appState.catalogUpdatedAt = Date.now();
     appState.adminCatalog = parsed.adminCatalog;
+    if (Array.isArray(parsed.generatedTests)) appState.generatedTests = parsed.generatedTests;
     if (parsed.users) {
       for (const [uid, u] of Object.entries(parsed.users)) {
         appState.users[uid] = u;
       }
     }
     syncAdminVocabToAllAccounts();
-    await pushCloudState("Khôi phục từ file sao lưu JSON");
-    showToast(`✅ Đã nhập file sao lưu (${getAllAdminWordsCount()} từ) và đồng bộ lên Internet!`);
+    await pushCloudState("Khôi phục từ file sao lưu JSON", 'full');
+    showToast(`✅ Đã nhập file sao lưu (${getAllAdminWordsCount()} từ) và đồng bộ lên Google Drive 400GB!`);
   } catch (e) {
     alert("Lỗi đọc file sao lưu: " + e.message);
   } finally {
@@ -4051,9 +4134,11 @@ async function handleTopQuickLogin(e) {
 
   if (rawLogin === SYSTEM_ADMIN_CRED.username && pass === SYSTEM_ADMIN_CRED.password) {
     adminUnlocked = true;
-        ensureSystemAdminProfile();
+        await pullCloudState(true, true).catch(() => {});
+    ensureSystemAdminProfile();
     currentUserId = SYSTEM_ADMIN_CRED.uid;
     localStorage.setItem('cvm_current_uid', currentUserId);
+    syncAdminWordsToUserProfile(getCurrentUser());
 
     $('topAuthUser').value = '';
     $('topAuthPass').value = '';
@@ -4068,7 +4153,7 @@ async function handleTopQuickLogin(e) {
   }
 
   const email = rawLogin.toLowerCase();
-  await pullCloudState(true);
+  await pullCloudState(true, true);
   const uid = 'email_' + email.replace(/[^a-z0-9]/g, '_');
   const user = appState.users[uid];
   if (!user) {
@@ -4098,8 +4183,9 @@ function logoutTopQuick() {
   localStorage.setItem('cvm_admin_unlocked', '0');
   currentUserId = 'guest_local';
   localStorage.setItem('cvm_current_uid', currentUserId);
+  syncAdminWordsToUserProfile(getCurrentUser());
   refreshAllUI();
-  showToast("🚪 Đã đăng xuất về chế độ Khách.");
+  showToast("🚪 Đã đăng xuất về chế độ Khách (Đã đồng nhất kho HSK).");
 }
 
 function openAuthModal(defaultTab = 'login') {
@@ -4144,7 +4230,7 @@ async function socialOAuthLogin(provider) {
   const cleanEmail = email.trim().toLowerCase();
   const uid = `${provider}_${cleanEmail.replace(/[^a-z0-9]/g, '_')}`;
 
-  await pullCloudState(true);
+  await pullCloudState(true, true);
 
   if (!appState.users[uid]) {
     const defaultName = cleanEmail.split('@')[0];
@@ -4177,7 +4263,7 @@ async function handleEmailRegister() {
   const admCode = $('regAdminCode').value.trim();
   if (!name || !email || !pass) return alert("Vui lòng nhập đầy đủ Họ tên, Email/Tên đăng nhập và Mật khẩu!");
 
-  await pullCloudState(true);
+  await pullCloudState(true, true);
   const uid = 'email_' + email.replace(/[^a-z0-9]/g, '_');
   if (appState.users[uid]) return alert("Tài khoản này đã được đăng ký! Hãy chuyển sang tab Đăng nhập.");
 
@@ -4224,7 +4310,7 @@ async function handleEmailLogin() {
   }
 
   const email = rawLogin.toLowerCase();
-  await pullCloudState(true);
+  await pullCloudState(true, true);
   const uid = 'email_' + email.replace(/[^a-z0-9]/g, '_');
   const user = appState.users[uid];
   if (!user) return alert("Không tìm thấy tài khoản trên hệ thống Cloud! Vui lòng kiểm tra lại hoặc Đăng ký mới.");
@@ -4695,7 +4781,7 @@ function commitAiParsedWords() {
     if (!tObj) return alert("Vui lòng tạo mục HSK - Bài - Text trước!");
 
     (async () => {
-      await pullCloudState(true).catch(() => {});
+      await pullCloudState(true, true).catch(() => {});
       tObj.words.push(...validWords);
       appState.catalogUpdatedAt = Date.now();
 
@@ -4717,7 +4803,7 @@ function commitAiParsedWords() {
       const { hObj, lObj, tObj } = getSelectedMyCatalogTextObj();
       if (tObj) {
         const existZh = new Set(tObj.words.map(w => w.zh));
-        const toAdd = validWords.filter(w => !existZh.has(w.zh));
+        const toAdd = validWords.filter(w => !existZh.has(w.zh)).map(w => ({ ...w, isCustom: true }));
         tObj.words.push(...toAdd);
         pushCloudState(`AI nhập ${toAdd.length} từ vào ${hObj.hsk} · ${lObj.name} · ${tObj.name}`);
         showToast(`✅ AI đã lưu ${toAdd.length} từ vào mục "${hObj.hsk} ➔ ${lObj.name} ➔ ${tObj.name}"!`);
@@ -4841,8 +4927,7 @@ function renderSystemUpdateAndAccountReceipts() {
   const accountStatuses = allUsers.map(u => {
     const rec = appState.accountUpdateReceipts?.[u.uid];
     const isAdm = u.role === 'admin' || u.uid === SYSTEM_ADMIN_CRED.uid;
-    const masterSet = (u.personalSets || []).find(s => s.id === 'pset_admin_auto_master');
-    const wordCount = masterSet ? masterSet.words.length : 0;
+    const wordCount = countWordsInUserPersonalCatalog(u);
     const isUpToDate = rec && (rec.syncedVersion || 0) >= (appState.version || 1);
     return {
       uid: u.uid,
@@ -6268,8 +6353,8 @@ function myAddHskLevel() {
   if (!name || !name.trim()) return;
   const cat = ensureUserPersonalCatalog(getCurrentUser());
   cat.push({
-    hsk: name.trim(),
-    lessons: [{ id: 'ml_' + Date.now(), name: 'Bài 1: Bài mở đầu', texts: [{ id: 'mt_' + Date.now(), name: 'Text 1: Từ vựng chính', words: [] }] }]
+    hsk: name.trim(), isCustom: true,
+    lessons: [{ id: 'ml_' + Date.now(), name: 'Bài 1: Bài mở đầu', isCustom: true, texts: [{ id: 'mt_' + Date.now(), name: 'Text 1: Từ vựng chính', isCustom: true, words: [] }] }]
   });
   pushCloudState(`Thêm cấp độ cá nhân ${name.trim()}`);
 }
@@ -6281,8 +6366,8 @@ function myAddLesson() {
   if (!name || !name.trim()) return;
   hObj.lessons.push({
     id: 'ml_' + Date.now(),
-    name: name.trim(),
-    texts: [{ id: 'mt_' + Date.now(), name: 'Text 1: Từ vựng chính', words: [] }]
+    name: name.trim(), isCustom: true,
+    texts: [{ id: 'mt_' + Date.now(), name: 'Text 1: Từ vựng chính', isCustom: true, words: [] }]
   });
   pushCloudState(`Thêm bài cá nhân ${name.trim()}`);
 }
@@ -6292,7 +6377,7 @@ function myAddTextSection() {
   if (!lObj) return;
   const name = prompt(`Thêm phần Text mới vào ${lObj.name} (VD: Text ${lObj.texts.length + 1}: Từ bổ sung):`);
   if (!name || !name.trim()) return;
-  lObj.texts.push({ id: 'mt_' + Date.now(), name: name.trim(), words: [] });
+  lObj.texts.push({ id: 'mt_' + Date.now(), name: name.trim(), isCustom: true, words: [] });
   pushCloudState(`Thêm mục Text cá nhân ${name.trim()}`);
 }
 
@@ -6474,7 +6559,7 @@ async function addWordToPersonalSet() {
   if (myVocabViewMode === 'catalog') {
     const { hObj, lObj, tObj } = getSelectedMyCatalogTextObj();
     if (!tObj) return alert("Vui lòng chọn mục HSK - Bài - Text!");
-    tObj.words.unshift({ id: 'mpw_' + Date.now(), zh, pinyin, vi });
+    tObj.words.unshift({ id: 'mpw_' + Date.now(), zh, pinyin, vi, isCustom: true });
     $('myNewZh').value = ''; $('myNewPy').value = ''; $('myNewVi').value = '';
     pushCloudState(`Thêm từ cá nhân "${zh}" vào ${hObj.hsk} · ${lObj.name}`);
   } else {
@@ -6792,7 +6877,7 @@ async function adminPushVocabToMembers() {
   if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang đẩy vào kho thành viên...'; }
 
   try {
-    await pullCloudState(true).catch(() => {});
+    await pullCloudState(true, true).catch(() => {});
     const nowStr = new Date().toLocaleString('vi-VN');
     const senderName = getCurrentUser().name;
     const pushedNames = [];
@@ -6990,7 +7075,7 @@ async function admAddSingleWord() {
     if (btn) { btn.disabled = false; btn.textContent = '✨ Lưu từ'; }
   }
 
-  await pullCloudState(true).catch(() => {});
+  await pullCloudState(true, true).catch(() => {});
   if (!appState.adminCatalog.length) {
     appState.adminCatalog.push({
       hsk: 'HSK 1',
@@ -7951,7 +8036,7 @@ async function processVibeImageQueue() {
     var isAdminUser = rawLogin === SYSTEM_ADMIN_CRED.username;
     var isEmailValid = /\S+@\S+\.\S+/.test(rawLogin);
 
-    await pullCloudState(true).catch(function(){});
+    await pullCloudState(true, true).catch(function(){});
 
     later(function () {
       go.classList.remove('is-busy'); go.removeAttribute('aria-busy');
@@ -8283,7 +8368,9 @@ function closeDeleteConfirm436() {
 })();
 
 // ==================== KHỞI CHẠY HỆ THỐNG ====================
+if ($('driveScriptUrlInput')) $('driveScriptUrlInput').value = driveScriptUrl;
 if ($('firebaseDbUrlInput')) $('firebaseDbUrlInput').value = firebaseDbUrl;
+updateCloudStatusPill(driveScriptUrl ? 'syncing' : 'warn', driveScriptUrl ? 'Đang kết nối Drive...' : `Chưa gắn Drive · v${appState.version}`);
 detectPlatformLabel();
 switchMyVocabMode('catalog');
 refreshAllUI();
