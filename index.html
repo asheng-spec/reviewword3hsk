@@ -1441,7 +1441,7 @@ body.is-admin .admin-only-block { display: block !important; }
 :root[data-theme="dark"] select,
 :root[data-theme="dark"] input,
 :root[data-theme="dark"] textarea,
-:root[data-theme="dark"] button:not(.primary):not(.ai-btn):not(.success):not(.warning):not(.crimson):not(.u401-b):not(.u403-go):not(.u404-go):not(.u408-av):not(.u408-it):not(.u436-ok):not(.u436-no):not(.u440-go):not(.u442-add):not(.u442-cart):not(.u447-b):not(.u448-b):not(.u458-b):not(.u470-del):not(.u470-undo):not(.u475-tg):not(.u475-it) {
+:root[data-theme="dark"] button:not(.primary):not(.ai-btn):not(.success):not(.warning):not(.crimson):not(.u401-b):not(.u403-go):not(.u404-go):not(.u408-av):not(.u408-it):not(.u436-ok):not(.u436-no):not(.u440-go):not(.u442-add):not(.u442-cart):not(.u447-b):not(.u448-b):not(.u458-b):not(.u470-del):not(.u470-undo):not(.u475-tg):not(.u475-it):not(.quiz-opt-btn):not(.reorder-chip) {
   background: rgba(15, 20, 34, 0.92);
   color: var(--ink);
   border-color: rgba(148, 163, 184, 0.25);
@@ -2049,7 +2049,613 @@ body.is-admin .admin-only-block { display: block !important; }
   .ai-preview-ex-row { grid-template-columns: 1fr; gap: 5px; }
 }
 
+
+/* ==================== ĐỀ THI TỔNG HỢP 4 DẠNG: TỪ VỰNG · ĐỤC LỖ A/B/C/D · SẮP XẾP CÂU · DỊCH ĐOẠN VĂN ==================== */
+.qtype-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+.qtype-pill.vocab { background: rgba(37,99,235,0.14); color: #1d4ed8; }
+.qtype-pill.cloze { background: rgba(124,58,237,0.14); color: #6d28d9; }
+.qtype-pill.reorder { background: rgba(217,119,6,0.16); color: #b45309; }
+.qtype-pill.translate { background: rgba(22,163,74,0.15); color: #15803d; }
+:root[data-theme="dark"] .qtype-pill.vocab { background: rgba(96,165,250,0.22); color: #93c5fd; }
+:root[data-theme="dark"] .qtype-pill.cloze { background: rgba(167,139,250,0.22); color: #c4b5fd; }
+:root[data-theme="dark"] .qtype-pill.reorder { background: rgba(251,191,36,0.22); color: #fcd34d; }
+:root[data-theme="dark"] .qtype-pill.translate { background: rgba(74,222,128,0.22); color: #86efac; }
+
+/* Dạng 2: Câu đục lỗ A, B, C, D */
+.cloze-sentence-box {
+  background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+  border: 1.5px solid #bfdbfe;
+  border-radius: 16px;
+  padding: clamp(16px, 2.2vw, 24px);
+  text-align: center;
+  margin-bottom: 14px;
+}
+:root[data-theme="dark"] .cloze-sentence-box {
+  background: linear-gradient(135deg, rgba(30,41,70,0.95), rgba(45,31,76,0.92));
+  border-color: rgba(129,140,248,0.35);
+}
+.cloze-zh {
+  font-family: "KaiTi", "STKaiti", "Noto Serif SC", serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.55;
+  margin: 8px 0;
+}
+.cloze-blank {
+  display: inline-block;
+  min-width: 72px;
+  padding: 0 10px;
+  margin: 0 4px;
+  border-bottom: 3px solid var(--primary);
+  color: var(--primary);
+  background: rgba(37,99,235,0.1);
+  border-radius: 8px 8px 2px 2px;
+}
+.quiz-opt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.quiz-opt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 13px 15px;
+  border-radius: 14px;
+  border: 1.8px solid var(--line);
+  background: var(--glass-strong, #ffffff);
+  color: var(--ink);
+  text-align: left;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+.quiz-opt-btn:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -10px rgba(37,99,235,0.35);
+}
+.quiz-opt-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(37,99,235,0.12);
+  color: var(--primary-dark);
+  font-weight: 800;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+:root[data-theme="dark"] .quiz-opt-letter {
+  background: rgba(96,165,250,0.22);
+  color: #93c5fd;
+}
+.quiz-opt-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.quiz-opt-text strong {
+  font-family: "KaiTi", "STKaiti", serif;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.quiz-opt-text small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.quiz-opt-btn.is-correct {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+  color: #14532d !important;
+}
+.quiz-opt-btn.is-correct .quiz-opt-letter {
+  background: #16a34a !important;
+  color: #ffffff !important;
+}
+.quiz-opt-btn.is-wrong {
+  border-color: #dc2626 !important;
+  background: #fee2e2 !important;
+  color: #7f1d1d !important;
+}
+.quiz-opt-btn.is-wrong .quiz-opt-letter {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+.quiz-opt-btn.is-dim {
+  opacity: 0.55;
+}
+
+/* Dạng 3: Sắp xếp câu theo ngữ pháp */
+.reorder-tray {
+  min-height: 76px;
+  padding: 12px 14px;
+  border: 2px dashed var(--primary);
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+:root[data-theme="dark"] .reorder-tray {
+  background: rgba(15, 20, 34, 0.92);
+  border-color: rgba(96, 165, 250, 0.5);
+}
+.reorder-bank {
+  min-height: 68px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: #f8fafc;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+:root[data-theme="dark"] .reorder-bank {
+  background: rgba(26, 32, 52, 0.85);
+}
+.reorder-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1.6px solid #93c5fd;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(15,23,42,0.06);
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+:root[data-theme="dark"] .reorder-chip {
+  background: rgba(30, 41, 70, 0.96);
+  border-color: rgba(129, 140, 248, 0.45);
+}
+.reorder-chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+.reorder-chip b {
+  font-family: "KaiTi", "STKaiti", serif;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.reorder-chip small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.reorder-chip.in-tray {
+  background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+.reorder-chip.in-tray small {
+  color: rgba(255,255,255,0.85);
+}
+
+/* Dạng 4: Dịch đoạn văn */
+.translate-passage-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+  border: 1.5px solid #86efac;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+:root[data-theme="dark"] .translate-passage-box {
+  background: linear-gradient(135deg, rgba(20,56,38,0.88), rgba(25,36,68,0.9));
+  border-color: rgba(74,222,128,0.35);
+}
+.translate-passage-text {
+  font-family: "KaiTi", "STKaiti", "Noto Serif SC", serif;
+  font-size: clamp(20px, 2.3vw, 25px);
+  font-weight: 700;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 8px 0 6px;
+}
+.translate-passage-text.is-vi {
+  font-family: inherit;
+  font-size: clamp(16px, 1.7vw, 19px);
+}
+.translate-input-area {
+  width: 100%;
+  min-height: 110px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  padding: 12px 14px;
+  border: 1.8px solid var(--primary);
+  border-radius: 13px;
+  resize: vertical;
+}
+
+/* Modal Tạo Đề AI & Up Đề Word */
+.ct-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.ct-type-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 11px;
+  border-radius: 11px;
+  border: 1.5px solid var(--line);
+  background: #ffffff;
+}
+:root[data-theme="dark"] .ct-type-card {
+  background: rgba(15, 20, 34, 0.92);
+}
+.ct-type-card label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+  cursor: pointer;
+  color: var(--ink);
+}
+.ct-type-card input[type="number"] {
+  width: 58px;
+  padding: 4px 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+}
+.ct-preview-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.ct-preview-row:last-child { border-bottom: none; }
+
+@media (max-width: 768px) {
+  .quiz-opt-grid, .ct-type-grid { grid-template-columns: 1fr; }
+}
+
+
+/* ==================== LUCIAN UX/UI EXPANSION PACK v5 (120FPS GPU OPTIMIZED) ==================== */
+.u001,.u004,.u032,.u036,.u037,.u040,.u041,.u069,.u070,.u075,.u088,.u215,.u306,.u315,.u393,.u450{
+  contain:layout style;
+  -webkit-transform:translateZ(0);
+  transform:translateZ(0);
+}
+.u041-bub,.u040-hl,.u037-hl,.u070-t,.u306-rg,.u306-up,.u450-top,.u450-fab,.u215-wg,.u001-mag,.u001-float,.u069-img{
+  will-change:transform,opacity;
+  backface-visibility:hidden;
+}
+
+/* #037 Account / Workspace Switcher Menu */
+/* Lucian UX/UI Prompt #037 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#037 */
+.u037{position:relative;width:100%;margin-top:12px;z-index:45}
+.u037-menu{position:absolute;left:0;right:0;bottom:70px;padding:8px;border-radius:20px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 28px 56px -24px var(--ux-shadow-strong);
+  transform-origin:28px 100%;opacity:0;transform:translateY(10px) scale(.92);visibility:hidden;transition:opacity .2s var(--ux-ease),transform .45s var(--ux-spring),visibility 0s .45s}
+.u037.is-open .u037-menu{opacity:1;transform:none;visibility:visible;transition:opacity .2s var(--ux-ease),transform .5s var(--ux-spring)}
+.u037-sec{margin:4px 10px 6px;font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--ux-ink-3)}
+.u037-list{position:relative;margin:0;padding:0;list-style:none}
+.u037-hl{position:absolute;left:0;right:0;top:0;height:var(--h,46px);border-radius:13px;background:var(--ux-surface-2);transform:translateY(var(--y,0));opacity:0;transition:transform .3s var(--ux-spring),height .3s var(--ux-spring),opacity .2s;pointer-events:none}
+.u037-list.is-hl .u037-hl{opacity:1}
+.u037-it{position:relative;display:flex;align-items:center;justify-content:flex-start;gap:10px;width:100%;height:46px;min-height:46px!important;padding:0 10px;border:0;border-radius:13px;background:none;color:var(--ux-ink);font-size:13px;font-weight:630;text-align:left;
+  opacity:0;transform:translateY(8px);transition:opacity .25s var(--ux-ease),transform .45s var(--ux-spring)}
+.u037.is-open .u037-it{opacity:1;transform:none;transition-delay:calc(var(--i) * 32ms)}
+.u037-ws{width:30px;height:30px;flex:none;border-radius:9px;display:grid;place-items:center;font-size:12.5px;font-weight:800;color:#fff;background:var(--c)}
+.u037-it small{display:block;font-size:11px;font-weight:500;color:var(--ux-ink-3)}
+.u037-ck{margin-left:auto;width:16px;height:16px;fill:none;stroke:var(--ux-accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.4);transition:opacity .2s,transform .4s var(--ux-spring)}
+.u037-it[aria-checked="true"] .u037-ck{opacity:1;transform:none}
+.u037-ico{width:28px;height:28px;flex:none;display:grid;place-items:center;color:var(--ux-ink-2)}
+.u037-ico svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.u037-it.out{color:var(--ux-danger)}
+.u037-it.out .u037-ico{color:var(--ux-danger)}
+.u037-sep{height:1px;margin:5px 8px;background:var(--ux-line)}
+.u037-chip{position:relative;width:100%;display:flex;align-items:center;justify-content:flex-start;gap:10px;height:60px;min-height:60px!important;padding:0 12px 0 10px;border:0;border-radius:16px;background:var(--ux-surface);color:var(--ux-ink);text-align:left;
+  box-shadow:0 0 0 1px var(--ux-line),0 14px 28px -18px var(--ux-shadow-strong);transition:transform .4s var(--ux-spring),box-shadow .3s}
+.u037-chip:hover{box-shadow:0 0 0 1px var(--ux-line-2),0 16px 32px -18px var(--ux-shadow-strong)}
+.u037-chip:active{transform:scale(.98)}
+.u037-chip .u037-ws{width:36px;height:36px;border-radius:11px;font-size:14.5px;transition:background .4s var(--ux-ease)}
+.u037-chip b{display:block;font-size:13.5px;font-weight:720;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u037-chip small{display:block;margin-top:1px;font-size:11px;color:var(--ux-ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u037-car{margin-left:auto;width:18px;height:18px;flex:none;fill:none;stroke:var(--ux-ink-3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ux-spring)}
+.u037.is-open .u037-car{transform:rotate(180deg)}
+
+/* #040 Collapsible Rail Toggle on Sidebar */
+/* Lucian UX/UI Prompt #040 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#040 */
+.u040-rail-bar{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 8px;border-bottom:1px solid var(--ux-line);margin-bottom:8px}
+.u040-tog-btn{width:28px;height:28px;min-height:28px!important;padding:0;border:0;border-radius:8px;background:var(--ux-surface-2);color:var(--ux-ink-2);display:grid;place-items:center;transition:transform .45s var(--ux-spring),background .2s}
+.u040-tog-btn:hover{background:var(--ux-accent-soft);color:var(--ux-accent)}
+.u040-tog-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ux-spring)}
+.layout-container.rail-compact{grid-template-columns:76px minmax(0,1fr)}
+.layout-container.rail-compact .u040-tog-btn svg{transform:rotate(180deg)}
+.layout-container.rail-compact .side-label,.layout-container.rail-compact .side-badge,.layout-container.rail-compact .u037-chip span:nth-child(2),.layout-container.rail-compact .u037-car{display:none!important}
+.layout-container.rail-compact .side-btn{justify-content:center;padding:10px 4px;font-size:18px}
+.layout-container.rail-compact .side-btn span:first-child{max-width:24px;overflow:hidden;white-space:nowrap}
+.layout-container.rail-compact .u037-chip{justify-content:center;padding:0}
+@media(max-width:1100px){.u040-rail-bar{display:none}}
+
+/* #041 Notched Bottom Tab Bar (Mobile) */
+/* Lucian UX/UI Prompt #041 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#041 */
+.u041{--x:40px;position:fixed;left:8px;right:8px;bottom:calc(6px + env(safe-area-inset-bottom));height:76px;display:none;align-items:flex-end;z-index:230}
+@media(max-width:768px){
+  .mobile-bottom-dock{display:none!important}
+  .u041{display:flex}
+}
+.u041-bar{position:relative;width:100%;height:70px;border-radius:24px;background:var(--ux-surface);
+  -webkit-mask:radial-gradient(circle 36px at var(--x) -3px,transparent 96%,#000 100%);mask:radial-gradient(circle 36px at var(--x) -3px,transparent 96%,#000 100%);
+  box-shadow:0 0 0 1px var(--ux-line)}
+.u041-shadow{position:absolute;left:0;right:0;bottom:0;height:70px;border-radius:24px;box-shadow:0 18px 34px -18px var(--ux-shadow-strong);pointer-events:none}
+.u041-bub{position:absolute;left:var(--x);top:calc(100% - 70px - 28px);width:54px;height:54px;margin-left:-27px;border-radius:50%;background:var(--ux-grad);box-shadow:0 12px 22px -10px rgba(37,99,235,.65);pointer-events:none}
+.u041-tabs{position:absolute;left:0;right:0;bottom:0;height:70px;display:flex;margin:0;padding:0 6px;list-style:none}
+.u041-tabs>li{flex:1;display:flex}
+.u041-tab{position:relative;flex:1;height:100%;min-height:70px!important;border:0;padding:0;background:none!important;color:var(--ux-ink-3)}
+.u041-ic{position:absolute;left:50%;top:18px;width:23px;height:23px;margin-left:-11.5px;transition:transform .55s var(--ux-spring),color .3s}
+.u041-ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.u041-lab{position:absolute;left:0;right:0;bottom:9px;font-size:10px;font-weight:750;color:var(--ux-ink);opacity:0;transform:translateY(5px);transition:opacity .3s,transform .45s var(--ux-spring);white-space:nowrap}
+.u041-tab[aria-selected="true"] .u041-ic{transform:translateY(-31px);color:var(--ux-accent-ink)}
+.u041-tab[aria-selected="true"] .u041-lab{opacity:1;transform:none}
+.u041-bd{position:absolute;left:calc(50% + 5px);top:12px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--ux-danger);color:#fff;font-size:10px;font-weight:800;line-height:17px;font-style:normal;box-shadow:0 0 0 2px var(--ux-surface);transition:transform .45s var(--ux-spring),opacity .3s}
+.u041-tab[aria-selected="true"] .u041-bd{transform:scale(0);opacity:0}
+
+/* #070 Stacking Toasts */
+/* Lucian UX/UI Prompt #070 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#070 */
+.u070{position:fixed;right:14px;bottom:calc(88px + env(safe-area-inset-bottom));width:min(340px,calc(100vw - 28px));height:240px;z-index:520;pointer-events:none}
+.u070-zone{position:absolute;inset:0;outline:none;pointer-events:none}
+.u070-t{pointer-events:auto;position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:11px;min-height:60px;padding:10px 11px 10px 13px;border-radius:18px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 16px 30px -16px var(--ux-shadow-strong);transform-origin:50% 100%;transform:translate(var(--dx,0px),var(--y,0px)) scale(var(--s,1));opacity:var(--o,1);transition:transform .5s var(--ux-spring),opacity .35s;touch-action:pan-y;user-select:none}
+.u070-t.drag{transition:none}
+.u070-t.enter{transform:translateY(80px) scale(.9);opacity:0}
+.u070-t.leave{transform:translate(var(--dx,0px),var(--y,0px)) scale(var(--s,1));opacity:0;pointer-events:none}
+.u070-t.leave.side{transform:translate(calc(var(--dir,1) * 400px),var(--y,0px)) rotate(calc(var(--dir,1) * 8deg))}
+.u070-t.back>*{opacity:0}
+.u070-ic{width:34px;height:34px;flex:none;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c)}
+.u070-ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.u070-tx{flex:1;min-width:0}
+.u070-tx b{display:block;font-size:13px;font-weight:750;color:var(--ux-ink)}
+.u070-tx small{display:block;margin-top:2px;font-size:12px;font-weight:550;color:var(--ux-ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.u070-x{width:28px;height:28px;min-height:28px!important;flex:none;border:0;padding:0;border-radius:50%;display:grid;place-items:center;background:none;color:var(--ux-ink-3)}
+.u070-x svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.u070-bar{position:absolute;left:14px;right:14px;bottom:0;height:2.5px;border-radius:2px;background:var(--c);opacity:.65;transform-origin:0 50%;transform:scaleX(var(--left,1))}
+
+/* #001 Liquid Glass Button */
+/* Lucian UX/UI Prompt #001 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#001 */
+.u001{--g1:rgba(255,255,255,.78);--g2:rgba(255,255,255,.28);--g3:rgba(255,255,255,.5);--hi:rgba(255,255,255,.95);--rim:rgba(37,99,235,.35);--drop:rgba(37,99,235,.28);position:relative;display:inline-grid;place-items:center;isolation:isolate}
+:root[data-theme="dark"] .u001{--g1:rgba(255,255,255,.18);--g2:rgba(255,255,255,.04);--g3:rgba(255,255,255,.1);--hi:rgba(255,255,255,.45);--rim:rgba(183,164,255,.32);--drop:rgba(0,0,0,.65)}
+.u001-mag{transition:transform .5s var(--ux-spring)}
+.u001-btn{position:relative;display:block;width:210px;height:44px;min-height:44px!important;padding:0;border:0;border-radius:999px;overflow:hidden;isolation:isolate;color:var(--ux-ink);
+  background:linear-gradient(150deg,var(--g1),var(--g2) 55%,var(--g3));
+  -webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%);
+  box-shadow:inset 0 1.5px 0 var(--hi),inset 0 -8px 16px -10px var(--hi),inset 0 0 0 1px var(--rim),0 14px 28px -16px var(--drop);
+  transition:width .55s var(--ux-ease),transform .45s var(--ux-spring),box-shadow .45s var(--ux-ease)}
+.u001-btn::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(100px 50px at var(--mx,50%) var(--my,0%),rgba(255,255,255,.45),transparent 70%)}
+.u001-btn:hover::after{opacity:1}
+.u001-btn:active{transform:scale(.96)}
+.u001-txt,.u001-done{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13.5px;font-weight:750;white-space:nowrap;transition:opacity .3s var(--ux-ease),transform .45s var(--ux-ease)}
+.u001-done{opacity:0;transform:translateY(12px)}
+.u001-done b{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--ux-mint);color:#fff}
+.u001-done svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.u001-spin{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;opacity:0;transform:scale(.5);transition:opacity .3s,transform .5s var(--ux-spring)}
+.u001-spin svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;animation:u001-rot .9s linear infinite}
+@keyframes u001-rot{to{transform:rotate(360deg)}}
+.u001[data-state="load"] .u001-btn{width:44px;cursor:progress}
+.u001[data-state="load"] .u001-txt{opacity:0;transform:translateY(-12px)}
+.u001[data-state="load"] .u001-spin{opacity:1;transform:none}
+.u001[data-state="ok"] .u001-txt{opacity:0;transform:translateY(-12px)}
+.u001[data-state="ok"] .u001-done{opacity:1;transform:none}
+
+/* #004 Progress Download Button */
+/* Lucian UX/UI Prompt #004 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#004 */
+.u004{--bar:linear-gradient(90deg,var(--ux-accent),var(--ux-accent-2) 60%,var(--ux-mint));display:inline-flex;align-items:center}
+.u004-btn{--p:0;position:relative;width:196px;height:42px;min-height:42px!important;border:0;padding:0;border-radius:999px;background:var(--ux-ink);color:var(--ux-page);overflow:hidden;isolation:isolate;
+  box-shadow:0 12px 24px -14px var(--ux-shadow-strong);transition:width .55s var(--ux-ease),transform .45s var(--ux-spring),background-color .45s var(--ux-ease)}
+.u004-idle,.u004-run,.u004-ok{position:absolute;inset:0;display:flex;align-items:center;transition:opacity .3s var(--ux-ease),transform .45s var(--ux-ease)}
+.u004-idle{gap:8px;padding:0 14px 0 6px}
+.u004-arw{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--ux-page) 16%,transparent)}
+.u004-arw svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.u004-idle b{font-size:13px;font-weight:750}
+.u004-idle small{margin-left:auto;font-size:10.5px;opacity:.65}
+.u004-track{position:absolute;inset:0;background:color-mix(in srgb,var(--ux-ink) 88%,var(--ux-page));opacity:0;transition:opacity .35s}
+.u004-bar{position:absolute;inset:0;background:var(--bar);transform-origin:0 50%;transform:scaleX(var(--p))}
+.u004-run{justify-content:space-between;padding:0 16px;opacity:0;transform:translateY(10px);color:#fff}
+.u004-run b{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.u004-run small{font-size:11px;opacity:.85}
+.u004-ok{justify-content:center;gap:7px;opacity:0;transform:scale(.6);color:var(--ux-accent-ink)}
+.u004-ok svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.u004-ok span{font-size:13px;font-weight:750;max-width:0;overflow:hidden;opacity:0;transition:max-width .5s var(--ux-ease),opacity .35s}
+.u004[data-state="run"] .u004-idle{opacity:0;transform:translateY(-10px)}
+.u004[data-state="run"] .u004-track,.u004[data-state="run"] .u004-run{opacity:1;transform:none}
+.u004[data-state="fold"] .u004-idle,.u004[data-state="done"] .u004-idle{opacity:0}
+.u004[data-state="fold"] .u004-btn{width:42px;background:var(--ux-mint)}
+.u004[data-state="fold"] .u004-ok,.u004[data-state="done"] .u004-ok{opacity:1;transform:none}
+.u004[data-state="done"] .u004-btn{background:var(--ux-mint)}
+.u004[data-state="done"] .u004-ok span{max-width:150px;opacity:1}
+
+/* #088 Empty Folder That Swallows Paper */
+/* Lucian UX/UI Prompt #088 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#088 */
+.u088{position:relative;width:100%;max-width:420px;min-height:260px;margin:8px auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;text-align:center}
+.u088-art{position:relative;width:140px;height:110px}
+.u088-fl{animation:u088-f 5s ease-in-out infinite}
+@keyframes u088-f{50%{transform:translateY(-6px)}}
+.u088-art svg{display:block;width:140px;height:104px;overflow:visible;transform-origin:50% 92%}
+.u088-front,.u088-pp{transform-box:fill-box;transform-origin:50% 100%;transition:transform .5s var(--ux-spring)}
+.u088:has(.u088-tpl button:hover) .u088-front{transform:skewX(-7deg) scaleY(.86)}
+.u088:has(.u088-tpl button:hover) .u088-pp.a{transform:translateY(-9px) rotate(-5deg)}
+.u088:has(.u088-tpl button:hover) .u088-pp.b{transform:translateY(-5px) rotate(4deg)}
+.u088-t{margin:8px 0 0;font-size:16.5px;font-weight:800;color:var(--ux-ink)}
+.u088-s{margin:4px 0 0;font-size:13px;color:var(--ux-ink-2)}
+.u088-tpl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.u088-tpl button{height:38px;min-height:38px!important;padding:0 13px 0 8px;border:0;border-radius:12px;display:inline-flex;align-items:center;gap:7px;background:var(--ux-surface-2);font-size:13px;font-weight:700;color:var(--ux-ink);box-shadow:0 0 0 1px var(--ux-line);transition:transform .35s var(--ux-spring)}
+.u088-tpl button:hover{transform:translateY(-2px)}
+.u088-tpl i{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:var(--c);color:#fff}
+
+/* #315 Drag-to-Trash Bin */
+/* Lucian UX/UI Prompt #315 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#315 */
+.u315-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--ux-line-2)}
+.u315-bin{position:relative;width:54px;height:60px;min-height:60px!important;border:0;padding:0;background:none!important;flex:none}
+.u315-bin svg{width:100%;height:100%;overflow:visible}
+.u315-lid{fill:var(--ux-ink-2);transform-box:view-box;transform-origin:58px 22px;transition:transform .25s var(--ux-ease)}
+.u315-can{fill:var(--ux-surface-3);stroke:var(--ux-ink-2);stroke-width:2.5}
+.u315-bin.hot .u315-can{fill:color-mix(in srgb,var(--ux-danger) 18%,var(--ux-surface-3));stroke:var(--ux-danger)}
+.u315-bin.hot .u315-lid{fill:var(--ux-danger);transform:translateY(-5px) rotate(28deg)}
+.u315-n{position:absolute;right:-4px;top:2px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--ux-danger);color:#fff;font-size:11px;font-weight:800;line-height:20px;text-align:center;transform:scale(0);transition:transform .4s var(--ux-spring)}
+.u315-n.on{transform:scale(1)}
+
+/* #036 Password Strength Meter */
+/* Lucian UX/UI Prompt #036 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#036 */
+.u036{--lv:var(--ux-line-2);margin-top:8px}
+.u036-meter{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.u036-meter i{height:6px;border-radius:4px;background:var(--ux-surface-3);overflow:hidden;position:relative}
+.u036-meter i::after{content:"";position:absolute;inset:0;background:var(--lv);transform:scaleX(0);transform-origin:0 50%;transition:transform .4s var(--ux-ease),background-color .35s}
+.u036-meter i.on::after{transform:none}
+.u036-lv{display:flex;justify-content:space-between;margin:6px 2px 0;font-size:12px;font-weight:650;color:var(--ux-ink-3)}
+.u036-lv b{color:var(--lv);transition:color .35s}
+
+/* #069 Avatar Crop Editor */
+/* Lucian UX/UI Prompt #069 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#069 */
+.u069{position:relative;width:100%;margin-top:12px;padding:14px;border-radius:18px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line);display:none;flex-direction:column;align-items:center}
+.u069.is-open{display:flex}
+.u069-crop{position:relative;width:210px;height:210px;border-radius:20px;overflow:hidden;background:#0D0C14;cursor:grab;touch-action:none}
+.u069-crop.drag{cursor:grabbing}
+.u069-img{position:absolute;left:0;top:0;width:210px;height:210px;transition:transform .45s var(--ux-spring)}
+.u069-crop.drag .u069-img,.u069-crop.now .u069-img{transition:none}
+.u069-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 90px at 50% 50%,transparent 99.3%,rgba(8,6,16,.62) 100%)}
+.u069-ring{position:absolute;left:15px;top:15px;width:180px;height:180px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.85);pointer-events:none}
+.u069-grid{position:absolute;left:15px;top:15px;width:180px;height:180px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .2s;background:linear-gradient(90deg,transparent 33%,rgba(255,255,255,.45) 33.5%,transparent 34%,transparent 66%,rgba(255,255,255,.45) 66.5%,transparent 67%),linear-gradient(0deg,transparent 33%,rgba(255,255,255,.45) 33.5%,transparent 34%,transparent 66%,rgba(255,255,255,.45) 66.5%,transparent 67%)}
+.u069-crop.drag .u069-grid{opacity:1}
+.u069-tools{display:flex;align-items:center;gap:8px;width:210px;margin-top:10px}
+.u069-z{flex:1;padding:0!important;border:0!important}
+.u069-acts{display:flex;gap:8px;width:100%;margin-top:10px}
+
+/* #075 Upload Progress Panel */
+/* Lucian UX/UI Prompt #075 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#075 */
+.u075{width:100%;margin-top:10px;display:none}
+.u075.is-on{display:block}
+.u075-pan{border-radius:16px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line);overflow:hidden}
+.u075-hd{display:flex;align-items:center;gap:10px;width:100%;height:54px;min-height:54px!important;padding:0 12px;border:0;background:none!important;text-align:left}
+.u075-ring{position:relative;width:32px;height:32px;flex:none}
+.u075-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.u075-ring circle{fill:none;stroke-width:3.5}
+.u075-ring .t{stroke:var(--ux-surface-3)}
+.u075-ring .p{stroke:var(--ux-accent);stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,0) * 100)}
+.u075-ht{flex:1;min-width:0}
+.u075-ht b{display:block;font-size:13px;font-weight:800;color:var(--ux-ink)}
+.u075-ht small{display:block;font-size:11.5px;color:var(--ux-ink-3)}
+.u075-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .4s var(--ux-ease)}
+.u075.is-fold .u075-body{grid-template-rows:0fr}
+.u075-body>ul{min-height:0;overflow:hidden;margin:0;padding:0 8px;list-style:none}
+.u075-f{display:flex;align-items:center;gap:10px;padding:8px 6px;border-top:1px solid var(--ux-line)}
+.u075-ic{width:30px;height:30px;flex:none;border-radius:8px;display:grid;place-items:center;background:var(--c);color:#fff;font-size:9px;font-weight:800}
+.u075-fx{flex:1;min-width:0}
+.u075-fx>b{display:flex;justify-content:space-between;font-size:12.5px}
+.u075-bar{display:block;height:4px;margin-top:5px;border-radius:3px;background:var(--ux-surface-3);overflow:hidden}
+.u075-bar i{display:block;height:100%;width:100%;background:var(--ux-accent);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.u075-f.ok .u075-bar i{background:var(--ux-mint)}
+
+/* #306 Orbiting Integrations + #393 Platform-Aware Download */
+/* Lucian UX/UI Prompt #306 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#306 */
+.u306{position:relative;width:100%;max-width:340px;height:300px;margin:0 auto;border-radius:24px;overflow:hidden;background:radial-gradient(60% 50% at 50% 62%,var(--ux-accent-soft),transparent 75%),var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line);color:var(--ux-ink)}
+.u306-hd{position:absolute;left:0;right:0;top:16px;z-index:3;text-align:center}
+.u306-hd small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ux-accent)}
+.u306-hd h3{margin:3px 0 0;font-size:16.5px;font-weight:850}
+.u306-cp{display:block;height:16px;margin-top:4px;font-size:11.5px;font-weight:650;color:var(--ux-ink-2)}
+.u306-st{position:absolute;left:50%;top:188px;width:0;height:0}
+.u306-rg{position:absolute;left:0;top:0;width:0;height:0;animation:u306-r var(--t) linear infinite;animation-direction:var(--dir)}
+.u306-rg::before{content:"";position:absolute;left:calc(var(--r) * -1);top:calc(var(--r) * -1);width:calc(var(--r) * 2);height:calc(var(--r) * 2);border-radius:50%;border:1px dashed color-mix(in srgb,var(--ux-ink) 16%,transparent)}
+.u306.is-hold .u306-rg,.u306.is-hold .u306-up{animation-play-state:paused}
+@keyframes u306-r{to{transform:rotate(360deg)}}
+.u306-sl{position:absolute;left:0;top:0}
+.u306-up{position:absolute;left:-17px;top:-17px;animation:u306-r var(--t) linear infinite;animation-direction:var(--rdir)}
+.u306-ic{display:grid;place-items:center;width:34px;height:34px;min-height:34px!important;padding:0;border:0;border-radius:10px;background:var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line),0 6px 14px -6px var(--ux-shadow-strong);color:var(--c);transition:transform .3s var(--ux-spring)}
+.u306-ic.is-on{transform:scale(1.2);box-shadow:0 0 0 2px var(--c)}
+.u306-ic svg{width:16px;height:16px}
+.u306-hb{position:absolute;left:-26px;top:-26px;width:52px;height:52px;border-radius:16px;background:var(--ux-grad);display:grid;place-items:center;color:#fff;font-family:"KaiTi",serif;font-size:24px;font-weight:800;z-index:2}
+.u306-ln{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.u306-ln path{fill:none;stroke-width:2;stroke-linecap:round;stroke-dasharray:3 7;opacity:0;transition:opacity .2s}
+.u306-ln path.is-on{opacity:1;animation:u306-fl .6s linear infinite}
+@keyframes u306-fl{to{stroke-dashoffset:-10}}
+
+/* Lucian UX/UI Prompt #393 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#393 */
+.u393{position:relative;width:100%;max-width:340px;min-height:300px;margin:0 auto;padding:18px 14px;border-radius:24px;overflow:hidden;background:radial-gradient(70% 50% at 50% 0%,var(--ux-accent-soft),transparent 70%),var(--ux-surface);box-shadow:0 0 0 1px var(--ux-line);color:var(--ux-ink);text-align:center}
+.u393-tp small{font-size:10px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:var(--ux-accent)}
+.u393-tp h3{margin:4px 0 0;font-size:17px;font-weight:900}
+.u393-tl{position:relative;display:inline-flex;margin-top:12px;padding:3px;border-radius:12px;background:var(--ux-surface-2);box-shadow:inset 0 0 0 1px var(--ux-line)}
+.u393-pl{position:absolute;left:3px;top:3px;bottom:3px;width:calc((100% - 6px) / 3);border-radius:9px;background:var(--ux-surface);box-shadow:0 1px 4px -1px var(--ux-shadow-strong);transition:transform .35s cubic-bezier(.3,1.3,.5,1)}
+.u393-tb{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:4px;width:82px;height:28px;min-height:28px!important;padding:0;border:0;border-radius:9px;background:none!important;color:var(--ux-ink-3);font-size:11px;font-weight:800}
+.u393-tb[aria-selected="true"]{color:var(--ux-ink)}
+.u393-dl{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:224px;height:46px;min-height:46px!important;margin-top:14px;border:0;border-radius:14px;background:var(--ux-ink)!important;color:var(--ux-surface)!important;font-size:13.5px;font-weight:800;overflow:hidden;transition:background .35s,transform .15s}
+.u393-dl.is-ok{background:var(--ux-mint)!important;color:#fff!important}
+.u393-mt{margin-top:7px;font-size:11px;font-weight:650;color:var(--ux-ink-3)}
+.u393-st{display:flex;justify-content:center;gap:6px;margin-top:12px;text-align:left}
+.u393-sp{flex:1;padding:7px;border-radius:10px;background:var(--ux-surface-2);box-shadow:inset 0 0 0 1px var(--ux-line);opacity:.45;transform:translateY(5px);transition:opacity .35s,transform .45s cubic-bezier(.3,1.4,.5,1)}
+.u393-sp.is-on{opacity:1;transform:none;box-shadow:inset 0 0 0 1.5px var(--ux-accent)}
+.u393-sp i{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--ux-accent);color:#fff;font-style:normal;font-size:9px;font-weight:900}
+.u393-sp b{display:block;margin-top:4px;font-size:10.5px;font-weight:800}
+.u393-sp small{display:block;font-size:9.5px;line-height:1.25;color:var(--ux-ink-3)}
+
+/* #450 + #215 Floating Back-to-Top + Support Chat Launcher */
+/* Lucian UX/UI Prompt #450 + #215 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#450 */
+.u450{position:fixed;right:16px;bottom:calc(88px + env(safe-area-inset-bottom));width:56px;height:112px;z-index:240;pointer-events:none}
+.u450-top{pointer-events:auto;position:absolute;right:6px;bottom:64px;width:44px;height:44px;min-height:44px!important;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:var(--ux-surface);color:var(--ux-ink);box-shadow:0 0 0 1px var(--ux-line),0 10px 22px -12px var(--ux-shadow-strong);transition:transform .45s var(--ux-spring),opacity .25s}
+.u450-top>*{grid-area:1/1}
+.u450-top svg.rg{position:absolute;inset:0;width:44px;height:44px;transform:rotate(-90deg)}
+.u450-top .rg circle{fill:none;stroke-width:2.5}
+.u450-top .rg .tr{stroke:var(--ux-line)}
+.u450-top .rg .pr{stroke:var(--ux-accent);stroke-linecap:round;stroke-dasharray:122.5;stroke-dashoffset:calc(122.5 * (1 - var(--p,0)))}
+.u450-top svg.ar{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.u450-top.is-hide,.u450.is-open .u450-top{transform:translateY(10px) scale(.6);opacity:0;visibility:hidden}
+.u450-fab{pointer-events:auto;position:absolute;right:0;bottom:0;width:54px;height:54px;border-radius:27px;background:var(--ux-accent);box-shadow:0 14px 28px -12px var(--ux-accent);overflow:hidden;transition:width .55s var(--ux-spring),height .55s var(--ux-spring),border-radius .4s var(--ux-ease),background .18s}
+.u450.is-open .u450-fab{width:300px;height:310px;border-radius:22px;background:var(--ux-surface);box-shadow:0 24px 48px -20px var(--ux-shadow-strong),0 0 0 1px var(--ux-line)}
+.u450-open{position:absolute;right:0;bottom:0;width:54px;height:54px;min-height:54px!important;display:grid;place-items:center;padding:0;border:0;border-radius:27px;background:none!important;color:#fff}
+.u450-open svg{width:24px;height:24px}
+.u450-open svg path{fill:currentColor}
+.u450-open svg circle{fill:var(--ux-accent)}
+.u450.is-open .u450-open{opacity:0;visibility:hidden}
+.u450-p{position:absolute;right:0;bottom:0;width:300px;height:310px;display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .2s .1s}
+.u450.is-open .u450-p{opacity:1;visibility:visible}
+.u450-wh{padding:12px 14px;background:var(--ux-grad);color:#fff;display:flex;align-items:center;gap:9px}
+.u215-fs{display:flex}
+.u215-fs i{width:24px;height:24px;margin-right:-6px;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.9);display:grid;place-items:center;font-style:normal;font-size:10px;font-weight:850;color:#111}
+.u450-wh div{flex:1;min-width:0;padding-left:6px}
+.u450-wh b{display:block;font-size:13.5px;font-weight:850}
+.u450-wh small{display:flex;align-items:center;gap:4px;font-size:10.5px;opacity:.92}
+.u450-wh small::before{content:"";width:6px;height:6px;border-radius:50%;background:#4ADE80}
+.u450-x{width:28px;height:28px;min-height:28px!important;border:0;border-radius:8px;background:rgba(255,255,255,.18)!important;color:#fff!important}
+.u450-msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:10px 12px 4px}
+.u450-bb{max-width:85%;margin:0;padding:8px 10px;border-radius:13px;background:var(--ux-surface-2);font-size:12px;line-height:1.42;color:var(--ux-ink)}
+.u450-bb.is-me{align-self:flex-end;background:var(--ux-accent);color:#fff}
+.u215-ty{align-self:flex-start;display:flex;gap:3px;padding:8px 11px;border-radius:13px;background:var(--ux-surface-2)}
+.u215-ty i{width:5px;height:5px;border-radius:50%;background:var(--ux-ink-3);animation:u215-dt 1s ease-in-out infinite}
+.u215-ty i:nth-child(2){animation-delay:.15s}.u215-ty i:nth-child(3){animation-delay:.3s}
+@keyframes u215-dt{30%{transform:translateY(-4px);opacity:.6}}
+.u450-qs{display:flex;flex-wrap:wrap;gap:4px;padding:4px 12px 6px}
+.u450-qk{padding:4px 9px;min-height:26px!important;border:1px solid color-mix(in srgb,var(--ux-accent) 45%,transparent);border-radius:99px;background:var(--ux-surface);font-size:11px;font-weight:750;color:var(--ux-accent)}
+.u450-f{display:flex;gap:6px;padding:7px 10px 9px;border-top:1px solid var(--ux-line);margin:0}
+.u450-in{flex:1;min-width:0;height:34px;padding:0 10px;border:0;border-radius:10px;background:var(--ux-surface-2);font-size:12px}
+.u450-sd{width:34px;height:34px;min-height:34px!important;padding:0;border:0;border-radius:10px;background:var(--ux-accent)!important;color:#fff!important}
 </style>
+
 </head>
 <body>
 
@@ -2192,7 +2798,13 @@ body.is-admin .admin-only-block { display: block !important; }
 <div class="layout-container">
   <aside class="sidebar">
     <div class="side-card glass-bar">
-      <div class="side-label">Học tập</div>
+      <!-- Lucian UX/UI Prompt #040 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#040 -->
+      <div class="u040-rail-bar">
+        <div class="side-label" style="padding:0">Học tập</div>
+        <button type="button" class="u040-tog-btn" id="u040RailToggle" aria-expanded="true" aria-label="Thu gọn / Mở rộng thanh bên" title="Thu gọn / Mở rộng thanh bên">
+          <svg viewBox="0 0 16 16"><path d="M10 3.5L5.5 8 10 12.5"/></svg>
+        </button>
+      </div>
       <div class="side-menu">
         <button class="side-btn toolbar-4d active" data-tab="tab-test" onclick="switchTab('tab-test')">
           <span>🎯 Kiểm tra từ vựng</span>
@@ -2224,6 +2836,29 @@ body.is-admin .admin-only-block { display: block !important; }
           </button>
         </div>
       </div>
+
+      <!-- Lucian UX/UI Prompt #037 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#037 -->
+      <div class="ux u037" id="u037WorkspaceSwitcher">
+        <div class="u037-menu" role="menu" aria-label="Chuyển không gian học tập">
+          <p class="u037-sec">Không gian làm việc</p>
+          <ul class="u037-list">
+            <li class="u037-hl" role="presentation"></li>
+            <li role="none"><button class="u037-it" type="button" role="menuitemradio" aria-checked="true" style="--i:0" data-ws="汉" data-name="Kho HSK Hệ Thống" data-sub="Đồng bộ Google Drive 400GB" data-c="linear-gradient(140deg,#2563eb,#7c3aed)"><span class="u037-ws" style="--c:linear-gradient(140deg,#2563eb,#7c3aed)">汉</span><span>Kho HSK Hệ Thống<small>Đồng bộ Google Drive 400GB</small></span><svg class="u037-ck" viewBox="0 0 18 18"><path d="M4 9.5l3.5 3.5L14 6"/></svg></button></li>
+            <li role="none"><button class="u037-it" type="button" role="menuitemradio" aria-checked="false" style="--i:1" data-ws="我" data-name="Kho Từ Cá Nhân" data-sub="Tự thêm & luyện chép 2 dòng" data-c="linear-gradient(140deg,#16a34a,#0ea5e9)"><span class="u037-ws" style="--c:linear-gradient(140deg,#16a34a,#0ea5e9)">我</span><span>Kho Từ Cá Nhân<small>Tự thêm & luyện chép 2 dòng</small></span><svg class="u037-ck" viewBox="0 0 18 18"><path d="M4 9.5l3.5 3.5L14 6"/></svg></button></li>
+          </ul>
+          <div class="u037-sep" role="separator"></div>
+          <ul class="u037-list">
+            <li class="u037-hl" role="presentation"></li>
+            <li role="none"><button class="u037-it" type="button" role="menuitem" style="--i:2" onclick="openAuthModal('login')"><span class="u037-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>Hồ sơ / Đăng nhập Admin</button></li>
+            <li role="none"><button class="u037-it out" type="button" role="menuitem" style="--i:3" onclick="logoutCurrentUser()"><span class="u037-ico"><svg viewBox="0 0 24 24"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4M10 16l-4-4 4-4M6 12h10"/></svg></span>Đăng xuất</button></li>
+          </ul>
+        </div>
+        <button class="u037-chip" type="button" aria-haspopup="menu" aria-expanded="false">
+          <span class="u037-ws" style="--c:linear-gradient(140deg,#2563eb,#7c3aed)" aria-hidden="true">汉</span>
+          <span style="min-width:0"><b>Kho HSK Hệ Thống</b><small id="u037SubInfo">Chạm để đổi kho / tài khoản</small></span>
+          <svg class="u037-car" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 12l4-4 4 4"/></svg>
+        </button>
+      </div>
     </div>
   </aside>
 
@@ -2232,8 +2867,8 @@ body.is-admin .admin-only-block { display: block !important; }
     <section id="tab-test" class="tab-content active panel">
       <div class="section-header glass-bar toolbar-4d" style="margin-bottom:14px">
         <div>
-          <h2>🎯 Kiểm Tra Từ Vựng</h2>
-          <div class="small">Vẽ nét chữ Hán hoặc gõ bàn phím · Đúng +1 điểm · Sai lưu vào Chép 2 dòng</div>
+          <h2>🎯 Kiểm Tra Tổng Hợp & Từ Vựng</h2>
+          <div class="small">Từ vựng · Đục lỗ A/B/C/D · Sắp xếp câu ngữ pháp · Dịch đoạn văn · AI tạo đề & Up đề Word</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
           <button type="button" class="primary toolbar-4d" id="btnToggleTestPicker" onclick="toggleTestSetupDrawer()">📂 Chọn bài / Đề Test</button>
@@ -2261,8 +2896,9 @@ body.is-admin .admin-only-block { display: block !important; }
             <button type="button" class="clean-subtab" id="setupTabTestsBtn" onclick="switchTestSetupTab('tests')">📝 Đề Test đã tạo (<span id="generatedTestsCountBadge">0</span>)</button>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px;min-height:34px" onclick="openAiSuperModal('test')">🤖 Nhập từ (Ảnh / Word / Excel)</button>
-            <button type="button" class="primary" style="font-size:12.5px;padding:6px 12px;min-height:34px" onclick="openCreateTestModal()">➕ Tạo Test</button>
+            <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px;min-height:34px" onclick="openCreateTestModal(null, 'ai_exam')">✨ AI Tạo Đề 4 Dạng</button>
+            <button type="button" class="primary" style="font-size:12.5px;padding:6px 12px;min-height:34px" onclick="openCreateTestModal(null, 'word_exam')">📄 Up Đề từ Word</button>
+            <button type="button" style="font-size:12.5px;padding:6px 11px;min-height:34px" onclick="openAiSuperModal('test')">🤖 Nhập từ AI</button>
           </div>
         </div>
 
@@ -2354,6 +2990,7 @@ body.is-admin .admin-only-block { display: block !important; }
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
               <span class="badge default" id="activeLessonTag">Bài học</span>
+              <span class="qtype-pill vocab" id="activeQuestionTypeBadge">✍️ Từ vựng</span>
               <strong style="font-size:14px" id="testProgressLabel">Từ 0 / 0</strong>
             </div>
             <div style="display:flex;align-items:center;gap:12px">
@@ -2366,6 +3003,8 @@ body.is-admin .admin-only-block { display: block !important; }
             <div id="testProgressBar" style="height:100%;width:0%;background:linear-gradient(90deg,#2563eb,#7c3aed);transition:width .25s"></div>
           </div>
 
+          <!-- DẠNG 1: KIỂM TRA TỪ VỰNG (VIẾT / VẼ NÉT / GIỌNG NÓI) -->
+          <div id="vocabArenaWrap">
           <div class="prompt-card" style="padding:18px 16px;margin-bottom:14px">
             <div class="small" style="font-weight:700;color:var(--primary)">Viết hoặc nhập chữ Hán tương ứng:</div>
             <div class="prompt-meaning" id="promptMeaningText">—</div>
@@ -2430,6 +3069,73 @@ body.is-admin .admin-only-block { display: block !important; }
             </div>
           </div>
 
+                    </div><!-- /#vocabArenaWrap -->
+
+          <!-- DẠNG 2: CHỌN TỪ A, B, C, D (CÂU ĐỤC LỖ) -->
+          <div id="clozeArenaWrap" style="display:none">
+            <div class="cloze-sentence-box">
+              <div style="display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap">
+                <span class="small" style="font-weight:700;color:var(--primary)">Chọn đáp án A, B, C, D điền vào chỗ trống phù hợp:</span>
+                <span class="badge ai" id="clozeGrammarTag">Ngữ pháp bài học</span>
+              </div>
+              <div class="cloze-zh" id="clozeSentenceZh">—</div>
+              <div id="clozeSentencePy" style="font-size:14.5px;color:var(--accent);font-weight:600;margin-bottom:4px"></div>
+              <div id="clozeSentenceVi" class="small" style="font-size:14px;color:var(--ink);margin-bottom:8px"></div>
+              <button type="button" class="speaker-btn" onclick="speakCurrentClozeSentence()">🔊 Nghe câu mẫu</button>
+            </div>
+            <div class="quiz-opt-grid" id="clozeOptionsGrid"></div>
+          </div>
+
+          <!-- DẠNG 3: SẮP XẾP CÂU THEO NGỮ PHÁP BÀI -->
+          <div id="reorderArenaWrap" style="display:none">
+            <div class="cloze-sentence-box" style="padding:14px 16px">
+              <div style="display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+                <span class="small" style="font-weight:700;color:var(--amber)">🧩 Sắp xếp các từ bên dưới thành câu tiếng Trung đúng ngữ pháp:</span>
+                <span class="badge ai" id="reorderGrammarTag">Ngữ pháp bài học</span>
+              </div>
+              <div id="reorderHintVi" style="font-size:16.5px;font-weight:700;color:var(--ink)">—</div>
+            </div>
+
+            <label class="small" style="display:block;font-weight:700;margin-bottom:5px;color:var(--primary-dark)">Câu bạn đang xếp (Chạm vào thẻ để bỏ ra):</label>
+            <div class="reorder-tray" id="reorderAnswerTray">
+              <span class="small" style="opacity:0.75">Chạm lần lượt các thẻ từ bên dưới để ghép thành câu hoàn chỉnh...</span>
+            </div>
+
+            <label class="small" style="display:block;font-weight:700;margin-bottom:5px">Các mảnh từ cần sắp xếp:</label>
+            <div class="reorder-bank" id="reorderWordBank"></div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;align-items:center">
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <button type="button" onclick="undoReorderToken()">↩️ Lùi 1 từ</button>
+                <button type="button" class="danger" onclick="resetReorderTokens()">🗑️ Xếp lại</button>
+              </div>
+              <button type="button" class="primary" id="btnVerifyReorder" onclick="verifyReorderAnswer()" style="padding:10px 22px">✓ Kiểm tra câu (+1)</button>
+            </div>
+          </div>
+
+          <!-- DẠNG 4: DỊCH ĐOẠN VĂN (AI CHẤM ĐIỂM & GÓP Ý) -->
+          <div id="translateArenaWrap" style="display:none">
+            <div class="translate-passage-box">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+                <strong style="font-size:14px;color:var(--primary-dark)" id="translateTitleLabel">📝 Dịch đoạn văn sau:</strong>
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+                  <span class="badge ok" id="translateDirBadge">🇨🇳 Trung ➔ 🇻🇳 Việt</span>
+                  <button type="button" class="speaker-btn" id="btnSpeakTranslatePassage" onclick="speakCurrentTranslatePassage()">🔊 Nghe đoạn văn</button>
+                </div>
+              </div>
+              <div class="translate-passage-text" id="translatePassageText">—</div>
+              <div id="translatePassagePy" style="font-size:13.5px;color:var(--accent);font-weight:600"></div>
+            </div>
+
+            <label class="small" style="display:block;font-weight:700;margin-bottom:6px;color:var(--primary-dark)" id="translatePromptInstruction">Nhập bản dịch tiếng Việt của bạn:</label>
+            <textarea id="translateUserInput" class="translate-input-area" placeholder="Viết bản dịch của bạn vào đây..."></textarea>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px">
+              <button type="button" onclick="revealTranslateReference()">👁️ Xem bản dịch mẫu</button>
+              <button type="button" class="ai-btn" id="btnVerifyTranslate" onclick="verifyTranslateAnswer()" style="padding:10px 22px">🤖 AI Chấm dịch & Góp ý (+1)</button>
+            </div>
+          </div>
+
           <div class="result-feedback-box" id="resultFeedbackBox"></div>
 
           <!-- Lucian UX/UI Prompt #442 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#442 -->
@@ -2466,6 +3172,18 @@ body.is-admin .admin-only-block { display: block !important; }
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="ai-btn toolbar-4d" onclick="openAiSuperModal('copybook')">🤖 AI Quét ảnh / Nhập từ cần chép</button>
+          <!-- Lucian UX/UI Prompt #004 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#004 -->
+          <div class="ux u004" id="u004QuickDownload" data-state="idle">
+            <button class="u004-btn" type="button" aria-label="Tải nhanh phiếu ôn tập PDF">
+              <span class="u004-track" aria-hidden="true"><span class="u004-bar"></span></span>
+              <span class="u004-idle" aria-hidden="true">
+                <span class="u004-arw"><svg viewBox="0 0 24 24"><path d="M12 4.5v11M7 11l5 5 5-5"/><path d="M5 19.5h14"/></svg></span>
+                <b>Tải nhanh PDF</b><small>A4</small>
+              </span>
+              <span class="u004-run" aria-hidden="true"><b class="u004-pct">0%</b><small class="u004-eta">Đang tạo...</small></span>
+              <span class="u004-ok" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.4"/></svg><span>Đã tải xong</span></span>
+            </button>
+          </div>
           <button class="crimson toolbar-4d" id="btnExportCopybookPdf" onclick="exportCopybookToPdf()">📄 Tải PDF (.pdf)</button>
           <button class="primary toolbar-4d" id="btnExportCopybookWord" onclick="exportCopybookToWord()">📝 Tải Word (.docx)</button>
           <button class="toolbar-4d" onclick="window.print()">🖨️ In giấy</button>
@@ -2494,6 +3212,14 @@ body.is-admin .admin-only-block { display: block !important; }
           </div>
         </div>
         <div id="wrongWordsChipBar" style="display:flex;flex-wrap:wrap;gap:7px"></div>
+        <!-- Lucian UX/UI Prompt #315 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#315 -->
+        <div class="ux u315-bar" id="u315TrashDropBar">
+          <span class="small">💡 Kéo thả thẻ từ sai vào thùng rác bên phải để xóa nhanh khỏi sổ chép:</span>
+          <button class="u315-bin" id="u315TrashBinBtn" type="button" aria-label="Thùng rác xóa từ sai" title="Thả thẻ từ vào đây để xóa">
+            <svg viewBox="0 0 72 84" aria-hidden="true"><path class="u315-can" d="M12 28h48l-5 50a5 5 0 0 1-5 4H22a5 5 0 0 1-5-4z"/><g class="u315-lid"><rect x="6" y="18" width="60" height="8" rx="4"/><rect x="28" y="12" width="16" height="7" rx="3"/></g></svg>
+            <span class="u315-n" id="u315TrashCount" aria-hidden="true">0</span>
+          </button>
+        </div>
       </div>
 
       <div class="sheet-preview-wrapper" id="sheetPreviewWrapper">
@@ -2666,7 +3392,16 @@ body.is-admin .admin-only-block { display: block !important; }
           <div class="small">Mọi thay đổi tự động lưu lên Google Drive 400GB & đồng bộ tới toàn bộ học viên</div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="ai-btn" onclick="publishAdminCatalogNow()">☁️ Lưu & Đồng bộ ngay</button>
+          <!-- Lucian UX/UI Prompt #001 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#001 -->
+          <div class="ux u001" id="u001LiquidPublish" data-state="idle">
+            <div class="u001-mag">
+              <button class="u001-btn" type="button" onclick="triggerLiquidPublish001()">
+                <span class="u001-txt">☁️ Lưu & Đồng bộ ngay</span>
+                <span class="u001-spin" aria-hidden="true"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="10"/></svg></span>
+                <span class="u001-done" aria-hidden="true"><b><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.4"/></svg></b>Đã đồng bộ</span>
+              </button>
+            </div>
+          </div>
           <button class="warning" id="btnQuickAdminSwitch" onclick="toggleAdminMode()">🚪 Đăng xuất Admin</button>
         </div>
       </div>
@@ -2957,6 +3692,22 @@ body.is-admin .admin-only-block { display: block !important; }
         <div class="vocab-list" id="cloudAccountReceiptsList" style="max-height:260px;margin-top:0"></div>
       </div>
 
+      <!-- Lucian UX/UI Prompt #306 + #393 · MIT License (c) 2026 Seokwoooo -->
+      <div class="grid-2" style="margin-bottom:16px">
+        <div class="ux u306" id="u306OrbitHub">
+          <div class="u306-hd"><small>Hệ sinh thái đồng bộ</small><h3>Kết nối đa nền tảng</h3><span class="u306-cp" aria-live="polite">Chạm vào biểu tượng vệ tinh để xem trạng thái</span></div>
+          <svg class="u306-ln" viewBox="0 0 340 300" aria-hidden="true"><path d=""/></svg>
+          <div class="u306-st"><div class="u306-hb" aria-hidden="true">汉</div></div>
+        </div>
+        <div class="ux u393" id="u393PlatformDownload">
+          <div class="u393-tp"><small>Gói học Offline</small><h3>Tải bộ ôn tập cho thiết bị</h3></div>
+          <div class="u393-tl" role="tablist" aria-label="Hệ điều hành"><span class="u393-pl" aria-hidden="true"></span></div>
+          <div><button type="button" class="u393-dl"><span class="u393-sw"></span></button></div>
+          <div class="u393-mt"></div>
+          <div class="u393-st"></div>
+        </div>
+      </div>
+
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <h3 style="font-size:15px;margin:0">📜 Nhật ký chẩn đoán đồng bộ trực tiếp</h3>
         <button type="button" style="font-size:12px;padding:4px 10px;min-height:28px" onclick="$('cloudSyncLogBox').innerHTML=''">Xóa nhật ký</button>
@@ -3065,6 +3816,16 @@ body.is-admin .admin-only-block { display: block !important; }
         <p class="u432-live" role="status"></p>
       </div>
 
+      <!-- Lucian UX/UI Prompt #075 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#075 -->
+      <div class="ux u075" id="u075UploadQueuePanel">
+        <section class="u075-pan" aria-label="Tiến trình tải tệp">
+          <button class="u075-hd" type="button" aria-expanded="true">
+            <span class="u075-ring" aria-hidden="true"><svg viewBox="0 0 38 38"><circle class="t" cx="19" cy="19" r="16"/><circle class="p" cx="19" cy="19" r="16" pathLength="100"/></svg></span>
+            <span class="u075-ht"><b id="u075HeadTitle">Đang xử lý tệp tải lên</b><small id="u075HeadSub">100% sẵn sàng</small></span>
+          </button>
+          <div class="u075-body"><ul id="u075FileList"></ul></div>
+        </section>
+      </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center;justify-content:center">
         <button type="button" class="warning" style="padding:8px 14px;border-radius:10px;font-size:13px" onclick="pasteFromClipboardToTextBox()">
           📋 Dán văn bản từ bộ nhớ tạm
@@ -3153,117 +3914,225 @@ body.is-admin .admin-only-block { display: block !important; }
   </div>
 </div>
 
-<!-- ==================== MODAL TẠO TEST MỚI ==================== -->
+<!-- ==================== MODAL TẠO ĐỀ KIỂM TRA AI & UP ĐỀ WORD ==================== -->
 <div class="modal-backdrop" id="createTestModal" onclick="if(event.target===this)closeCreateTestModal()">
-  <div class="modal-card wide-ai" style="max-width:680px">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
+  <div class="modal-card wide-ai" style="max-width:780px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px">
       <div>
-        <strong style="font-size:18px;color:var(--primary-dark)">➕ Tạo Đề Kiểm Tra Từ Vựng Mới (Create Test)</strong>
-        <div class="small">Chọn từ vựng từ Kho HSK, Kho Cá nhân, Sổ từ sai hoặc tự nhập — tự động lưu và đồng bộ</div>
+        <strong style="font-size:18px;color:var(--primary-dark)">✨ Studio Tạo Đề Kiểm Tra AI & Up Đề Word</strong>
+        <div class="small">Hỗ trợ đủ 4 dạng: Từ vựng · Chọn từ A/B/C/D (Đục lỗ) · Sắp xếp câu ngữ pháp · Dịch đoạn văn</div>
       </div>
       <button type="button" onclick="closeCreateTestModal()" style="padding:4px 10px;min-height:32px">✕</button>
     </div>
 
+    <!-- Chuyển chế độ: AI Tạo Đề 4 Dạng | Up Đề từ file Word -->
+    <div class="pill-tabs" style="width:100%;margin-bottom:12px">
+      <button type="button" class="pill-tab active" id="ctModeTabAi" style="flex:1" onclick="switchCreateTestTab('ai_exam')">✨ AI Tạo Đề (4 dạng bài)</button>
+      <button type="button" class="pill-tab" id="ctModeTabWord" style="flex:1" onclick="switchCreateTestTab('word_exam')">📄 Up Đề từ File Word (.docx)</button>
+    </div>
+
     <div class="form-group">
-      <label>1️⃣ Tên đề kiểm tra (Test Title)</label>
-      <input type="text" id="ctTestTitleInput" placeholder="VD: Kiểm tra HSK 1 - Bài 1, Ôn tập từ mới tuần 1... (Để trống sẽ tự đặt tên)">
+      <label>1️⃣ Tên đề kiểm tra</label>
+      <input type="text" id="ctTestTitleInput" placeholder="VD: Đề kiểm tra tổng hợp HSK 2 - Bài 3 (Để trống AI sẽ tự đặt tên)">
     </div>
 
-    <div class="grid-2" style="gap:12px;margin-bottom:12px">
-      <div class="form-group" style="margin:0">
-        <label>2️⃣ Nguồn từ vựng để tạo Test</label>
-        <select id="ctSourceMode" onchange="onCreateTestSourceChange()">
-          <option value="admin_catalog">📚 Kho HSK hệ thống (Admin)</option>
-          <option value="personal_catalog">👤 Kho Cá nhân (HSK - Bài - Text)</option>
-          <option value="personal_set">📁 Kho Cá nhân (Bộ từ tự do)</option>
-          <option value="wrong">📌 Sổ "Chép cho nhớ" (Từ sai)</option>
-          <option value="custom_text">✍️ Tự nhập / dán chữ Hán (AI hỗ trợ dịch)</option>
-        </select>
-      </div>
-
-      <div class="form-group" style="margin:0" id="ctScopeCol">
-        <label>3️⃣ Phạm vi lấy từ</label>
-        <select id="ctCatalogScope" onchange="updateCreateTestPreview()">
-          <option value="text">📄 Chỉ mục Text đang chọn</option>
-          <option value="lesson">📖 Toàn bộ Bài học đang chọn</option>
-          <option value="hsk">📚 Toàn bộ cấp độ HSK đang chọn</option>
-          <option value="all">🌐 Toàn bộ kho</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Bộ chọn 3 tầng HSK - Bài - Text trong Modal Tạo Test -->
-    <div id="ctCatalogSelectorsBox" style="background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px">
-      <div class="grid-3" style="gap:8px">
-        <div class="form-group" style="margin:0">
-          <label>Cấp độ HSK</label>
-          <select id="ctHskSelect" onchange="onCtHskChange()"></select>
-        </div>
-        <div class="form-group" style="margin:0">
-          <label>Bài học</label>
-          <select id="ctLessonSelect" onchange="onCtLessonChange()"></select>
-        </div>
-        <div class="form-group" style="margin:0">
-          <label>Phần Text</label>
-          <select id="ctTextSelect" onchange="updateCreateTestPreview()"></select>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bộ chọn Bộ từ tự do -->
-    <div id="ctPersonalSetBox" style="display:none;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px">
-      <label style="font-size:12.5px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px">Chọn bộ từ cá nhân:</label>
-      <select id="ctPersonalSetSelect" style="width:100%" onchange="updateCreateTestPreview()"></select>
-    </div>
-
-    <!-- Khu vực tự nhập / dán chữ Hán trực tiếp -->
-    <div id="ctCustomTextBox" style="display:none;background:#f8fafc;border:1px solid #a5b4fc;border-radius:12px;padding:12px;margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">
-        <label style="font-size:12.5px;font-weight:700;color:var(--primary-dark);margin:0">Nhập / dán danh sách từ vựng (AI tự tạo Pinyin & Nghĩa nếu chỉ nhập chữ Hán):</label>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <label style="cursor:pointer;padding:4px 9px;border:1px solid #a5b4fc;background:white;border-radius:8px;font-size:12px;font-weight:700">
-            📄 Đọc Word
-            <input type="file" accept=".docx,.doc" style="display:none" onchange="handleCreateTestFileImport(event, 'word')">
-          </label>
-          <label style="cursor:pointer;padding:4px 9px;border:1px solid #a5b4fc;background:white;border-radius:8px;font-size:12px;font-weight:700">
-            📊 Đọc Excel
-            <input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleCreateTestFileImport(event, 'excel')">
-          </label>
-        </div>
-      </div>
-      <textarea id="ctCustomWordsTextarea" rows="4" style="width:100%;font-size:14px;background:white" placeholder="Mỗi dòng 1 từ hoặc cách nhau bằng dấu phẩy:&#10;你好 | nǐ hǎo | Xin chào&#10;图书馆&#10;医院, 超市, 银行" oninput="updateCreateTestPreview()"></textarea>
-    </div>
-
-    <!-- Cấu hình câu hỏi -->
-    <div style="background:#eff6ff;padding:12px;border-radius:12px;border:1px solid #bfdbfe;margin-bottom:14px">
+    <!-- ==================== TAB A: AI TẠO ĐỀ TỔNG HỢP 4 DẠNG ==================== -->
+    <div id="ctPanelAiExam">
       <div class="grid-2" style="gap:12px;margin-bottom:10px">
         <div class="form-group" style="margin:0">
-          <label>⏭️ Bỏ qua bao nhiêu từ đầu (0 = Không bỏ qua)</label>
-          <input type="number" id="ctSkipFirstInput" min="0" placeholder="0 = Bắt đầu từ từ đầu tiên" style="background:white" oninput="updateCreateTestPreview()">
+          <label>2️⃣ Nguồn từ vựng / Chủ đề cho AI tạo đề</label>
+          <select id="ctSourceMode" onchange="onCreateTestSourceChange()">
+            <option value="admin_catalog">📚 Kho HSK hệ thống (Admin)</option>
+            <option value="personal_catalog">👤 Kho Cá nhân (HSK - Bài - Text)</option>
+            <option value="personal_set">📁 Kho Cá nhân (Bộ từ tự do)</option>
+            <option value="wrong">📌 Sổ "Chép cho nhớ" (Từ sai)</option>
+            <option value="ai_topic">✨ AI tự tạo theo Chủ đề & Ngữ pháp nhập tay</option>
+            <option value="custom_text">✍️ Tự dán danh sách chữ Hán</option>
+          </select>
         </div>
-        <div class="form-group" style="margin:0">
-          <label>Giới hạn số câu hỏi (0 hoặc để trống = Lấy tất cả)</label>
-          <input type="number" id="ctMaxQuestionsInput" min="0" placeholder="0 = Lấy toàn bộ từ" style="background:white" oninput="updateCreateTestPreview()">
+
+        <div class="form-group" style="margin:0" id="ctScopeCol">
+          <label>3️⃣ Phạm vi lấy từ</label>
+          <select id="ctCatalogScope" onchange="updateCreateTestPreview()">
+            <option value="text">📄 Chỉ mục Text đang chọn</option>
+            <option value="lesson">📖 Toàn bộ Bài học đang chọn</option>
+            <option value="hsk">📚 Toàn bộ cấp độ HSK đang chọn</option>
+            <option value="all">🌐 Toàn bộ kho</option>
+          </select>
         </div>
       </div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <label class="small" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--ink)">
-          <input type="checkbox" id="ctShuffleChk" checked> 🔀 Trộn ngẫu nhiên thứ tự câu hỏi
-        </label>
-        <label class="small" style="display:inline-flex;align-items:center;gap:6px;cursor:pointer;font-weight:700;color:var(--ink)">
-          <input type="checkbox" id="ctStartNowChk" checked> 🚀 Mở làm bài kiểm tra ngay sau khi tạo
-        </label>
+
+      <!-- Bộ chọn 3 tầng HSK - Bài - Text -->
+      <div id="ctCatalogSelectorsBox" style="background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px">
+        <div class="grid-3" style="gap:8px">
+          <div class="form-group" style="margin:0">
+            <label>Cấp độ HSK</label>
+            <select id="ctHskSelect" onchange="onCtHskChange()"></select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Bài học</label>
+            <select id="ctLessonSelect" onchange="onCtLessonChange()"></select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Phần Text</label>
+            <select id="ctTextSelect" onchange="updateCreateTestPreview()"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bộ chọn Bộ từ tự do -->
+      <div id="ctPersonalSetBox" style="display:none;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px">
+        <label style="font-size:12.5px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px">Chọn bộ từ cá nhân:</label>
+        <select id="ctPersonalSetSelect" style="width:100%" onchange="updateCreateTestPreview()"></select>
+      </div>
+
+      <!-- Khu vực nhập Chủ đề AI -->
+      <div id="ctAiTopicBox" style="display:none;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1.5px solid #a5b4fc;border-radius:12px;padding:12px;margin-bottom:10px">
+        <div class="grid-2" style="gap:10px">
+          <div class="form-group" style="margin:0">
+            <label>Chủ đề / Ngữ pháp bài học muốn kiểm tra</label>
+            <input type="text" id="ctAiTopicInput" placeholder="VD: Hỏi đường & Địa điểm (HSK 2), Câu chữ 把, Đi mua sắm..." style="background:white" oninput="updateCreateTestPreview()">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Trình độ mục tiêu</label>
+            <select id="ctAiLevelSelect" style="background:white">
+              <option value="HSK 1">HSK 1 (Cơ bản)</option>
+              <option value="HSK 2" selected>HSK 2 (Sơ cấp)</option>
+              <option value="HSK 3">HSK 3 (Trung cấp 1)</option>
+              <option value="HSK 4">HSK 4 (Trung cấp 2)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Khu vực tự nhập / dán chữ Hán trực tiếp -->
+      <div id="ctCustomTextBox" style="display:none;background:#f8fafc;border:1px solid #a5b4fc;border-radius:12px;padding:10px 12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">
+          <label style="font-size:12.5px;font-weight:700;color:var(--primary-dark);margin:0">Nhập / dán danh sách từ vựng (AI tự tạo Pinyin, nghĩa & 4 dạng bài):</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <label style="cursor:pointer;padding:4px 9px;border:1px solid #a5b4fc;background:white;border-radius:8px;font-size:12px;font-weight:700">
+              📄 Đọc Word
+              <input type="file" accept=".docx,.doc" style="display:none" onchange="handleCreateTestFileImport(event, 'word')">
+            </label>
+            <label style="cursor:pointer;padding:4px 9px;border:1px solid #a5b4fc;background:white;border-radius:8px;font-size:12px;font-weight:700">
+              📊 Đọc Excel
+              <input type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleCreateTestFileImport(event, 'excel')">
+            </label>
+          </div>
+        </div>
+        <textarea id="ctCustomWordsTextarea" rows="3" style="width:100%;font-size:13.5px;background:white" placeholder="VD: 图书馆, 医院, 超市, 学习, 喜欢..." oninput="updateCreateTestPreview()"></textarea>
+      </div>
+
+      <!-- CHỌN 4 DẠNG CÂU HỎI & SỐ LƯỢNG TỪNG DẠNG -->
+      <div style="background:#eff6ff;padding:12px;border-radius:12px;border:1px solid #bfdbfe;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+          <strong style="font-size:13px;color:var(--primary-dark)">🎯 Chọn các dạng bài kiểm tra (AI tự sinh đề phù hợp ngữ pháp):</strong>
+          <select id="ctTranslateDirSelect" style="font-size:12px;padding:4px 26px 4px 8px;background:white">
+            <option value="zh2vi" selected>Dịch: 🇨🇳 Trung ➔ 🇻🇳 Việt</option>
+            <option value="vi2zh">Dịch: 🇻🇳 Việt ➔ 🇨🇳 Trung</option>
+          </select>
+        </div>
+
+        <div class="ct-type-grid">
+          <div class="ct-type-card">
+            <label><input type="checkbox" id="ctTypeVocabChk" checked onchange="updateCreateTestPreview()"> ✍️ Từ vựng (Viết/Vẽ)</label>
+            <input type="number" id="ctTypeVocabCount" min="0" max="50" value="4" title="Số câu từ vựng" oninput="updateCreateTestPreview()">
+          </div>
+          <div class="ct-type-card">
+            <label><input type="checkbox" id="ctTypeClozeChk" checked onchange="updateCreateTestPreview()"> 🔤 Đục lỗ A, B, C, D</label>
+            <input type="number" id="ctTypeClozeCount" min="0" max="50" value="4" title="Số câu đục lỗ A,B,C,D" oninput="updateCreateTestPreview()">
+          </div>
+          <div class="ct-type-card">
+            <label><input type="checkbox" id="ctTypeReorderChk" checked onchange="updateCreateTestPreview()"> 🧩 Sắp xếp câu ngữ pháp</label>
+            <input type="number" id="ctTypeReorderCount" min="0" max="30" value="3" title="Số câu sắp xếp" oninput="updateCreateTestPreview()">
+          </div>
+          <div class="ct-type-card">
+            <label><input type="checkbox" id="ctTypeTranslateChk" checked onchange="updateCreateTestPreview()"> 📝 Dịch đoạn văn</label>
+            <input type="number" id="ctTypeTranslateCount" min="0" max="10" value="1" title="Số đoạn văn dịch" oninput="updateCreateTestPreview()">
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px">
+          <label class="small" style="display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--ink)">
+            ⏭️ Bỏ qua
+            <input type="number" id="ctSkipFirstInput" min="0" value="0" style="width:58px;padding:3px 6px;text-align:center;background:white" oninput="updateCreateTestPreview()">
+            từ đầu
+          </label>
+          <input type="hidden" id="ctMaxQuestionsInput" value="0">
+          <label class="small" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:700;color:var(--ink)">
+            <input type="checkbox" id="ctShuffleChk"> 🔀 Trộn câu trong từng dạng
+          </label>
+          <label class="small" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-weight:700;color:var(--ink)">
+            <input type="checkbox" id="ctStartNowChk" checked> 🚀 Mở làm bài ngay
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <span class="badge ok" id="ctWordCountPreview" style="font-size:12.5px;padding:5px 11px">📋 Sẵn sàng tạo đề</span>
+        <button type="button" class="ai-btn" id="btnAiGenerateExamPreview" onclick="generateAiExamQuestionsPreview()" style="padding:9px 18px;font-size:13.5px">
+          ✨ AI Tạo Đề & Xem Trước
+        </button>
       </div>
     </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <span class="badge ok" id="ctWordCountPreview" style="font-size:12.5px;padding:6px 12px">📋 Sẽ tạo đề gồm: 0 câu hỏi</span>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" onclick="closeCreateTestModal()">Hủy</button>
-        <button type="button" class="ai-btn" id="btnSubmitCreateTest" onclick="submitCreateTestModal()" style="padding:10px 22px;font-size:14.5px">
-          🚀 Tạo & Lưu Test
-        </button>
+    <!-- ==================== TAB B: UP ĐỀ TRỰC TIẾP TỪ FILE WORD (.DOCX) ==================== -->
+    <div id="ctPanelWordExam" style="display:none">
+      <div class="ai-hub-box" style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+          <div>
+            <strong style="font-size:14px;color:var(--primary-dark)">📄 Tải File Word (.docx) chứa đề thi sẵn hoặc danh sách từ vựng</strong>
+            <div class="small">AI tự nhận diện câu đục lỗ A/B/C/D, câu sắp xếp (ngăn bằng /), đoạn văn dịch & từ vựng!</div>
+          </div>
+          <button type="button" style="font-size:12px;padding:6px 11px;background:white" onclick="downloadSampleWordExamTemplate()">⬇️ Tải file Word mẫu (.docx)</button>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+          <label class="primary" style="cursor:pointer;padding:9px 16px;border-radius:10px;font-size:13.5px;font-weight:700">
+            📂 Chọn file Word (.docx) từ máy
+            <input type="file" id="ctWordExamFileInput" accept=".docx,.doc,.txt" style="display:none" onchange="handleWordExamFileUpload(event)">
+          </label>
+          <select id="ctWordImportStrategy" style="font-size:12.5px;background:white">
+            <option value="auto" selected>🤖 Tự động nhận diện cấu trúc đề trong Word</option>
+            <option value="enrich_4types">✨ Nếu Word chỉ có từ vựng ➔ AI tự tạo thêm Đục lỗ + Sắp xếp + Dịch</option>
+          </select>
+        </div>
+
+        <textarea id="ctWordRawTextPreview" rows="4" style="width:100%;font-size:13px;background:white;margin-bottom:8px" placeholder="Hoặc dán trực tiếp nội dung đề thi từ Word vào đây để AI phân tích:&#10;1. 我每天去 ____ 看书。&#10;A. 图书馆  B. 医院  C. 银行  D. 商店&#10;Đáp án: A&#10;&#10;[Sắp xếp] 我 / 每天 / 去 / 图书馆 / 看书 (Đáp án: 我每天去图书馆看书。)&#10;&#10;[Dịch] 我是高中学生，每天七点去学校学习汉语。"></textarea>
+
+        <div style="display:flex;justify-content:flex-end">
+          <button type="button" class="ai-btn" id="btnParseWordExamText" onclick="parseWordExamFromTextarea()" style="padding:8px 16px;font-size:13.5px">
+            🔍 AI Phân Tích Đề Word
+          </button>
+        </div>
       </div>
+    </div>
+
+    <!-- THANH TIẾN TRÌNH TẠO ĐỀ -->
+    <div id="ctGenProgressWrap" style="display:none;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--primary-dark)">
+        <span id="ctGenProgressText">🤖 AI đang tạo câu hỏi...</span>
+        <span id="ctGenProgressPct">0%</span>
+      </div>
+      <div class="ai-progress-bar-wrap" style="margin:5px 0 0">
+        <div class="ai-progress-bar-fill" id="ctGenProgressFill"></div>
+      </div>
+    </div>
+
+    <!-- DANH SÁCH CÂU HỎI XEM TRƯỚC (CÓ THỂ XÓA TỪNG CÂU TRƯỚC KHI LƯU) -->
+    <div id="ctQuestionsPreviewSection" style="display:none;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:6px">
+        <strong style="font-size:13.5px;color:var(--green)">✅ Đề thi đã chuẩn bị (<span id="ctPreviewTotalCount">0</span> câu — Bấm ✕ nếu muốn bỏ câu):</strong>
+        <button type="button" class="danger" style="font-size:11.5px;padding:4px 9px;min-height:28px" onclick="clearCreateTestDraftQuestions()">🗑️ Xóa nháp</button>
+      </div>
+      <div class="vocab-list" id="ctPreviewQuestionsBox" style="max-height:220px;margin-top:0"></div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--line)">
+      <button type="button" onclick="closeCreateTestModal()">Đóng</button>
+      <button type="button" class="success" id="btnSubmitCreateTest" onclick="submitCreateTestModal()" style="padding:10px 22px;font-size:14.5px">
+        🚀 Lưu Đề Test & Đồng Bộ Drive
+      </button>
     </div>
   </div>
 </div>
@@ -3278,7 +4147,7 @@ body.is-admin .admin-only-block { display: block !important; }
 
     <div id="loggedInProfileBox" style="display:none;background:#eff6ff;padding:14px;border-radius:14px;border:1px solid #bfdbfe;margin-bottom:14px">
       <div style="display:flex;align-items:center;gap:12px">
-        <div class="user-avatar-mini" style="width:44px;height:44px;font-size:18px" id="modalUserAvatar">U</div>
+        <div class="user-avatar-mini" style="width:44px;height:44px;font-size:18px;cursor:pointer" id="modalUserAvatar" title="Bấm để chỉnh ảnh đại diện" onclick="$('u069AvatarCropper').classList.toggle('is-open')">U</div>
         <div>
           <strong style="display:block;font-size:16px" id="modalUserName">Học viên</strong>
           <span class="small" id="modalUserEmail">email@example.com</span>
@@ -3302,7 +4171,26 @@ body.is-admin .admin-only-block { display: block !important; }
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
         <button class="ai-btn" style="flex:1 1 100%;padding:8px" onclick="closeAuthModal();switchTab('tab-progress')">📊 Xem lại lộ trình & lịch sử học tập</button>
         <button class="danger" style="flex:1" onclick="logoutCurrentUser()">🚪 Đăng xuất</button>
+        <button type="button" style="flex:1" onclick="$('u069AvatarCropper').classList.toggle('is-open')">🖼️ Đổi Avatar</button>
         <button class="primary" style="flex:1" onclick="closeAuthModal()">Tiếp tục học</button>
+      </div>
+      <!-- Lucian UX/UI Prompt #069 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#069 -->
+      <div class="ux u069" id="u069AvatarCropper">
+        <div class="u069-crop" tabindex="0" role="application" aria-label="Kéo để căn chỉnh ảnh đại diện">
+          <div class="u069-img" id="u069ImgCanvas"></div>
+          <span class="u069-shade" aria-hidden="true"></span>
+          <span class="u069-grid" aria-hidden="true"></span>
+          <span class="u069-ring" aria-hidden="true"></span>
+        </div>
+        <div class="u069-tools">
+          <span class="small">Thu/Phóng</span>
+          <input class="u069-z" id="u069ZoomRange" type="range" min="100" max="260" value="100" aria-label="Phóng to ảnh">
+          <button type="button" id="u069RotateBtn" style="padding:5px 9px;min-height:32px;font-size:12px">↻ Xoay</button>
+        </div>
+        <div class="u069-acts">
+          <button type="button" id="u069NextThemeBtn" style="flex:1;font-size:12.5px">🎨 Đổi màu</button>
+          <button type="button" class="success" id="u069SaveAvatarBtn" style="flex:1;font-size:12.5px">✓ Lưu Avatar</button>
+        </div>
       </div>
     </div>
 
@@ -3363,6 +4251,11 @@ body.is-admin .admin-only-block { display: block !important; }
           <div class="u404-w">
             <div class="u404-f"><input class="u404-in" id="regPass" type="password" autocomplete="new-password"><label>Mật khẩu đăng ký</label>
               <button type="button" class="u404-eye" aria-label="Hiện mật khẩu" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><g class="lid"><path d="M2 10s3-5.2 8-5.2S18 10 18 10s-3 5.2-8 5.2S2 10 2 10z"/><circle cx="10" cy="10" r="2.4"/></g><g class="lash"><path d="M3 10.4c2 2.4 4.4 3.4 7 3.4s5-1 7-3.4M6 13l-1 1.6M10 14v1.8M14 13l1 1.6"/></g></svg></button>
+            </div>
+            <!-- Lucian UX/UI Prompt #036 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#036 -->
+            <div class="ux u036" id="u036PwMeter">
+              <div class="u036-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <p class="u036-lv"><span>Độ bảo mật (#036)</span><b class="u036-word">Nhập mật khẩu</b></p>
             </div>
             <div class="u404-st"><div class="u404-bars" role="meter" aria-label="Độ mạnh mật khẩu" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0"><i></i><i></i><i></i><i></i></div><em></em></div>
             <ul class="u404-rules">
@@ -3518,6 +4411,56 @@ body.is-admin .admin-only-block { display: block !important; }
 </div>
 
 <div class="toast-box" id="toastBox"></div>
+
+<!-- Lucian UX/UI Prompt #041 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#041 -->
+<div class="ux u041 no-print" id="u041MobileNav">
+  <span class="u041-shadow" aria-hidden="true"></span>
+  <div class="u041-bar" aria-hidden="true"></div>
+  <span class="u041-bub" aria-hidden="true"></span>
+  <ul class="u041-tabs" role="tablist" aria-label="Điều hướng di động">
+    <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-test" aria-selected="true"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/></svg></span><span class="u041-lab">Kiểm tra</span></button></li>
+    <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-copybook" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><em class="u041-bd" id="u041WrongBadge">0</em><span class="u041-lab">Chép 2 dòng</span></button></li>
+    <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-myvocab" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4.5-6.5 4.5v-16a1 1 0 0 1 1-1z"/></svg></span><span class="u041-lab">Kho từ</span></button></li>
+    <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-progress" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16V9M12 16V5M17 16v-4"/></svg></span><span class="u041-lab">Lộ trình</span></button></li>
+  </ul>
+</div>
+
+<!-- Lucian UX/UI Prompt #450 + #215 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#450 -->
+<div class="ux u450 no-print" id="u450FloatAssist">
+  <button type="button" class="u450-top is-hide" aria-label="Lên đầu trang">
+    <svg class="rg" viewBox="0 0 44 44" aria-hidden="true"><circle class="tr" cx="22" cy="22" r="19.5"/><circle class="pr" cx="22" cy="22" r="19.5"/></svg>
+    <svg class="ar" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 14.5V4M4.5 8 9 3.5 13.5 8"/></svg>
+  </button>
+  <div class="u450-fab">
+    <button type="button" class="u450-open" aria-label="Hỏi nhanh Trợ lý HSK" aria-expanded="false">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 3.5c5.8 0 10.5 3.9 10.5 8.8s-4.7 8.8-10.5 8.8c-1.2 0-2.4-.2-3.5-.5L4.6 22.4l1.3-4.3C4 16.5 2.5 14.5 2.5 12.3 2.5 7.4 7.2 3.5 13 3.5z"/><circle cx="8.6" cy="12.4" r="1.4"/><circle cx="13" cy="12.4" r="1.4"/><circle cx="17.4" cy="12.4" r="1.4"/></svg>
+    </button>
+    <div class="u450-p" role="dialog" aria-label="Trợ lý học HSK nhanh">
+      <div class="u450-wh">
+        <div class="u215-fs" aria-hidden="true"><i style="background:#F9A8D4">AI</i><i style="background:#A5B4FC">汉</i><i style="background:#FDE68A">语</i></div>
+        <div><b>Trợ lý AI 汉语不太难</b><small>Phản hồi tức thì · Từ điển HSK</small></div>
+        <button type="button" class="u450-x" aria-label="Đóng">✕</button>
+      </div>
+      <div class="u450-msgs" aria-live="polite">
+        <p class="u450-bb">Chào bạn! Chọn câu hỏi nhanh hoặc nhập chữ Hán để tra Pinyin & nghĩa 👋</p>
+      </div>
+      <div class="u450-qs">
+        <button type="button" class="u450-qk" data-q="In vở chép 2 dòng">In vở 2 dòng?</button>
+        <button type="button" class="u450-qk" data-q="Đồng bộ Google Drive">Đồng bộ Drive?</button>
+        <button type="button" class="u450-qk" data-q="Tạo đề AI 4 dạng">Tạo đề AI</button>
+      </div>
+      <form class="u450-f">
+        <input class="u450-in" type="text" placeholder="Gõ chữ Hán để dịch nhanh..." autocomplete="off">
+        <button type="submit" class="u450-sd" aria-label="Gửi">↑</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Lucian UX/UI Prompt #070 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#070 -->
+<div class="ux u070 no-print" id="u070ToastStack">
+  <div class="u070-zone" role="region" aria-label="Thông báo hệ thống" tabindex="-1"></div>
+</div>
 
 <footer>
   Chinese Vocab Master & AI Assistant - 汉语不太难 · Tương thích Android · iOS · iPad · Windows · Smart TV
@@ -3984,12 +4927,28 @@ function syncAdminVocabToAllAccounts(newWords = null) {
 
 function getWordsForGeneratedExam(exam) {
   if (!exam) return [];
+  if (Array.isArray(exam.questions) && exam.questions.length > 0) return exam.questions;
   if (Array.isArray(exam.words) && exam.words.length > 0) return exam.words;
   const hObj = appState.adminCatalog?.[exam.hskIndex];
   const lObj = hObj?.lessons?.[exam.lessonIndex];
   const tObj = lObj?.texts?.[exam.textIndex];
   if (tObj && Array.isArray(tObj.words) && tObj.words.length > 0) return tObj.words;
   return [];
+}
+
+function summarizeExamQuestionTypes(items = []) {
+  const c = { vocab: 0, cloze: 0, reorder: 0, translate: 0 };
+  (items || []).forEach(q => {
+    const t = q?.qType || 'vocab';
+    if (c[t] !== undefined) c[t]++;
+    else c.vocab++;
+  });
+  const parts = [];
+  if (c.vocab) parts.push(`✍️ ${c.vocab} từ`);
+  if (c.cloze) parts.push(`🔤 ${c.cloze} đục lỗ`);
+  if (c.reorder) parts.push(`🧩 ${c.reorder} sắp xếp`);
+  if (c.translate) parts.push(`📝 ${c.translate} dịch`);
+  return parts.join(' · ') || `${items.length} câu`;
 }
 
 function registerAdminGeneratedExam(hIdx, lIdx, tIdx, addedWordsCount = 0) {
@@ -6518,15 +7477,17 @@ function renderGeneratedTestsList() {
   }
 
   box.innerHTML = tests.map((ex, idx) => {
-    const wordCnt = getWordsForGeneratedExam(ex).length || ex.wordCount || 0;
-    const tagLabel = ex.sourceType === 'custom' ? 'TỰ TẠO' : (ex.sourceType === 'personal' ? 'CÁ NHÂN' : (ex.sourceType === 'wrong' ? 'TỪ SAI' : 'ĐỀ TEST'));
+    const qList = getWordsForGeneratedExam(ex);
+    const wordCnt = qList.length || ex.wordCount || 0;
+    const typeSummary = summarizeExamQuestionTypes(qList);
+    const tagLabel = ex.sourceType === 'word_exam' ? '📄 ĐỀ WORD' : (ex.sourceType === 'ai_exam' ? '✨ AI 4 DẠNG' : (ex.sourceType === 'custom' ? 'TỰ TẠO' : (ex.sourceType === 'personal' ? 'CÁ NHÂN' : (ex.sourceType === 'wrong' ? 'TỪ SAI' : 'ĐỀ TEST'))));
     return `
     <div class="exam-pill-card">
       <div style="flex:1;min-width:220px">
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
           ${idx === 0 ? '<span class="badge ok">MỚI NHẤT</span>' : `<span class="badge default">${tagLabel}</span>`}
-          <strong style="font-size:14px;color:var(--ink)">${ex.title}</strong>
-          <span class="badge ai">${wordCnt} câu hỏi</span>
+          <strong style="font-size:14px;color:var(--ink)">${escVocabHtml(ex.title)}</strong>
+          <span class="badge ai">${wordCnt} câu · ${typeSummary}</span>
         </div>
         <div class="small" style="margin-top:3px">
           ${ex.pathLabel ? `Nguồn: <b>${ex.pathLabel}</b> · ` : ''}Tạo bởi: <b>${ex.createdBy || 'Người dùng'}</b> · Lúc: ${ex.createdAt || ''}
@@ -6586,7 +7547,33 @@ function deleteAllGeneratedTests() {
   });
 }
 
-function openCreateTestModal(defaultMode = null) {
+let ctActiveTab = 'ai_exam';
+let ctDraftQuestions = [];
+
+function switchCreateTestTab(tab) {
+  ctActiveTab = tab;
+  if ($('ctModeTabAi')) $('ctModeTabAi').classList.toggle('active', tab === 'ai_exam');
+  if ($('ctModeTabWord')) $('ctModeTabWord').classList.toggle('active', tab === 'word_exam');
+  if ($('ctPanelAiExam')) $('ctPanelAiExam').style.display = tab === 'ai_exam' ? 'block' : 'none';
+  if ($('ctPanelWordExam')) $('ctPanelWordExam').style.display = tab === 'word_exam' ? 'block' : 'none';
+}
+
+function setCtProgress(visible, text = '', pct = 0) {
+  const w = $('ctGenProgressWrap');
+  if (!w) return;
+  w.style.display = visible ? 'block' : 'none';
+  if (visible) {
+    if ($('ctGenProgressText')) $('ctGenProgressText').textContent = text;
+    if ($('ctGenProgressPct')) $('ctGenProgressPct').textContent = `${pct}%`;
+    if ($('ctGenProgressFill')) $('ctGenProgressFill').style.width = `${pct}%`;
+  }
+}
+
+function openCreateTestModal(defaultMode = null, defaultTab = 'ai_exam') {
+  ctDraftQuestions = [];
+  renderCreateTestDraftPreview();
+  setCtProgress(false);
+
   const modeSel = $('ctSourceMode');
   if (modeSel) {
     if (defaultMode) {
@@ -6596,14 +7583,15 @@ function openCreateTestModal(defaultMode = null) {
     } else if (countWordsInUserPersonalCatalog(getCurrentUser()) > 0) {
       modeSel.value = 'personal_catalog';
     } else {
-      modeSel.value = 'custom_text';
+      modeSel.value = 'ai_topic';
     }
   }
   if ($('ctTestTitleInput')) $('ctTestTitleInput').value = '';
-  if ($('ctSkipFirstInput')) $('ctSkipFirstInput').value = '';
-  if ($('ctMaxQuestionsInput')) $('ctMaxQuestionsInput').value = '';
+  if ($('ctSkipFirstInput')) $('ctSkipFirstInput').value = '0';
   if ($('ctCustomWordsTextarea')) $('ctCustomWordsTextarea').value = '';
+  if ($('ctWordRawTextPreview')) $('ctWordRawTextPreview').value = '';
 
+  switchCreateTestTab(defaultTab || 'ai_exam');
   onCreateTestSourceChange();
   $('createTestModal').classList.add('open');
   setTimeout(() => $('ctTestTitleInput')?.focus(), 100);
@@ -6625,6 +7613,7 @@ function onCreateTestSourceChange() {
   if ($('ctScopeCol')) $('ctScopeCol').style.display = isCatalog ? 'block' : 'none';
   if ($('ctCatalogSelectorsBox')) $('ctCatalogSelectorsBox').style.display = isCatalog ? 'block' : 'none';
   if ($('ctPersonalSetBox')) $('ctPersonalSetBox').style.display = mode === 'personal_set' ? 'block' : 'none';
+  if ($('ctAiTopicBox')) $('ctAiTopicBox').style.display = mode === 'ai_topic' ? 'block' : 'none';
   if ($('ctCustomTextBox')) $('ctCustomTextBox').style.display = mode === 'custom_text' ? 'block' : 'none';
 
   if (isCatalog) {
@@ -6691,7 +7680,7 @@ function collectCreateTestWordsSync() {
   let words = [];
   let autoTitle = '';
   let pathLabel = '';
-  let sourceType = 'custom';
+  let sourceType = 'ai_exam';
   let metaIdx = { hskIndex: 0, lessonIndex: 0, textIndex: 0 };
 
   if (mode === 'admin_catalog' || mode === 'personal_catalog') {
@@ -6701,7 +7690,6 @@ function collectCreateTestWordsSync() {
     const lIdx = parseInt($('ctLessonSelect')?.value || '0', 10);
     const tIdx = parseInt($('ctTextSelect')?.value || '0', 10);
     metaIdx = { hskIndex: hIdx, lessonIndex: lIdx, textIndex: tIdx };
-    sourceType = mode === 'admin_catalog' ? 'admin' : 'personal';
 
     const hObj = cat[hIdx];
     const lObj = hObj?.lessons?.[lIdx];
@@ -6710,75 +7698,107 @@ function collectCreateTestWordsSync() {
     if (scope === 'text' && tObj) {
       words = [...(tObj.words || [])];
       pathLabel = `${hObj.hsk} · ${lObj.name} · ${tObj.name}`;
-      autoTitle = `Test: ${pathLabel}`;
+      autoTitle = `Đề tổng hợp: ${pathLabel}`;
     } else if (scope === 'lesson' && lObj) {
       (lObj.texts || []).forEach(t => words.push(...(t.words || [])));
       pathLabel = `${hObj.hsk} · ${lObj.name} (Toàn bài)`;
-      autoTitle = `Test: ${pathLabel}`;
+      autoTitle = `Đề tổng hợp: ${pathLabel}`;
     } else if (scope === 'hsk' && hObj) {
       (hObj.lessons || []).forEach(l => (l.texts || []).forEach(t => words.push(...(t.words || []))));
       pathLabel = `Toàn bộ ${hObj.hsk}`;
-      autoTitle = `Test tổng hợp ${hObj.hsk}`;
+      autoTitle = `Đề tổng hợp ${hObj.hsk}`;
     } else {
       cat.forEach(h => (h.lessons || []).forEach(l => (l.texts || []).forEach(t => words.push(...(t.words || [])))));
-      pathLabel = mode === 'admin_catalog' ? 'Toàn bộ Kho HSK Admin' : 'Toàn bộ Kho HSK Cá nhân';
-      autoTitle = `Test tổng hợp (${pathLabel})`;
+      pathLabel = mode === 'admin_catalog' ? 'Kho HSK Admin' : 'Kho HSK Cá nhân';
+      autoTitle = `Đề tổng hợp (${pathLabel})`;
     }
   } else if (mode === 'personal_set') {
     const pIdx = parseInt($('ctPersonalSetSelect')?.value || '0', 10);
     const pSet = user.personalSets?.[pIdx];
-    sourceType = 'personal';
     if (pSet) {
       words = [...(pSet.words || [])];
       pathLabel = `Bộ từ: ${pSet.name}`;
-      autoTitle = `Test: ${pSet.name}`;
+      autoTitle = `Đề tổng hợp: ${pSet.name}`;
     }
   } else if (mode === 'wrong') {
     sourceType = 'wrong';
     words = [...(user.wrongWords || [])];
     pathLabel = 'Sổ Chép cho nhớ (Từ sai)';
-    autoTitle = `Test ôn lại từ sai (${new Date().toLocaleDateString('vi-VN')})`;
+    autoTitle = `Đề ôn từ sai (${new Date().toLocaleDateString('vi-VN')})`;
+  } else if (mode === 'ai_topic') {
+    const topic = ($('ctAiTopicInput')?.value || '').trim() || 'Giao tiếp hàng ngày';
+    const lvl = $('ctAiLevelSelect')?.value || 'HSK 2';
+    pathLabel = `AI Chủ đề: ${topic} (${lvl})`;
+    autoTitle = `Đề AI (${lvl}): ${topic}`;
   } else {
-    sourceType = 'custom';
     const raw = ($('ctCustomWordsTextarea')?.value || '').trim();
     words = raw ? smartExtractChineseEntries(raw, false) : [];
     pathLabel = 'Danh sách từ tự nhập';
-    autoTitle = `Test tự tạo (${new Date().toLocaleTimeString('vi-VN')})`;
+    autoTitle = `Đề tự tạo (${new Date().toLocaleTimeString('vi-VN')})`;
   }
 
-  // Lọc trùng theo chữ Hán
   const deduped = [];
   const seen = new Set();
   words.forEach(w => {
     if (w && w.zh && !seen.has(w.zh)) {
       seen.add(w.zh);
-      deduped.push({ id: w.id || ('ctw_' + deduped.length), zh: w.zh, pinyin: w.pinyin || '', vi: w.vi || '' });
+      deduped.push({
+        id: w.id || ('ctw_' + deduped.length),
+        zh: w.zh,
+        pinyin: w.pinyin || '',
+        vi: w.vi || '',
+        exampleZh: w.exampleZh || '',
+        examplePy: w.examplePy || '',
+        exampleVi: w.exampleVi || '',
+        grammarNote: w.grammarNote || ''
+      });
     }
   });
 
   return { words: deduped, autoTitle, pathLabel, sourceType, ...metaIdx };
 }
 
+function getSelectedExamTypeConfig() {
+  return {
+    vocab: $('ctTypeVocabChk')?.checked ? Math.max(0, parseInt($('ctTypeVocabCount')?.value || '0', 10) || 0) : 0,
+    cloze: $('ctTypeClozeChk')?.checked ? Math.max(0, parseInt($('ctTypeClozeCount')?.value || '0', 10) || 0) : 0,
+    reorder: $('ctTypeReorderChk')?.checked ? Math.max(0, parseInt($('ctTypeReorderCount')?.value || '0', 10) || 0) : 0,
+    translate: $('ctTypeTranslateChk')?.checked ? Math.max(0, parseInt($('ctTypeTranslateCount')?.value || '0', 10) || 0) : 0,
+    translateDir: $('ctTranslateDirSelect')?.value || 'zh2vi'
+  };
+}
+
 function updateCreateTestPreview() {
+  const mode = $('ctSourceMode')?.value || 'admin_catalog';
+  const cfg = getSelectedExamTypeConfig();
+  const totalPlanned = cfg.vocab + cfg.cloze + cfg.reorder + cfg.translate;
+  const badge = $('ctWordCountPreview');
+  if (!badge) return;
+
+  if (totalPlanned === 0) {
+    badge.textContent = '⚠️ Hãy chọn ít nhất 1 dạng bài kiểm tra!';
+    badge.className = 'badge err';
+    return;
+  }
+
+  if (mode === 'ai_topic') {
+    badge.textContent = `✨ AI sẽ tự sinh đề ${totalPlanned} câu (✍️${cfg.vocab} · 🔤${cfg.cloze} · 🧩${cfg.reorder} · 📝${cfg.translate})`;
+    badge.className = 'badge ok';
+    return;
+  }
+
   const { words } = collectCreateTestWordsSync();
   const skipFirst = Math.max(0, parseInt($('ctSkipFirstInput')?.value || '0', 10) || 0);
-  const remaining = Math.max(0, words.length - skipFirst);
-  const maxQ = Math.max(0, parseInt($('ctMaxQuestionsInput')?.value || '0', 10) || 0);
-  const finalCnt = (maxQ > 0 && maxQ < remaining) ? maxQ : remaining;
-  const badge = $('ctWordCountPreview');
-  if (badge) {
-    if (words.length === 0) {
-      badge.textContent = '⚠️ Nguồn đang chọn hiện có 0 từ vựng';
-      badge.className = 'badge err';
-    } else if (skipFirst >= words.length) {
-      badge.textContent = `⚠️ Số từ bỏ qua (${skipFirst}) ≥ tổng số từ (${words.length})`;
-      badge.className = 'badge err';
-    } else {
-      badge.textContent = skipFirst > 0
-        ? `📋 Sẽ tạo đề gồm: ${finalCnt} câu hỏi (bỏ qua ${skipFirst} từ đầu / tổng ${words.length} từ)`
-        : `📋 Sẽ tạo đề gồm: ${finalCnt} câu hỏi (từ ${words.length} từ)`;
-      badge.className = 'badge ok';
-    }
+  const avail = Math.max(0, words.length - skipFirst);
+  if (words.length === 0) {
+    badge.textContent = '⚠️ Nguồn đang chọn có 0 từ — Chọn nguồn khác hoặc dùng "AI tự tạo theo Chủ đề"';
+    badge.className = 'badge err';
+  } else if (avail === 0) {
+    badge.textContent = `⚠️ Số từ bỏ qua (${skipFirst}) ≥ tổng số từ (${words.length})`;
+    badge.className = 'badge err';
+  } else {
+    badge.textContent = `📋 Nguồn có ${avail} từ ➔ Tạo tối đa ${totalPlanned} câu (✍️${cfg.vocab} · 🔤${cfg.cloze} · 🧩${cfg.reorder} · 📝${cfg.translate})`;
+    badge.className = 'badge ok';
   }
 }
 
@@ -6799,64 +7819,788 @@ async function handleCreateTestFileImport(event, type) {
   }
 }
 
-async function submitCreateTestModal() {
-  const info = collectCreateTestWordsSync();
-  if (!info.words.length) {
-    return alert("Chưa có từ vựng nào để tạo Test! Hãy chọn nguồn có từ hoặc nhập danh sách chữ Hán vào ô Tự nhập.");
+// ==================== BỘ SINH ĐỀ AI 4 DẠNG (TỪ VỰNG + ĐỤC LỖ A/B/C/D + SẮP XẾP NGỮ PHÁP + DỊCH ĐOẠN VĂN) ====================
+const COMMON_DISTRACTOR_POOL = [
+  { zh: '图书馆', pinyin: 'túshūguǎn', vi: 'Thư viện' },
+  { zh: '医院', pinyin: 'yīyuàn', vi: 'Bệnh viện' },
+  { zh: '学校', pinyin: 'xuéxiào', vi: 'Trường học' },
+  { zh: '超市', pinyin: 'chāoshì', vi: 'Siêu thị' },
+  { zh: '银行', pinyin: 'yínháng', vi: 'Ngân hàng' },
+  { zh: '学习', pinyin: 'xuéxí', vi: 'Học tập' },
+  { zh: '喜欢', pinyin: 'xǐhuan', vi: 'Thích' },
+  { zh: '工作', pinyin: 'gōngzuò', vi: 'Làm việc' },
+  { zh: '朋友', pinyin: 'péngyou', vi: 'Bạn bè' },
+  { zh: '老师', pinyin: 'lǎoshī', vi: 'Giáo viên' },
+  { zh: '学生', pinyin: 'xuésheng', vi: 'Học sinh' },
+  { zh: '高兴', pinyin: 'gāoxìng', vi: 'Vui vẻ' },
+  { zh: '方便', pinyin: 'fāngbiàn', vi: 'Thuận tiện' },
+  { zh: '准备', pinyin: 'zhǔnbèi', vi: 'Chuẩn bị' },
+  { zh: '明天', pinyin: 'míngtiān', vi: 'Ngày mai' },
+  { zh: '今天', pinyin: 'jīntiān', vi: 'Hôm nay' }
+];
+
+const BUILTIN_TOPIC_VOCAB_BANK = [
+  { zh: '图书馆', pinyin: 'túshūguǎn', vi: 'Thư viện', exampleZh: '我每天去图书馆看书。', examplePy: 'Wǒ měitiān qù túshūguǎn kànshū.', exampleVi: 'Mỗi ngày tôi đều đến thư viện đọc sách.', grammarNote: 'S + Thời gian + 去 + Địa điểm + V' },
+  { zh: '学习', pinyin: 'xuéxí', vi: 'Học tập', exampleZh: '我在学校学习汉语。', examplePy: 'Wǒ zài xuéxiào xuéxí Hànyǔ.', exampleVi: 'Tôi học tiếng Trung ở trường.', grammarNote: 'S + 在 + Địa điểm + Động từ + O' },
+  { zh: '喜欢', pinyin: 'xǐhuan', vi: 'Thích', exampleZh: '我很喜欢喝中国茶。', examplePy: 'Wǒ hěn xǐhuan hē Zhōngguó chá.', exampleVi: 'Tôi rất thích uống trà Trung Quốc.', grammarNote: 'S + 很喜欢 + V + O' },
+  { zh: '朋友', pinyin: 'péngyou', vi: 'Bạn bè', exampleZh: '周末我和朋友去超市买东西。', examplePy: 'Zhōumò wǒ hé péngyou qù chāoshì mǎi dōngxi.', exampleVi: 'Cuối tuần tôi cùng bạn đi siêu thị mua đồ.', grammarNote: 'Thời gian + S + 和 + Người + 去 + Địa điểm + V' },
+  { zh: '老师', pinyin: 'lǎoshī', vi: 'Giáo viên', exampleZh: '王老师每天教我们写汉字。', examplePy: 'Wáng lǎoshī měitiān jiāo wǒmen xiě Hànzì.', exampleVi: 'Thầy Vương mỗi ngày dạy chúng tôi viết chữ Hán.', grammarNote: 'S + Thời gian + 教 + O1 + V + O2' },
+  { zh: '方便', pinyin: 'fāngbiàn', vi: 'Thuận tiện', exampleZh: '坐地铁去学校非常方便。', examplePy: 'Zuò dìtiě qù xuéxiào fēicháng fāngbiàn.', exampleVi: 'Đi tàu điện ngầm đến trường vô cùng thuận tiện.', grammarNote: 'Cụm động từ + 非常 + Tính từ' },
+  { zh: '准备', pinyin: 'zhǔnbèi', vi: 'Chuẩn bị', exampleZh: '我已经准备好考试了。', examplePy: 'Wǒ yǐjīng zhǔnbèi hǎo kǎoshì le.', exampleVi: 'Tôi đã chuẩn bị xong cho kỳ thi rồi.', grammarNote: 'S + 已经 + V好 + O + 了' },
+  { zh: '医院', pinyin: 'yīyuàn', vi: 'Bệnh viện', exampleZh: '他生病了，明天要去医院看病。', examplePy: 'Tā shēngbìng le, míngtiān yào qù yīyuàn kànbìng.', exampleVi: 'Cậu ấy bị ốm rồi, ngày mai phải đi bệnh viện khám bệnh.', grammarNote: 'S + Thời gian + 要去 + Địa điểm + V' }
+];
+
+function segmentChineseSentenceToTokens(sentenceZh, targetWordZh = '') {
+  const clean = String(sentenceZh || '').replace(/[。！？，、；：""''（）\(\)\s]+/g, ' ').trim();
+  if (!clean) return [];
+  const rawTokens = [];
+
+  // Giữ nguyên từ mục tiêu không bị cắt vụn
+  const parts = targetWordZh && clean.includes(targetWordZh) ? clean.split(targetWordZh) : [clean];
+  parts.forEach((part, idx) => {
+    const p = part.trim();
+    if (p) {
+      if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+        const seg = new Intl.Segmenter('zh-CN', { granularity: 'word' });
+        for (const s of seg.segment(p)) {
+          const t = s.segment.trim();
+          if (t && /[\u4e00-\u9fa5]/.test(t)) rawTokens.push(t);
+        }
+      } else {
+        for (let i = 0; i < p.length; i += 2) {
+          const chunk = p.slice(i, i + 2).replace(/[^\u4e00-\u9fa5]/g, '');
+          if (chunk) rawTokens.push(chunk);
+        }
+      }
+    }
+    if (targetWordZh && idx < parts.length - 1) {
+      rawTokens.push(targetWordZh);
+    }
+  });
+
+  // Gộp nhẹ nếu có quá nhiều mảnh (> 7 mảnh) để câu sắp xếp vừa tầm HSK
+  const merged = [];
+  rawTokens.forEach(tk => {
+    if (merged.length > 0 && merged.length >= 6 && tk.length === 1 && merged[merged.length - 1] !== targetWordZh) {
+      merged[merged.length - 1] += tk;
+    } else {
+      merged.push(tk);
+    }
+  });
+  return merged.length >= 3 ? merged : rawTokens;
+}
+
+function scrambleTokensNotEqual(tokens) {
+  if (tokens.length <= 1) return [...tokens];
+  const arr = [...tokens];
+  for (let tries = 0; tries < 8; tries++) {
+    arr.sort(() => Math.random() - 0.5);
+    if (arr.join('') !== tokens.join('')) return arr;
+  }
+  return arr.reverse();
+}
+
+function pickClozeDistractors(targetWord, sourcePool) {
+  const seen = new Set([targetWord.zh]);
+  const distractors = [];
+  const candidates = [...(sourcePool || []), ...COMMON_DISTRACTOR_POOL]
+    .filter(w => w && w.zh && !seen.has(w.zh))
+    .sort((a, b) => {
+      // Ưu tiên chọn từ gây nhiễu có độ dài gần bằng đáp án để câu đục lỗ tự nhiên hơn
+      const da = Math.abs(a.zh.length - targetWord.zh.length);
+      const db = Math.abs(b.zh.length - targetWord.zh.length);
+      return da - db || (Math.random() - 0.5);
+    });
+
+  for (const c of candidates) {
+    if (!seen.has(c.zh)) {
+      seen.add(c.zh);
+      distractors.push({ zh: c.zh, pinyin: c.pinyin || '', vi: c.vi || '' });
+      if (distractors.length === 3) break;
+    }
+  }
+  return distractors;
+}
+
+async function buildMultiFormatQuestionsFromWords(wordPool, cfg, topicLabel = '') {
+  const questions = [];
+  let pool = [...wordPool];
+
+  // Nếu có Multi-LLM API key và người dùng chọn chế độ AI Chủ đề hoặc muốn AI sinh câu hỏi chất lượng cao
+  if (typeof callVibeMultiLLM === 'function' && vibeLlmConfig?.provider && vibeLlmConfig.provider !== 'builtin') {
+    try {
+      setCtProgress(true, '✨ Multi-LLM AI đang thiết kế đề thi 4 dạng chuẩn ngữ pháp...', 35);
+      const vocabSummary = pool.slice(0, 20).map(w => `${w.zh}(${w.pinyin}:${w.vi})`).join(', ');
+      const prompt = `Bạn là giáo viên tiếng Trung HSK. Hãy tạo 1 đề kiểm tra tổng hợp dựa trên ${vocabSummary ? `bộ từ vựng: [${vocabSummary}]` : `chủ đề "${topicLabel}"`} gồm đúng:
+- ${cfg.vocab} câu qType="vocab": {"qType":"vocab","zh":"...","pinyin":"...","vi":"...","exampleZh":"...","examplePy":"...","exampleVi":"...","grammarNote":"..."}
+- ${cfg.cloze} câu qType="cloze" (chọn A,B,C,D đục lỗ ____): {"qType":"cloze","sentenceZh":"我每天去 ____ 看书。","sentencePy":"...","sentenceVi":"...","options":[{"zh":"...","pinyin":"...","vi":"..."},...4 lựa chọn],"answerIndex":0,"targetWord":{"zh":"...","pinyin":"...","vi":"..."},"grammarNote":"...","explanation":"Giải thích ngắn tiếng Việt"}
+- ${cfg.reorder} câu qType="reorder" (sắp xếp từ thành câu đúng ngữ pháp bài): {"qType":"reorder","tokens":["我","每天","去","图书馆","看书"],"answerZh":"我每天去图书馆看书。","answerPy":"...","hintVi":"...","grammarNote":"...","targetWord":{"zh":"...","pinyin":"...","vi":"..."}}
+- ${cfg.translate} câu qType="translate" (dịch đoạn văn ngắn 2-4 câu dùng từ vựng bài, direction="${cfg.translateDir}"): {"qType":"translate","direction":"${cfg.translateDir}","passageTitle":"Đoạn văn ngắn","sourceText":"...","sourcePy":"...","referenceText":"...","keywords":["từ khóa 1","từ khóa 2"],"grammarNote":"..."}
+Trả về DUY NHẤT mảng JSON hợp lệ, không markdown.`;
+
+      const llmRaw = await callVibeMultiLLM(prompt);
+      if (llmRaw) {
+        const m = llmRaw.match(/\[[\s\S]*\]/);
+        if (m) {
+          const parsedArr = JSON.parse(m[0]);
+          if (Array.isArray(parsedArr) && parsedArr.length > 0) {
+            return parsedArr.map((q, i) => {
+              if (q.qType === 'reorder' && Array.isArray(q.tokens)) {
+                q.scrambled = scrambleTokensNotEqual(q.tokens);
+              }
+              return { id: 'aiq_' + Date.now() + '_' + i, ...q };
+            });
+          }
+        }
+      }
+    } catch (e) {}
   }
 
-  const btn = $('btnSubmitCreateTest');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang chuẩn hóa & tạo Test...'; }
+  // CHẾ ĐỘ BUILT-IN AI MIỄN PHÍ (100% TỰ ĐỘNG KHÔNG CẦN API KEY)
+  if (!pool.length) {
+    pool = [...BUILTIN_TOPIC_VOCAB_BANK];
+  }
+
+  // Đảm bảo đủ Pinyin, nghĩa & câu ví dụ đơn giản cho các từ dùng sinh đề
+  const needCount = Math.min(pool.length, Math.max(cfg.vocab, cfg.cloze, cfg.reorder, 6));
+  const workingPool = pool.slice(0, Math.max(needCount, 8));
+  let stepDone = 0;
+  for (let i = 0; i < workingPool.length; i++) {
+    const w = workingPool[i];
+    if (!w.pinyin || !w.vi) {
+      const enr = await aiEnrichSingleWord(w.zh);
+      if (!w.pinyin) w.pinyin = enr.pinyin;
+      if (!w.vi) w.vi = enr.vi;
+    }
+    if (!w.exampleZh && (cfg.cloze > 0 || cfg.reorder > 0 || cfg.translate > 0)) {
+      const ex = await aiGenerateSimpleExample(w.zh, w.pinyin, w.vi, false);
+      w.exampleZh = ex.exampleZh || '';
+      w.examplePy = ex.examplePy || '';
+      w.exampleVi = ex.exampleVi || '';
+      w.grammarNote = ex.grammarNote || 'Ngữ pháp cơ bản';
+    }
+    stepDone++;
+    setCtProgress(true, `🤖 AI đang chuẩn bị dữ liệu ngữ pháp (${stepDone}/${workingPool.length})...`, Math.round((stepDone / workingPool.length) * 65));
+  }
+
+  // 1. DẠNG TỪ VỰNG
+  if (cfg.vocab > 0) {
+    const src = [...pool];
+    if ($('ctShuffleChk')?.checked) src.sort(() => Math.random() - 0.5);
+    src.slice(0, cfg.vocab).forEach((w, i) => {
+      questions.push({
+        id: 'qv_' + Date.now() + '_' + i,
+        qType: 'vocab',
+        zh: w.zh,
+        pinyin: w.pinyin || '',
+        vi: w.vi || '',
+        exampleZh: w.exampleZh || '',
+        examplePy: w.examplePy || '',
+        exampleVi: w.exampleVi || '',
+        grammarNote: w.grammarNote || ''
+      });
+    });
+  }
+
+  // 2. DẠNG CHỌN TỪ A, B, C, D (CÂU ĐỤC LỖ)
+  if (cfg.cloze > 0) {
+    const src = [...workingPool];
+    if ($('ctShuffleChk')?.checked) src.sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(cfg.cloze, src.length); i++) {
+      const w = src[i];
+      const baseEx = (w.exampleZh && w.exampleZh.includes(w.zh))
+        ? w.exampleZh
+        : `我非常喜欢${w.zh}。`;
+      const sentenceBlank = baseEx.replace(w.zh, ' ____ ');
+      const dists = pickClozeDistractors(w, pool);
+      const options = [{ zh: w.zh, pinyin: w.pinyin || '', vi: w.vi || '' }, ...dists]
+        .sort(() => Math.random() - 0.5);
+      const ansIdx = options.findIndex(o => o.zh === w.zh);
+
+      questions.push({
+        id: 'qc_' + Date.now() + '_' + i,
+        qType: 'cloze',
+        sentenceZh: sentenceBlank,
+        fullSentenceZh: baseEx,
+        sentencePy: (w.examplePy || '').replace(new RegExp(w.pinyin || '___', 'i'), '____'),
+        sentenceVi: w.exampleVi || `Chọn từ phù hợp có nghĩa "${w.vi}" để điền vào chỗ trống.`,
+        options,
+        answerIndex: ansIdx >= 0 ? ansIdx : 0,
+        targetWord: { zh: w.zh, pinyin: w.pinyin || '', vi: w.vi || '' },
+        grammarNote: w.grammarNote || 'Ngữ pháp bài học',
+        explanation: `Đáp án đúng là "${w.zh}" (${w.pinyin} — ${w.vi}). Câu hoàn chỉnh: ${baseEx}`
+      });
+    }
+  }
+
+  // 3. DẠNG SẮP XẾP CÂU THEO NGỮ PHÁP BÀI
+  if (cfg.reorder > 0) {
+    const src = [...workingPool].reverse();
+    if ($('ctShuffleChk')?.checked) src.sort(() => Math.random() - 0.5);
+    for (let i = 0; i < Math.min(cfg.reorder, src.length); i++) {
+      const w = src[i];
+      const fullSent = w.exampleZh || `我每天都学习${w.zh}。`;
+      const tokens = segmentChineseSentenceToTokens(fullSent, w.zh);
+      if (tokens.length < 3) continue;
+      questions.push({
+        id: 'qr_' + Date.now() + '_' + i,
+        qType: 'reorder',
+        tokens,
+        scrambled: scrambleTokensNotEqual(tokens),
+        answerZh: fullSent,
+        answerPy: w.examplePy || '',
+        hintVi: w.exampleVi || `Ghép thành câu đúng ngữ pháp chứa từ "${w.zh}" (${w.vi}).`,
+        grammarNote: w.grammarNote || 'Trật tự câu tiếng Trung cơ bản',
+        targetWord: { zh: w.zh, pinyin: w.pinyin || '', vi: w.vi || '' }
+      });
+    }
+  }
+
+  // 4. DẠNG DỊCH ĐOẠN VĂN (GHÉP TỰ ĐỘNG ĐOẠN VĂN MẠCH LẠC TỪ TỪ VỰNG & CÂU VÍ DỤ TRONG BÀI)
+  if (cfg.translate > 0) {
+    setCtProgress(true, '📝 AI đang biên soạn đoạn văn dịch chuẩn ngữ pháp...', 85);
+    const chunkSize = Math.min(4, Math.max(2, Math.ceil(workingPool.length / cfg.translate)));
+    for (let p = 0; p < cfg.translate; p++) {
+      const slice = workingPool.slice(p * chunkSize, (p + 1) * chunkSize);
+      const useWords = slice.length ? slice : workingPool.slice(0, 3);
+      const zhSentences = useWords.map(w => {
+        const s = (w.exampleZh || `这是${w.zh}。`).trim();
+        return /[。！？]$/.test(s) ? s : s + '。';
+      });
+      const passageZh = zhSentences.join('');
+      let passagePy = useWords.map(w => w.examplePy || '').filter(Boolean).join(' ');
+      let passageVi = useWords.map(w => w.exampleVi || '').filter(Boolean).join(' ');
+
+      if (!passageVi || !passagePy) {
+        const tr = await aiTranslateSentenceWithPinyin(passageZh);
+        if (!passagePy) passagePy = tr.pinyin;
+        if (!passageVi) passageVi = tr.vi;
+      }
+
+      const dir = cfg.translateDir || 'zh2vi';
+      const keywords = dir === 'zh2vi'
+        ? useWords.map(w => w.vi).filter(Boolean)
+        : useWords.map(w => w.zh).filter(Boolean);
+
+      questions.push({
+        id: 'qt_' + Date.now() + '_' + p,
+        qType: 'translate',
+        direction: dir,
+        passageTitle: `Đoạn văn tổng hợp #${p + 1} (${useWords.map(w => w.zh).join(' · ')})`,
+        sourceText: dir === 'zh2vi' ? passageZh : passageVi,
+        sourcePy: dir === 'zh2vi' ? passagePy : '',
+        referenceText: dir === 'zh2vi' ? passageVi : passageZh,
+        referencePy: dir === 'vi2zh' ? passagePy : '',
+        keywords,
+        grammarNote: 'Dịch mạch lạc đúng ngữ pháp & từ vựng bài học',
+        targetWord: useWords[0] ? { zh: useWords[0].zh, pinyin: useWords[0].pinyin || '', vi: useWords[0].vi || '' } : null
+      });
+    }
+  }
+
+  setCtProgress(true, `✅ Đã tạo xong ${questions.length} câu hỏi tổng hợp!`, 100);
+  setTimeout(() => setCtProgress(false), 900);
+  return questions;
+}
+
+async function generateAiExamQuestionsPreview() {
+  const cfg = getSelectedExamTypeConfig();
+  if (cfg.vocab + cfg.cloze + cfg.reorder + cfg.translate === 0) {
+    return alert("Vui lòng chọn ít nhất 1 dạng bài kiểm tra (Từ vựng / Đục lỗ / Sắp xếp / Dịch đoạn văn)!");
+  }
+
+  const mode = $('ctSourceMode')?.value || 'admin_catalog';
+  const info = collectCreateTestWordsSync();
+  let sourceWords = [...info.words];
+
+  if (mode !== 'ai_topic') {
+    if (!sourceWords.length) {
+      return alert("Nguồn đang chọn hiện có 0 từ vựng! Hãy chọn nguồn có từ hoặc đổi sang '✨ AI tự tạo theo Chủ đề'.");
+    }
+    const skipFirst = Math.max(0, parseInt($('ctSkipFirstInput')?.value || '0', 10) || 0);
+    if (skipFirst >= sourceWords.length) {
+      return alert(`Số từ bỏ qua (${skipFirst}) ≥ tổng số từ (${sourceWords.length})!`);
+    }
+    if (skipFirst > 0) sourceWords = sourceWords.slice(skipFirst);
+  }
+
+  const btn = $('btnAiGenerateExamPreview');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ AI đang soạn đề...'; }
+  try {
+    const topicLabel = mode === 'ai_topic' ? (($('ctAiTopicInput')?.value || '').trim() || 'HSK tổng hợp') : info.pathLabel;
+    ctDraftQuestions = await buildMultiFormatQuestionsFromWords(sourceWords, cfg, topicLabel);
+    if (!$('ctTestTitleInput').value.trim()) {
+      $('ctTestTitleInput').value = info.autoTitle;
+    }
+    renderCreateTestDraftPreview();
+    showToast(`✨ AI đã soạn xong ${ctDraftQuestions.length} câu hỏi (${summarizeExamQuestionTypes(ctDraftQuestions)})!`);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '✨ AI Tạo Đề & Xem Trước'; }
+  }
+}
+
+// ==================== UP ĐỀ THI TỪ FILE WORD (.DOCX) & TẢI FILE WORD MẪU ====================
+async function handleWordExamFileUpload(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    setCtProgress(true, `📂 Đang đọc nội dung file Word "${file.name}"...`, 25);
+    let rawText = '';
+    if (/\.txt$/i.test(file.name)) {
+      rawText = await file.text();
+    } else {
+      const buf = await file.arrayBuffer();
+      if (typeof mammoth !== 'undefined') {
+        const res = await mammoth.extractRawText({ arrayBuffer: buf });
+        rawText = res.value || '';
+      } else if (typeof JSZip !== 'undefined') {
+        const zip = await JSZip.loadAsync(buf);
+        const xmlStr = await zip.file('word/document.xml').async('string');
+        const xml = new DOMParser().parseFromString(xmlStr, 'application/xml');
+        rawText = [...xml.getElementsByTagName('w:p')]
+          .map(p => [...p.getElementsByTagName('w:t')].map(t => t.textContent).join('').trim())
+          .filter(Boolean).join('\n');
+      }
+    }
+    if (!rawText.trim()) {
+      setCtProgress(false);
+      return alert("File Word không có nội dung văn bản!");
+    }
+    if ($('ctWordRawTextPreview')) $('ctWordRawTextPreview').value = rawText.trim();
+    if (!$('ctTestTitleInput').value.trim()) {
+      $('ctTestTitleInput').value = 'Đề Word: ' + file.name.replace(/\.(docx|doc|txt)$/i, '');
+    }
+    await parseWordExamFromTextarea();
+  } catch (err) {
+    setCtProgress(false);
+    alert("Lỗi đọc file Word: " + err.message);
+  } finally {
+    event.target.value = '';
+  }
+}
+
+// Trình phân tích đề thi thông minh từ nội dung Word (Nhận diện A/B/C/D đục lỗ, Sắp xếp câu, Dịch đoạn văn, Từ vựng)
+async function parseExamFromWordText(rawText) {
+  const lines = String(rawText || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  const questions = [];
+  let sectionHint = 'auto'; // 'cloze' | 'reorder' | 'translate' | 'vocab' | 'auto'
+
+  const isSectionHeader = (l) => {
+    const low = l.toLowerCase();
+    if (/^(?:phần|part|bài|i+\.|[1-4]\.)?\s*.*(?:đục lỗ|trắc nghiệm|chọn từ|chọn đáp án|a\s*,\s*b\s*,\s*c)/i.test(low)) return 'cloze';
+    if (/^(?:phần|part|bài|i+\.|[1-4]\.)?\s*.*(?:sắp xếp|xếp câu|trật tự câu|连词成句)/i.test(low)) return 'reorder';
+    if (/^(?:phần|part|bài|i+\.|[1-4]\.)?\s*.*(?:dịch đoạn|dịch văn|dịch câu|翻译)/i.test(low)) return 'translate';
+    if (/^(?:phần|part|bài|i+\.|[1-4]\.)?\s*.*(?:từ vựng|viết chữ hán|生词)/i.test(low)) return 'vocab';
+    return null;
+  };
+
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+
+    // Kiểm tra tiêu đề phần
+    const sec = isSectionHeader(line);
+    if (sec && !/[A-D][\.\)]/.test(line) && !/\/.*\/.*\//.test(line) && line.length < 70) {
+      sectionHint = sec;
+      i++;
+      continue;
+    }
+
+    // 1. NHẬN DIỆN CÂU SẮP XẾP (Có tag [Sắp xếp] hoặc có >= 2 dấu "/" chia mảnh tiếng Trung)
+    const isTaggedReorder = /^\[?\s*(?:sắp xếp|xếp câu|reorder|连词成句)\s*\]?[:：\-\s]*/i.test(line);
+    const hasSlashTokens = (line.match(/[\/／]/g) || []).length >= 2 && /[\u4e00-\u9fa5]/.test(line);
+    if (isTaggedReorder || hasSlashTokens || (sectionHint === 'reorder' && /[\/／、]/.test(line) && /[\u4e00-\u9fa5]/.test(line))) {
+      let body = line.replace(/^(?:câu\s*\d+[\.\:\)]?|^\d+[\.\)\、]|\[?\s*(?:sắp xếp|xếp câu|reorder|连词成句)\s*\]?[:：\-\s]*)+/gi, '').trim();
+      let explicitAns = '';
+      let hintVi = '';
+
+      // Kiểm tra đáp án nằm ngay trong ngoặc cuối dòng (VD: "(Đáp án: 我每天去图书馆看书。)")
+      const inlineAns = body.match(/[\(\[]\s*(?:đáp án|answer|key)\s*[:：]\s*([^\)\]]+)[\)\]]/i);
+      if (inlineAns) {
+        explicitAns = inlineAns[1].trim();
+        body = body.replace(inlineAns[0], '').trim();
+      }
+
+      // Đọc các dòng kề sau xem có "Đáp án:" hoặc "Nghĩa:" không
+      while (i + 1 < lines.length) {
+        const nxt = lines[i + 1];
+        if (/^(?:đáp án|answer|key)\s*[:：]/i.test(nxt)) {
+          explicitAns = nxt.replace(/^(?:đáp án|answer|key)\s*[:：]\s*/i, '').trim();
+          i++;
+        } else if (/^(?:nghĩa|gợi ý|dịch|hint)\s*[:：]/i.test(nxt)) {
+          hintVi = nxt.replace(/^(?:nghĩa|gợi ý|dịch|hint)\s*[:：]\s*/i, '').trim();
+          i++;
+        } else {
+          break;
+        }
+      }
+
+      const tokens = body.split(/\s*[\/／]\s*/).map(t => t.replace(/^\d+[\.\)]\s*/, '').trim()).filter(t => /[\u4e00-\u9fa5]/.test(t));
+      if (tokens.length >= 2) {
+        const ansZh = explicitAns || (tokens.join('') + '。');
+        const tr = (!hintVi && navigator.onLine) ? await aiTranslateSentenceWithPinyin(ansZh) : { pinyin: '', vi: '' };
+        questions.push({
+          id: 'wr_' + Date.now() + '_' + questions.length,
+          qType: 'reorder',
+          tokens: explicitAns ? segmentChineseSentenceToTokens(explicitAns) : tokens,
+          scrambled: scrambleTokensNotEqual(tokens),
+          answerZh: ansZh,
+          answerPy: tr.pinyin || '',
+          hintVi: hintVi || tr.vi || 'Sắp xếp thành câu tiếng Trung đúng ngữ pháp.',
+          grammarNote: 'Đề Word · Sắp xếp câu'
+        });
+        i++;
+        continue;
+      }
+    }
+
+    // 2. NHẬN DIỆN ĐOẠN VĂN DỊCH (Có tag [Dịch] hoặc đang ở phần Dịch)
+    const isTaggedTranslate = /^\[?\s*(?:dịch|dịch đoạn văn|translate|翻译)\s*\]?[:：\-\s]*/i.test(line);
+    if (isTaggedTranslate || sectionHint === 'translate') {
+      let passage = line.replace(/^(?:câu\s*\d+[\.\:\)]?|^\d+[\.\)\、]|\[?\s*(?:dịch đoạn văn|dịch|translate|翻译)\s*\]?[:：\-\s]*)+/gi, '').trim();
+      let refText = '';
+      while (i + 1 < lines.length) {
+        const nxt = lines[i + 1];
+        if (isSectionHeader(nxt) || /^\[?\s*(?:câu\s*\d+|sắp xếp|dịch)/i.test(nxt)) break;
+        if (/^(?:đáp án|bản dịch|dịch mẫu|reference|key)\s*[:：]/i.test(nxt)) {
+          refText = nxt.replace(/^(?:đáp án|bản dịch|dịch mẫu|reference|key)\s*[:：]\s*/i, '').trim();
+          i++;
+          break;
+        }
+        if (nxt.length > 10 && !/^[A-D][\.\)]/.test(nxt)) {
+          passage += (passage ? '\n' : '') + nxt;
+          i++;
+        } else {
+          break;
+        }
+      }
+      if (passage.length >= 4) {
+        const isZhSource = (passage.match(/[\u4e00-\u9fa5]/g) || []).length >= 4;
+        const dir = isZhSource ? 'zh2vi' : 'vi2zh';
+        let sourcePy = '';
+        if (!refText && navigator.onLine) {
+          if (dir === 'zh2vi') {
+            const tr = await aiTranslateSentenceWithPinyin(passage);
+            refText = tr.vi;
+            sourcePy = tr.pinyin;
+          } else {
+            try {
+              const r = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=vi&tl=zh-CN&dt=t&q=${encodeURIComponent(passage)}`);
+              if (r.ok) {
+                const d = await r.json();
+                refText = (d?.[0] || []).map(s => s?.[0] || '').join('').trim();
+              }
+            } catch (e) {}
+          }
+        }
+        questions.push({
+          id: 'wt_' + Date.now() + '_' + questions.length,
+          qType: 'translate',
+          direction: dir,
+          passageTitle: `Đoạn văn dịch (Từ file Word)`,
+          sourceText: passage,
+          sourcePy,
+          referenceText: refText || '(Chưa có bản dịch mẫu)',
+          keywords: [],
+          grammarNote: 'Đề Word · Dịch đoạn văn'
+        });
+        i++;
+        continue;
+      }
+    }
+
+    // 3. NHẬN DIỆN CÂU CHỌN TỪ A, B, C, D (CÂU ĐỤC LỖ / TRẮC NGHIỆM)
+    // Nhìn trước xem chính dòng này hoặc 1-4 dòng tiếp theo có chứa A. B. C. D. không
+    const lookaheadBlock = lines.slice(i, Math.min(lines.length, i + 7));
+    const hasInlineOpts = /A[\.\)]\s*\S+[\s\S]*B[\.\)]\s*\S+/i.test(line);
+    const nextLinesHaveOpts = lookaheadBlock.slice(1).some(l => /^[\*]?A[\.\)]\s*\S+/i.test(l));
+
+    if (hasInlineOpts || nextLinesHaveOpts) {
+      let stem = line.replace(/^(?:câu\s*\d+[\.\:\)]?|^\d+[\.\)\、])\s*/i, '').trim();
+      let optLines = [];
+      let answerLetter = '';
+      let explanation = '';
+
+      if (hasInlineOpts) {
+        const splitAtA = stem.search(/(?:^|\s)[\*]?A[\.\)]/i);
+        if (splitAtA > 0) {
+          optLines.push(stem.slice(splitAtA).trim());
+          stem = stem.slice(0, splitAtA).trim();
+        }
+      }
+
+      let j = i + 1;
+      while (j < lines.length && j <= i + 8) {
+        const nl = lines[j];
+        if (/^(?:đáp án|answer|key)\s*[:：]/i.test(nl)) {
+          const m = nl.match(/([A-D])/i);
+          if (m) answerLetter = m[1].toUpperCase();
+          j++;
+          continue;
+        }
+        if (/^(?:giải thích|ngữ pháp|note)\s*[:：]/i.test(nl)) {
+          explanation = nl.replace(/^(?:giải thích|ngữ pháp|note)\s*[:：]\s*/i, '').trim();
+          j++;
+          continue;
+        }
+        if (/^[\*]?[A-D][\.\)]/i.test(nl)) {
+          optLines.push(nl);
+          j++;
+          continue;
+        }
+        if (optLines.length > 0) break;
+        stem += ' ' + nl;
+        j++;
+      }
+
+      const joinedOpts = optLines.join('  ');
+      const optRegex = /(\*)?([A-D])[\.\)]\s*([^\n]+?)(?=(?:\s+[\*]?[A-D][\.\)])|$)/gi;
+      const parsedOpts = [];
+      let m;
+      while ((m = optRegex.exec(joinedOpts)) !== null) {
+        if (m[1] === '*') answerLetter = m[2].toUpperCase();
+        const rawOpt = m[3].trim();
+        const pureZh = rawOpt.replace(/[^\u4e00-\u9fa5]/g, '');
+        parsedOpts.push({
+          letter: m[2].toUpperCase(),
+          zh: pureZh || rawOpt,
+          pinyin: '',
+          vi: pureZh && rawOpt !== pureZh ? rawOpt.replace(pureZh, '').trim() : ''
+        });
+      }
+
+      if (parsedOpts.length >= 2) {
+        let ansIdx = answerLetter ? parsedOpts.findIndex(o => o.letter === answerLetter) : 0;
+        if (ansIdx < 0) ansIdx = 0;
+        const ansOpt = parsedOpts[ansIdx];
+        const sentenceBlank = stem.includes('___') || stem.includes('（') || stem.includes('()')
+          ? stem.replace(/_{2,}|（\s*）|\(\s*\)/g, ' ____ ')
+          : stem + ' ____ ';
+        const fullSent = sentenceBlank.replace(' ____ ', ansOpt.zh);
+
+        questions.push({
+          id: 'wc_' + Date.now() + '_' + questions.length,
+          qType: 'cloze',
+          sentenceZh: sentenceBlank,
+          fullSentenceZh: fullSent,
+          sentencePy: '',
+          sentenceVi: '',
+          options: parsedOpts.slice(0, 4).map(o => ({ zh: o.zh, pinyin: o.pinyin, vi: o.vi })),
+          answerIndex: ansIdx,
+          targetWord: { zh: ansOpt.zh, pinyin: ansOpt.pinyin, vi: ansOpt.vi },
+          grammarNote: 'Đề Word · Đục lỗ A, B, C, D',
+          explanation: explanation || `Đáp án đúng: ${String.fromCharCode(65 + ansIdx)}. ${ansOpt.zh}`
+        });
+        i = j;
+        continue;
+      }
+    }
+
+    // 4. DÒNG TỪ VỰNG (Nếu không thuộc 3 dạng đề trên)
+    const parsedVocab = parseMessySingleLine(line);
+    if (parsedVocab && parsedVocab.zh) {
+      questions.push({
+        id: 'wv_' + Date.now() + '_' + questions.length,
+        qType: 'vocab',
+        zh: parsedVocab.zh,
+        pinyin: parsedVocab.pinyin || '',
+        vi: parsedVocab.vi || '',
+        exampleZh: parsedVocab.exampleZh || '',
+        examplePy: parsedVocab.examplePy || '',
+        exampleVi: parsedVocab.exampleVi || ''
+      });
+    }
+    i++;
+  }
+
+  return questions;
+}
+
+async function parseWordExamFromTextarea() {
+  const raw = ($('ctWordRawTextPreview')?.value || '').trim();
+  if (!raw) return alert("Hãy chọn file Word (.docx) hoặc dán nội dung đề thi vào ô phía trên!");
+
+  const btn = $('btnParseWordExamText');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ AI đang phân tích đề...'; }
+  setCtProgress(true, '🔍 AI đang đọc cấu trúc đề từ file Word...', 35);
 
   try {
-    let finalWords = [...info.words];
+    let parsed = await parseExamFromWordText(raw);
+    const strategy = $('ctWordImportStrategy')?.value || 'auto';
 
-    // Nếu là danh sách tự nhập mà có từ thiếu Pinyin / Nghĩa -> AI tự điền
-    const needEnrich = finalWords.filter(w => !w.pinyin || !w.vi);
-    if (needEnrich.length > 0 && navigator.onLine) {
-      const batchSize = 5;
-      for (let i = 0; i < needEnrich.length; i += batchSize) {
-        const batch = needEnrich.slice(i, i + batchSize);
-        await Promise.all(batch.map(async item => {
-          const enr = await aiEnrichSingleWord(item.zh);
-          if (!item.pinyin) item.pinyin = enr.pinyin;
-          if (!item.vi) item.vi = enr.vi;
-        }));
+    // Nếu người dùng chọn biến từ vựng trong Word thành đề 4 dạng (và file Word toàn là từ vựng)
+    const onlyVocab = parsed.length > 0 && parsed.every(q => q.qType === 'vocab');
+    if (onlyVocab && strategy === 'enrich_4types') {
+      const cfg = {
+        vocab: Math.min(4, parsed.length),
+        cloze: Math.min(4, parsed.length),
+        reorder: Math.min(3, parsed.length),
+        translate: 1,
+        translateDir: 'zh2vi'
+      };
+      parsed = await buildMultiFormatQuestionsFromWords(parsed, cfg, 'Đề tạo từ Word');
+    } else {
+      // Bổ sung Pinyin & nghĩa còn thiếu cho các câu từ vựng / đục lỗ từ Word
+      for (let k = 0; k < parsed.length; k++) {
+        const q = parsed[k];
+        if (q.qType === 'vocab' && (!q.pinyin || !q.vi)) {
+          const enr = await aiEnrichSingleWord(q.zh);
+          if (!q.pinyin) q.pinyin = enr.pinyin;
+          if (!q.vi) q.vi = enr.vi;
+        }
+        setCtProgress(true, `🤖 AI đang chuẩn hóa câu ${k + 1}/${parsed.length}...`, 40 + Math.round(((k + 1) / Math.max(1, parsed.length)) * 55));
       }
     }
 
-    const skipFirst = Math.max(0, parseInt($('ctSkipFirstInput')?.value || '0', 10) || 0);
-    if (skipFirst > 0) {
-      if (skipFirst >= finalWords.length) {
-        return alert(`Số từ bỏ qua (${skipFirst}) lớn hơn hoặc bằng tổng số từ (${finalWords.length} từ)! Vui lòng giảm số từ bỏ qua.`);
+    if (!parsed.length) {
+      setCtProgress(false);
+      return alert("Chưa nhận diện được câu hỏi nào! Hãy kiểm tra định dạng hoặc bấm '⬇️ Tải file Word mẫu (.docx)' để xem mẫu chuẩn.");
+    }
+
+    ctDraftQuestions = parsed;
+    renderCreateTestDraftPreview();
+    setCtProgress(true, `✅ Đã đọc thành công ${parsed.length} câu hỏi từ Word!`, 100);
+    setTimeout(() => setCtProgress(false), 900);
+    showToast(`📄 Đã đọc đề Word: ${parsed.length} câu (${summarizeExamQuestionTypes(parsed)})!`);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '🔍 AI Phân Tích Đề Word'; }
+  }
+}
+
+// Tạo file Word (.docx) mẫu chứa đủ 4 dạng bài để giáo viên/học viên tải về soạn đề cực nhanh
+async function downloadSampleWordExamTemplate() {
+  const sampleLines = [
+    'ĐỀ KIỂM TRA TIẾNG TRUNG TỔNG HỢP (MẪU CHUẨN)',
+    '',
+    'Phần 1: Chọn từ A, B, C, D (Câu đục lỗ)',
+    '1. 我每天去 ____ 看书。',
+    'A. 图书馆   B. 医院   C. 银行   D. 商店',
+    'Đáp án: A',
+    'Giải thích: 看书 (đọc sách) đi với địa điểm 图书馆 (thư viện).',
+    '',
+    '2. 我很 ____ 喝中国茶。',
+    'A. 学校   B. 喜欢   C. 朋友   D. 老师',
+    'Đáp án: B',
+    '',
+    'Phần 2: Sắp xếp câu theo ngữ pháp',
+    '[Sắp xếp] 我 / 每天 / 去 / 图书馆 / 看书',
+    'Đáp án: 我每天去图书馆看书。',
+    'Nghĩa: Mỗi ngày tôi đều đến thư viện đọc sách.',
+    '',
+    '[Sắp xếp] 王老师 / 教 / 我们 / 汉语',
+    'Đáp án: 王老师教我们汉语。',
+    'Nghĩa: Thầy Vương dạy chúng tôi tiếng Trung.',
+    '',
+    'Phần 3: Dịch đoạn văn',
+    '[Dịch] 我是高中学生。每天早上七点我去学校学习汉语，下午我常去图书馆看书。',
+    'Bản dịch: Tôi là học sinh cấp ba. Mỗi sáng 7 giờ tôi đến trường học tiếng Trung, buổi chiều tôi thường đến thư viện đọc sách.',
+    '',
+    'Phần 4: Từ vựng',
+    '图书馆 | túshūguǎn | Thư viện',
+    '医院 | yīyuàn | Bệnh viện'
+  ];
+
+  if (typeof JSZip !== 'undefined') {
+    const pXml = sampleLines.map(l => `<w:p><w:r><w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:eastAsia="KaiTi"/><w:sz w:val="24"/></w:rPr><w:t xml:space="preserve">${escapeXmlCopybook(l)}</w:t></w:r></w:p>`).join('');
+    const docXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${pXml}</w:body></w:document>`;
+    const ctXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>`;
+    const relsXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`;
+    const zip = new JSZip();
+    zip.file('[Content_Types].xml', ctXml);
+    zip.folder('_rels').file('.rels', relsXml);
+    const wf = zip.folder('word');
+    wf.file('document.xml', docXml);
+    wf.folder('_rels').file('document.xml.rels', `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"></Relationships>`);
+    const blob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Mau_De_Kiem_Tra_Tieng_Trung_4_Dang.docx';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    showToast('⬇️ Đã tải file Word mẫu chuẩn (.docx)! Bạn có thể sửa nội dung rồi Up lên ngay.');
+  }
+}
+
+function clearCreateTestDraftQuestions() {
+  ctDraftQuestions = [];
+  renderCreateTestDraftPreview();
+}
+
+function removeCreateTestDraftAt(idx) {
+  ctDraftQuestions.splice(idx, 1);
+  renderCreateTestDraftPreview();
+}
+
+function renderCreateTestDraftPreview() {
+  const sec = $('ctQuestionsPreviewSection');
+  const box = $('ctPreviewQuestionsBox');
+  if (!sec || !box) return;
+  if (!ctDraftQuestions.length) {
+    sec.style.display = 'none';
+    box.innerHTML = '';
+    return;
+  }
+  sec.style.display = 'block';
+  if ($('ctPreviewTotalCount')) $('ctPreviewTotalCount').textContent = String(ctDraftQuestions.length);
+
+  const labels = { vocab: '✍️ Từ vựng', cloze: '🔤 A/B/C/D', reorder: '🧩 Sắp xếp', translate: '📝 Dịch văn' };
+  box.innerHTML = ctDraftQuestions.map((q, idx) => {
+    const t = q.qType || 'vocab';
+    let bodyHtml = '';
+    if (t === 'cloze') {
+      const optsStr = (q.options || []).map((o, k) => `${k === q.answerIndex ? '<b>[' + String.fromCharCode(65 + k) + ']</b>' : String.fromCharCode(65 + k)}. ${escVocabHtml(o.zh)}`).join(' · ');
+      bodyHtml = `<div><b style="font-family:'KaiTi',serif;font-size:15px">${escVocabHtml(q.sentenceZh)}</b><div class="small">${optsStr}</div></div>`;
+    } else if (t === 'reorder') {
+      bodyHtml = `<div><b style="font-family:'KaiTi',serif;font-size:15px">${escVocabHtml((q.scrambled || q.tokens || []).join(' / '))}</b><div class="small">Đáp án: ${escVocabHtml(q.answerZh)}</div></div>`;
+    } else if (t === 'translate') {
+      bodyHtml = `<div><b>${q.direction === 'vi2zh' ? 'Việt ➔ Trung' : 'Trung ➔ Việt'}:</b> ${escVocabHtml((q.sourceText || '').slice(0, 90))}${q.sourceText?.length > 90 ? '…' : ''}<div class="small">Mẫu: ${escVocabHtml((q.referenceText || '').slice(0, 80))}</div></div>`;
+    } else {
+      bodyHtml = `<div><b style="font-family:'KaiTi',serif;font-size:16px">${escVocabHtml(q.zh)}</b> <span style="color:var(--primary)">${escVocabHtml(q.pinyin)}</span> — ${escVocabHtml(q.vi)}</div>`;
+    }
+    return `
+      <div class="ct-preview-row">
+        <div style="display:flex;gap:8px;align-items:flex-start;flex:1;min-width:0">
+          <span class="qtype-pill ${t}" style="flex-shrink:0">${labels[t] || t}</span>
+          ${bodyHtml}
+        </div>
+        <button type="button" class="danger" style="padding:3px 8px;min-height:28px;font-size:12px;flex-shrink:0" onclick="removeCreateTestDraftAt(${idx})" title="Bỏ câu này">✕</button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function submitCreateTestModal() {
+  const btn = $('btnSubmitCreateTest');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Đang lưu đề...'; }
+  try {
+    // Nếu người dùng chưa bấm "Xem trước", tự động sinh / phân tích ngay!
+    if (!ctDraftQuestions.length) {
+      if (ctActiveTab === 'word_exam') {
+        await parseWordExamFromTextarea();
+      } else {
+        await generateAiExamQuestionsPreview();
       }
-      finalWords = finalWords.slice(skipFirst);
     }
+    if (!ctDraftQuestions.length) return;
 
-    if ($('ctShuffleChk')?.checked) {
-      finalWords.sort(() => Math.random() - 0.5);
-    }
-
-    const maxQ = Math.max(0, parseInt($('ctMaxQuestionsInput')?.value || '0', 10) || 0);
-    if (maxQ > 0 && maxQ < finalWords.length) {
-      finalWords = finalWords.slice(0, maxQ);
-    }
-
+    const info = collectCreateTestWordsSync();
     const customTitle = ($('ctTestTitleInput')?.value || '').trim();
-    const finalTitle = customTitle || info.autoTitle;
+    const finalTitle = customTitle || (ctActiveTab === 'word_exam' ? `Đề Word (${new Date().toLocaleDateString('vi-VN')})` : info.autoTitle);
     const examId = 'test_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
 
     const examObj = {
       id: examId,
       title: finalTitle,
-      pathLabel: info.pathLabel,
-      sourceType: info.sourceType,
+      pathLabel: ctActiveTab === 'word_exam' ? 'Nhập từ file Word (.docx)' : info.pathLabel,
+      sourceType: ctActiveTab === 'word_exam' ? 'word_exam' : 'ai_exam',
       hskIndex: info.hskIndex,
       lessonIndex: info.lessonIndex,
       textIndex: info.textIndex,
-      wordCount: finalWords.length,
-      addedWordsCount: finalWords.length,
-      words: finalWords,
+      wordCount: ctDraftQuestions.length,
+      addedWordsCount: ctDraftQuestions.length,
+      questions: [...ctDraftQuestions],
+      words: [...ctDraftQuestions],
       createdAt: new Date().toLocaleString('vi-VN'),
       createdBy: getCurrentUser().name
     };
@@ -6864,16 +8608,21 @@ async function submitCreateTestModal() {
     appState.generatedTests.unshift(examObj);
     appState.testsRevision = (appState.testsRevision || 1) + 1;
 
-    await pushCloudState(`Tạo đề Test mới: ${finalTitle} (${finalWords.length} câu)`);
+    await pushCloudState(`Tạo đề Test mới: ${finalTitle} (${ctDraftQuestions.length} câu)`);
+    const toLaunch = [...ctDraftQuestions];
     closeCreateTestModal();
 
     if ($('ctStartNowChk')?.checked) {
       switchTab('tab-test');
-      launchTestWithWords([...finalWords], finalTitle, 0, 0);
+      launchTestWithWords(toLaunch, finalTitle, 0, 0);
+    } else {
+      switchTab('tab-test');
+      toggleTestSetupDrawer(true);
+      switchTestSetupTab('tests');
     }
-    showToast(`🎉 Đã tạo thành công đề "${finalTitle}" (${finalWords.length} câu hỏi)!`);
+    showToast(`🎉 Đã lưu đề "${finalTitle}" (${toLaunch.length} câu · ${summarizeExamQuestionTypes(toLaunch)})!`);
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = '🚀 Tạo & Lưu Test'; }
+    if (btn) { btn.disabled = false; btn.textContent = '🚀 Lưu Đề Test & Đồng Bộ Drive'; }
   }
 }
 
@@ -7022,6 +8771,8 @@ function launchTestWithWords(words, title, startIndex = 0, startScore = 0) {
   renderCurrentTestQuestion();
 }
 
+let reorderSelectedIndices = [];
+
 function renderCurrentTestQuestion() {
   const emptyEl = $('testEmptyStateBox');
   const activeEl = $('testActiveArenaContent');
@@ -7036,32 +8787,493 @@ function renderCurrentTestQuestion() {
 
   const idx = testSession.currentIndex;
   const total = testSession.words.length;
-  const word = testSession.words[idx];
+  const item = testSession.words[idx];
+  const qType = item.qType || 'vocab';
 
   $('activeLessonTag').textContent = testSession.title;
-  $('testProgressLabel').textContent = `Từ ${idx + 1} / ${total}`;
+  $('testProgressLabel').textContent = `Câu ${idx + 1} / ${total}`;
   $('sideTestBadge').textContent = `${idx + 1}/${total}`;
   $('testProgressBar').style.width = `${((idx + 1) / total) * 100}%`;
   $('sessionScoreVal').textContent = testSession.score;
   $('sessionWrongVal').textContent = testSession.wrongCount;
 
-  $('promptMeaningText').textContent = word.vi;
-  $('promptPinyinHint').textContent = $('chkShowPinyinHint').checked ? (word.pinyin || '') : '(Đã ẩn gợi ý Pinyin)';
+  const typeMeta = {
+    vocab: { cls: 'vocab', text: '✍️ Từ vựng' },
+    cloze: { cls: 'cloze', text: '🔤 Đục lỗ A, B, C, D' },
+    reorder: { cls: 'reorder', text: '🧩 Sắp xếp câu ngữ pháp' },
+    translate: { cls: 'translate', text: '📝 Dịch đoạn văn' }
+  };
+  const badgeEl = $('activeQuestionTypeBadge');
+  if (badgeEl) {
+    const m = typeMeta[qType] || typeMeta.vocab;
+    badgeEl.className = 'qtype-pill ' + m.cls;
+    badgeEl.textContent = m.text;
+  }
 
-  $('testHanziInput').value = '';
-  $('inlinePinyinHelper').value = '';
+  // Ẩn/hiện đúng khu vực làm bài theo dạng câu hỏi
+  if ($('vocabArenaWrap')) $('vocabArenaWrap').style.display = qType === 'vocab' ? 'block' : 'none';
+  if ($('clozeArenaWrap')) $('clozeArenaWrap').style.display = qType === 'cloze' ? 'block' : 'none';
+  if ($('reorderArenaWrap')) $('reorderArenaWrap').style.display = qType === 'reorder' ? 'block' : 'none';
+  if ($('translateArenaWrap')) $('translateArenaWrap').style.display = qType === 'translate' ? 'block' : 'none';
+
   $('resultFeedbackBox').className = 'result-feedback-box';
   $('resultFeedbackBox').innerHTML = '';
-  hwClearCanvas();
-  if (typeof syncU442CurrentWord === 'function') syncU442CurrentWord(word);
+
+  const copyTarget = qType === 'vocab' ? item : (item.targetWord || null);
+  if (typeof syncU442CurrentWord === 'function') {
+    if ($('u442CopybookWidget')) $('u442CopybookWidget').style.display = copyTarget && copyTarget.zh ? 'flex' : 'none';
+    if (copyTarget && copyTarget.zh) syncU442CurrentWord(copyTarget);
+  }
   if (typeof window._resetU458VoiceOrb === 'function') window._resetU458VoiceOrb();
-  if (window.innerWidth > 768) $('testHanziInput').focus();
+
+  if (qType === 'vocab') {
+    $('promptMeaningText').textContent = item.vi || '—';
+    $('promptPinyinHint').textContent = $('chkShowPinyinHint')?.checked ? (item.pinyin || '') : '(Đã ẩn gợi ý Pinyin)';
+    $('testHanziInput').value = '';
+    $('inlinePinyinHelper').value = '';
+    hwClearCanvas();
+    if (window.innerWidth > 768) $('testHanziInput').focus();
+  } else if (qType === 'cloze') {
+    renderClozeQuestionUI(item);
+  } else if (qType === 'reorder') {
+    renderReorderQuestionUI(item);
+  } else if (qType === 'translate') {
+    renderTranslateQuestionUI(item);
+  }
 }
 
 function speakCurrentTestWord() {
-  const w = testSession.words[testSession.currentIndex];
-  if (w) speakChinese(w.zh);
+  const item = testSession.words[testSession.currentIndex];
+  if (!item) return;
+  if (item.qType === 'cloze') speakChinese(item.fullSentenceZh || item.sentenceZh);
+  else if (item.qType === 'reorder') speakChinese(item.answerZh);
+  else if (item.qType === 'translate') speakChinese(item.direction === 'vi2zh' ? item.referenceText : item.sourceText);
+  else if (item.zh) speakChinese(item.zh);
 }
+
+// --- DẠNG 2: RENDER & CHẤM CÂU ĐỤC LỖ A, B, C, D ---
+function renderClozeQuestionUI(item) {
+  const showPy = $('chkShowPinyinHint')?.checked;
+  if ($('clozeGrammarTag')) $('clozeGrammarTag').textContent = item.grammarNote || 'Ngữ pháp bài học';
+  const renderedZh = escVocabHtml(item.sentenceZh || '').replace(/_{2,}/g, '<span class="cloze-blank" id="clozeBlankSlot">____</span>');
+  if ($('clozeSentenceZh')) $('clozeSentenceZh').innerHTML = renderedZh;
+  if ($('clozeSentencePy')) $('clozeSentencePy').textContent = showPy ? (item.sentencePy || '') : '';
+  if ($('clozeSentenceVi')) $('clozeSentenceVi').textContent = item.sentenceVi || '';
+
+  const grid = $('clozeOptionsGrid');
+  if (!grid) return;
+  const letters = ['A', 'B', 'C', 'D'];
+  grid.innerHTML = (item.options || []).map((opt, oIdx) => {
+    const zhText = typeof opt === 'string' ? opt : (opt.zh || '');
+    const pyText = typeof opt === 'string' ? '' : (opt.pinyin || '');
+    return `
+      <button type="button" class="quiz-opt-btn" data-opt-idx="${oIdx}" onclick="selectClozeOption(${oIdx})">
+        <span class="quiz-opt-letter">${letters[oIdx] || (oIdx + 1)}</span>
+        <span class="quiz-opt-text">
+          <strong>${escVocabHtml(zhText)}</strong>
+          ${showPy && pyText ? `<small>${escVocabHtml(pyText)}</small>` : ''}
+        </span>
+      </button>
+    `;
+  }).join('');
+}
+
+function speakCurrentClozeSentence() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item) return;
+  const isAnswered = Boolean(testSession.answeredMap[testSession.currentIndex]);
+  const textToSpeak = isAnswered ? (item.fullSentenceZh || item.sentenceZh) : (item.sentenceZh || '').replace(/_{2,}/g, '，');
+  speakChinese(textToSpeak);
+}
+
+function selectClozeOption(chosenIdx) {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'cloze') return;
+  const ansIdx = Number(item.answerIndex || 0);
+  const isCorrect = chosenIdx === ansIdx;
+  const ansOpt = item.options?.[ansIdx];
+  const ansZh = typeof ansOpt === 'string' ? ansOpt : (ansOpt?.zh || '');
+  const fullSent = item.fullSentenceZh || (item.sentenceZh || '').replace(/_{2,}/g, ansZh);
+
+  const blankEl = $('clozeBlankSlot');
+  if (blankEl) blankEl.textContent = ansZh;
+
+  document.querySelectorAll('#clozeOptionsGrid .quiz-opt-btn').forEach((btn, idx) => {
+    btn.disabled = true;
+    btn.classList.remove('is-correct', 'is-wrong', 'is-dim');
+    if (idx === ansIdx) btn.classList.add('is-correct');
+    else if (idx === chosenIdx && !isCorrect) btn.classList.add('is-wrong');
+    else btn.classList.add('is-dim');
+  });
+
+  const user = getCurrentUser();
+  const fb = $('resultFeedbackBox');
+  if (isCorrect) {
+    if (!testSession.answeredMap[testSession.currentIndex]) {
+      testSession.score += 1;
+      user.totalScore = (user.totalScore || 0) + 1;
+      testSession.answeredMap[testSession.currentIndex] = 'ok';
+      pushCloudState(`Đúng câu đục lỗ "${ansZh}" (+1 điểm)`);
+    }
+    $('sessionScoreVal').textContent = testSession.score;
+    fb.className = 'result-feedback-box ok';
+    fb.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div>
+          <strong style="font-size:16px">🎉 Chính xác! +1 điểm</strong>
+          <div style="margin-top:4px;font-size:15px"><b style="font-family:'KaiTi',serif;font-size:20px">${escVocabHtml(fullSent)}</b></div>
+          ${item.explanation ? `<div class="small" style="margin-top:3px;color:inherit">${escVocabHtml(item.explanation)}</div>` : ''}
+        </div>
+        <button type="button" class="speaker-btn" onclick="speakChinese('${escVocabHtml(fullSent)}')">🔊 Nghe cả câu</button>
+      </div>
+    `;
+  } else {
+    if (!testSession.answeredMap[testSession.currentIndex]) {
+      testSession.wrongCount += 1;
+      testSession.answeredMap[testSession.currentIndex] = 'wrong';
+    }
+    $('sessionWrongVal').textContent = testSession.wrongCount;
+    if ($('chkAutoSaveWrong')?.checked && item.targetWord?.zh) {
+      addWordToWrongMemory(item.targetWord, false);
+    }
+    fb.className = 'result-feedback-box wrong';
+    fb.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div>
+          <strong style="font-size:16px">❌ Chưa chính xác! Đáp án đúng là ${String.fromCharCode(65 + ansIdx)}. ${escVocabHtml(ansZh)}</strong>
+          <div style="margin-top:4px;font-size:15px">Câu đúng: <b style="font-family:'KaiTi',serif;font-size:20px">${escVocabHtml(fullSent)}</b></div>
+          ${item.explanation ? `<div class="small" style="margin-top:3px;color:inherit">${escVocabHtml(item.explanation)}</div>` : ''}
+        </div>
+        <button type="button" class="speaker-btn" onclick="speakChinese('${escVocabHtml(fullSent)}')">🔊 Nghe câu đúng</button>
+      </div>
+    `;
+  }
+  speakChinese(fullSent);
+  saveCurrentCheckpoint(false);
+}
+
+// --- DẠNG 3: RENDER & CHẤM SẮP XẾP CÂU THEO NGỮ PHÁP ---
+function renderReorderQuestionUI(item) {
+  reorderSelectedIndices = [];
+  if (!Array.isArray(item.scrambled) || !item.scrambled.length) {
+    item.scrambled = scrambleTokensNotEqual(item.tokens || []);
+  }
+  if ($('reorderGrammarTag')) $('reorderGrammarTag').textContent = item.grammarNote || 'Ngữ pháp bài học';
+  if ($('reorderHintVi')) $('reorderHintVi').textContent = item.hintVi || 'Sắp xếp thành câu tiếng Trung hoàn chỉnh:';
+  if ($('btnVerifyReorder')) $('btnVerifyReorder').disabled = false;
+  redrawReorderChips();
+}
+
+function redrawReorderChips() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'reorder') return;
+  const scrambled = item.scrambled || [];
+  const tray = $('reorderAnswerTray');
+  const bank = $('reorderWordBank');
+  if (!tray || !bank) return;
+
+  if (!reorderSelectedIndices.length) {
+    tray.innerHTML = '<span class="small" style="opacity:0.75">Chạm lần lượt các thẻ từ bên dưới để ghép thành câu hoàn chỉnh...</span>';
+  } else {
+    tray.innerHTML = reorderSelectedIndices.map((tokIdx, pos) => `
+      <button type="button" class="reorder-chip in-tray" onclick="removeReorderChipAt(${pos})" title="Chạm để bỏ thẻ này">
+        <b>${escVocabHtml(scrambled[tokIdx])}</b>
+      </button>
+    `).join('');
+  }
+
+  const chosenSet = new Set(reorderSelectedIndices);
+  bank.innerHTML = scrambled.map((tk, idx) => {
+    if (chosenSet.has(idx)) return '';
+    return `
+      <button type="button" class="reorder-chip" onclick="pickReorderChip(${idx})">
+        <b>${escVocabHtml(tk)}</b>
+      </button>
+    `;
+  }).join('') || '<span class="small" style="color:var(--green);font-weight:700">✓ Đã xếp đủ tất cả các từ — Bấm "Kiểm tra câu"!</span>';
+}
+
+function pickReorderChip(idx) {
+  if (reorderSelectedIndices.includes(idx)) return;
+  reorderSelectedIndices.push(idx);
+  const item = testSession.words[testSession.currentIndex];
+  if (item?.scrambled?.[idx]) speakChinese(item.scrambled[idx]);
+  redrawReorderChips();
+}
+
+function removeReorderChipAt(pos) {
+  reorderSelectedIndices.splice(pos, 1);
+  redrawReorderChips();
+}
+
+function undoReorderToken() {
+  if (!reorderSelectedIndices.length) return;
+  reorderSelectedIndices.pop();
+  redrawReorderChips();
+}
+
+function resetReorderTokens() {
+  reorderSelectedIndices = [];
+  redrawReorderChips();
+}
+
+function normalizeChineseCompare(str) {
+  return String(str || '').replace(/[\s。！？，、；：""''（）\(\)\.,!?\-]/g, '').trim();
+}
+
+function verifyReorderAnswer() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'reorder') return;
+  if (!reorderSelectedIndices.length) return alert("Hãy chạm vào các thẻ từ bên dưới để xếp thành câu trước khi kiểm tra!");
+
+  const userSent = reorderSelectedIndices.map(i => item.scrambled[i]).join('');
+  const expected = item.answerZh || (item.tokens || []).join('');
+  const isCorrect = normalizeChineseCompare(userSent) === normalizeChineseCompare(expected);
+
+  const user = getCurrentUser();
+  const fb = $('resultFeedbackBox');
+
+  if (isCorrect) {
+    if (!testSession.answeredMap[testSession.currentIndex]) {
+      testSession.score += 1;
+      user.totalScore = (user.totalScore || 0) + 1;
+      testSession.answeredMap[testSession.currentIndex] = 'ok';
+      pushCloudState(`Sắp xếp đúng câu "${expected}" (+1 điểm)`);
+    }
+    $('sessionScoreVal').textContent = testSession.score;
+    fb.className = 'result-feedback-box ok';
+    fb.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div>
+          <strong style="font-size:16px">🎉 Chính xác! Đúng trật tự ngữ pháp (+1 điểm)</strong>
+          <div style="margin-top:4px;font-size:15px"><b style="font-family:'KaiTi',serif;font-size:21px">${escVocabHtml(expected)}</b></div>
+          ${item.answerPy ? `<div class="small" style="color:var(--accent);font-weight:600">${escVocabHtml(item.answerPy)}</div>` : ''}
+          <div class="small" style="margin-top:2px">Cấu trúc: <b>${escVocabHtml(item.grammarNote || 'Ngữ pháp bài học')}</b></div>
+        </div>
+        <button type="button" class="speaker-btn" onclick="speakChinese('${escVocabHtml(expected)}')">🔊 Nghe câu</button>
+      </div>
+    `;
+  } else {
+    if (!testSession.answeredMap[testSession.currentIndex]) {
+      testSession.wrongCount += 1;
+      testSession.answeredMap[testSession.currentIndex] = 'wrong';
+    }
+    $('sessionWrongVal').textContent = testSession.wrongCount;
+    if ($('chkAutoSaveWrong')?.checked && item.targetWord?.zh) {
+      addWordToWrongMemory(item.targetWord, false);
+    }
+    fb.className = 'result-feedback-box wrong';
+    fb.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <div>
+          <strong style="font-size:16px">❌ Chưa đúng trật tự ngữ pháp!</strong> (Bạn xếp: <b style="font-family:'KaiTi',serif">${escVocabHtml(userSent)}</b>)
+          <div style="margin-top:4px;font-size:15px">Câu đúng: <b style="font-family:'KaiTi',serif;font-size:21px;color:#111">${escVocabHtml(expected)}</b></div>
+          ${item.answerPy ? `<div class="small" style="font-weight:600">${escVocabHtml(item.answerPy)}</div>` : ''}
+          <div class="small" style="margin-top:2px">Gợi ý ngữ pháp: <b>${escVocabHtml(item.grammarNote || '')}</b></div>
+        </div>
+        <button type="button" class="speaker-btn" onclick="speakChinese('${escVocabHtml(expected)}')">🔊 Nghe câu đúng</button>
+      </div>
+    `;
+  }
+  speakChinese(expected);
+  saveCurrentCheckpoint(false);
+}
+
+// --- DẠNG 4: RENDER & CHẤM DỊCH ĐOẠN VĂN (AI CHẤM ĐIỂM & GÓP Ý) ---
+function renderTranslateQuestionUI(item) {
+  const isZh2Vi = (item.direction || 'zh2vi') === 'zh2vi';
+  if ($('translateTitleLabel')) $('translateTitleLabel').textContent = '📝 ' + (item.passageTitle || 'Dịch đoạn văn sau:');
+  if ($('translateDirBadge')) $('translateDirBadge').textContent = isZh2Vi ? '🇨🇳 Trung ➔ 🇻🇳 Việt' : '🇻🇳 Việt ➔ 🇨🇳 Trung';
+  if ($('btnSpeakTranslatePassage')) $('btnSpeakTranslatePassage').style.display = isZh2Vi ? 'inline-flex' : 'none';
+  if ($('translatePassageText')) {
+    $('translatePassageText').className = 'translate-passage-text' + (isZh2Vi ? '' : ' is-vi');
+    $('translatePassageText').textContent = item.sourceText || '—';
+  }
+  if ($('translatePassagePy')) {
+    $('translatePassagePy').textContent = (isZh2Vi && $('chkShowPinyinHint')?.checked) ? (item.sourcePy || '') : '';
+  }
+  if ($('translatePromptInstruction')) {
+    $('translatePromptInstruction').textContent = isZh2Vi
+      ? 'Nhập bản dịch tiếng Việt tự nhiên của bạn:'
+      : 'Nhập bản dịch tiếng Trung (chữ Hán) của bạn:';
+  }
+  if ($('translateUserInput')) {
+    $('translateUserInput').value = '';
+    $('translateUserInput').placeholder = isZh2Vi
+      ? 'Viết bản dịch tiếng Việt của đoạn văn phía trên...'
+      : 'Viết bản dịch tiếng Trung (chữ Hán) tương ứng...';
+  }
+}
+
+function speakCurrentTranslatePassage() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item) return;
+  const zhText = (item.direction === 'vi2zh') ? item.referenceText : item.sourceText;
+  if (zhText) speakChinese(zhText);
+}
+
+function revealTranslateReference() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'translate') return;
+  const fb = $('resultFeedbackBox');
+  fb.className = 'result-feedback-box ok';
+  fb.innerHTML = `
+    <div>
+      <strong>👁️ Bản dịch tham khảo:</strong>
+      <div style="margin-top:6px;font-size:15.5px;font-weight:700">${escVocabHtml(item.referenceText || '(Chưa có bản dịch mẫu)')}</div>
+      ${item.referencePy ? `<div class="small" style="color:var(--accent);font-weight:600;margin-top:3px">${escVocabHtml(item.referencePy)}</div>` : ''}
+    </div>
+  `;
+}
+
+function gradeTranslationLocalRubric(userText, refText, direction, keywords = []) {
+  const normVi = (s) => String(s || '').toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd')
+    .replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+
+  if (direction === 'vi2zh') {
+    const uChars = [...normalizeChineseCompare(userText)].filter(c => /[\u4e00-\u9fa5]/.test(c));
+    const rChars = [...normalizeChineseCompare(refText)].filter(c => /[\u4e00-\u9fa5]/.test(c));
+    if (!rChars.length) return { score: uChars.length >= 4 ? 75 : 30, passed: uChars.length >= 4, matched: [], missed: [] };
+    const uSet = new Set(uChars);
+    let hits = 0;
+    rChars.forEach(c => { if (uSet.has(c)) hits++; });
+    const kwMatched = (keywords || []).filter(k => userText.includes(k));
+    const kwMissed = (keywords || []).filter(k => !userText.includes(k));
+    const charRatio = hits / rChars.length;
+    const kwRatio = keywords.length ? (kwMatched.length / keywords.length) : charRatio;
+    const score = Math.min(100, Math.round((charRatio * 0.65 + kwRatio * 0.35) * 100));
+    return { score, passed: score >= 55, matched: kwMatched, missed: kwMissed };
+  }
+
+  const stopWords = new Set(['la','va','cua','thi','co','o','trong','cho','mot','cac','nhung','nay','kia','do','rat','de','voi','nhu','tu','khi','ma','se','da','dang']);
+  const uNorm = normVi(userText);
+  const rNorm = normVi(refText);
+  const uWords = new Set(uNorm.split(' ').filter(w => w.length >= 2 && !stopWords.has(w)));
+  const rWords = [...new Set(rNorm.split(' ').filter(w => w.length >= 2 && !stopWords.has(w)))];
+
+  let wordHits = 0;
+  rWords.forEach(w => { if (uWords.has(w)) wordHits++; });
+  const overlapRatio = rWords.length ? (wordHits / rWords.length) : 0.7;
+
+  const kwMatched = [];
+  const kwMissed = [];
+  (keywords || []).forEach(kw => {
+    const kNorm = normVi(kw);
+    if (!kNorm) return;
+    const parts = kNorm.split(' ').filter(p => p.length >= 2);
+    const ok = uNorm.includes(kNorm) || (parts.length > 0 && parts.some(p => uWords.has(p)));
+    if (ok) kwMatched.push(kw); else kwMissed.push(kw);
+  });
+
+  const kwRatio = (kwMatched.length + kwMissed.length) > 0 ? (kwMatched.length / (kwMatched.length + kwMissed.length)) : overlapRatio;
+  const lenPenalty = uNorm.length < Math.max(8, rNorm.length * 0.3) ? 0.65 : 1;
+  const score = Math.min(100, Math.round((overlapRatio * 0.55 + kwRatio * 0.45) * 100 * lenPenalty));
+  return { score, passed: score >= 55, matched: kwMatched, missed: kwMissed };
+}
+
+async function verifyTranslateAnswer() {
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'translate') return;
+  const userAns = ($('translateUserInput')?.value || '').trim();
+  if (!userAns) return alert("Hãy nhập bản dịch của bạn trước khi bấm AI Chấm dịch!");
+
+  const btn = $('btnVerifyTranslate');
+  if (btn) { btn.disabled = true; btn.textContent = '🤖 AI đang chấm dịch...'; }
+
+  let score = 0;
+  let passed = false;
+  let feedbackText = '';
+  let betterVersion = item.referenceText || '';
+
+  try {
+    // Ưu tiên Multi-LLM nếu có gắn API key
+    if (typeof callVibeMultiLLM === 'function' && vibeLlmConfig?.provider && vibeLlmConfig.provider !== 'builtin') {
+      const prompt = `Chấm bài dịch đoạn văn (${item.direction === 'vi2zh' ? 'Việt sang Trung' : 'Trung sang Việt'}):
+- Đoạn gốc: "${item.sourceText}"
+- Bản dịch chuẩn tham khảo: "${item.referenceText}"
+- Bài dịch của học viên: "${userAns}"
+Trả về DUY NHẤT JSON: {"score":85,"passed":true,"feedback":"Nhận xét ngắn gọn 1-2 câu bằng tiếng Việt về ngữ pháp và từ vựng","improved":"Bản dịch tự nhiên nhất"}`;
+      const raw = await callVibeMultiLLM(prompt);
+      if (raw) {
+        const m = raw.match(/\{[\s\S]*\}/);
+        if (m) {
+          const obj = JSON.parse(m[0]);
+          score = Number(obj.score || 0);
+          passed = Boolean(obj.passed ?? (score >= 60));
+          feedbackText = String(obj.feedback || '');
+          if (obj.improved) betterVersion = String(obj.improved);
+        }
+      }
+    }
+
+    if (!feedbackText) {
+      const rubric = gradeTranslationLocalRubric(userAns, item.referenceText, item.direction, item.keywords || []);
+      score = rubric.score;
+      passed = rubric.passed;
+      if (score >= 80) feedbackText = 'Bản dịch rất sát nghĩa, truyền tải đầy đủ từ vựng và cấu trúc ngữ pháp của đoạn văn!';
+      else if (score >= 55) feedbackText = 'Bản dịch đạt yêu cầu, đã nắm được ý chính. Bạn hãy đối chiếu thêm bản dịch mẫu bên dưới để diễn đạt tự nhiên hơn.';
+      else feedbackText = 'Bản dịch còn thiếu một số ý/từ khóa quan trọng. Hãy xem kỹ bản dịch mẫu và thử dịch lại nhé!';
+      if (rubric.missed.length) {
+        feedbackText += ` (Ý cần chú ý thêm: ${rubric.missed.slice(0, 4).join(', ')})`;
+      }
+    }
+
+    const user = getCurrentUser();
+    const fb = $('resultFeedbackBox');
+    if (passed) {
+      if (!testSession.answeredMap[testSession.currentIndex]) {
+        testSession.score += 1;
+        user.totalScore = (user.totalScore || 0) + 1;
+        testSession.answeredMap[testSession.currentIndex] = 'ok';
+        pushCloudState(`Đạt bài dịch đoạn văn (${score}%) +1 điểm`);
+      }
+      $('sessionScoreVal').textContent = testSession.score;
+      fb.className = 'result-feedback-box ok';
+    } else {
+      if (!testSession.answeredMap[testSession.currentIndex]) {
+        testSession.wrongCount += 1;
+        testSession.answeredMap[testSession.currentIndex] = 'wrong';
+      }
+      $('sessionWrongVal').textContent = testSession.wrongCount;
+      fb.className = 'result-feedback-box wrong';
+    }
+
+    fb.innerHTML = `
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <strong style="font-size:16px">${passed ? '🎉 Đạt yêu cầu (+1 điểm)' : '📌 Cần cải thiện thêm'} · Độ chính xác AI chấm: ${score}%</strong>
+          <button type="button" class="speaker-btn" onclick="speakCurrentTranslatePassage()">🔊 Nghe tiếng Trung</button>
+        </div>
+        <div style="margin-top:6px;font-size:14px">🤖 <b>Nhận xét AI:</b> ${escVocabHtml(feedbackText)}</div>
+        <div class="vibe-mnemonic-chip" style="margin-top:8px">
+          <b>📖 Bản dịch mẫu chuẩn:</b> ${escVocabHtml(betterVersion)}
+          ${item.referencePy ? `<br><span style="color:var(--accent)">${escVocabHtml(item.referencePy)}</span>` : ''}
+        </div>
+      </div>
+    `;
+    saveCurrentCheckpoint(false);
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '🤖 AI Chấm dịch & Góp ý (+1)'; }
+  }
+}
+
+// Phím tắt 1-4 / A-D cho câu hỏi Đục lỗ A, B, C, D
+window.addEventListener('keydown', (e) => {
+  const tag = document.activeElement?.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  const activeTab = document.querySelector('#tab-test.active');
+  if (!activeTab) return;
+  const item = testSession.words[testSession.currentIndex];
+  if (!item || item.qType !== 'cloze') return;
+  if (testSession.answeredMap[testSession.currentIndex]) return;
+  const key = e.key.toUpperCase();
+  const map = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
+  if (map[key] !== undefined && item.options?.[map[key]]) {
+    e.preventDefault();
+    selectClozeOption(map[key]);
+  }
+});
 
 function activateInputPad() {
   $('checkTriggerBox').classList.add('active');
@@ -10884,7 +13096,405 @@ pullCloudState(true, true).then(() => {
     if ($('testEmptyDesc')) $('testEmptyDesc').textContent = 'Chọn cấp độ HSK - Bài - Text ở trên rồi bấm "🚀 Bắt đầu kiểm tra" để ôn ngay.';
   }
 });
-bind4DToolbars();
+
+/* ==================== KHỞI TẠO & TỐI ƯU 120FPS CHO LUCIAN UX/UI EXPANSION PACK v5 ==================== */
+(function initLucianExpansionPackV5() {
+  const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1. Tối ưu 120FPS cho 4D Toolbars bằng requestAnimationFrame lock & cached bounding rect
+  window.bind4DToolbars = function() {
+    document.querySelectorAll('.toolbar-4d').forEach(el => {
+      if (el.dataset.bound4d) return;
+      el.dataset.bound4d = '1';
+      let ticking = false, lastX = 0, lastY = 0, rect = null;
+      el.addEventListener('pointerenter', () => { rect = el.getBoundingClientRect(); }, { passive: true });
+      el.addEventListener('pointermove', e => {
+        if (rm) return;
+        lastX = e.clientX; lastY = e.clientY;
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            if (!rect) rect = el.getBoundingClientRect();
+            const x = lastX - rect.left;
+            const y = lastY - rect.top;
+            el.style.setProperty('--mx', `${x.toFixed(1)}px`);
+            el.style.setProperty('--my', `${y.toFixed(1)}px`);
+            el.style.setProperty('--rx', `${(((y / (rect.height || 1)) - 0.5) * -5).toFixed(2)}deg`);
+            el.style.setProperty('--ry', `${(((x / (rect.width || 1)) - 0.5) * 5).toFixed(2)}deg`);
+            ticking = false;
+          });
+        }
+      }, { passive: true });
+      el.addEventListener('pointerleave', () => {
+        rect = null;
+        el.style.removeProperty('--rx');
+        el.style.removeProperty('--ry');
+      }, { passive: true });
+    });
+  };
+  bind4DToolbars();
+
+  // 2. #040 Collapsible Rail Toggle
+  const railBtn = $('u040RailToggle');
+  const layoutEl = document.querySelector('.layout-container');
+  if (railBtn && layoutEl) {
+    railBtn.addEventListener('click', () => {
+      const compact = layoutEl.classList.toggle('rail-compact');
+      railBtn.setAttribute('aria-expanded', String(!compact));
+    });
+  }
+
+  // 3. #037 Account / Workspace Switcher
+  const u037 = $('u037WorkspaceSwitcher');
+  if (u037) {
+    const chip = u037.querySelector('.u037-chip');
+    const items = Array.from(u037.querySelectorAll('.u037-it'));
+    const setOpen = v => {
+      u037.classList.toggle('is-open', v);
+      chip.setAttribute('aria-expanded', String(v));
+    };
+    chip.addEventListener('click', () => setOpen(!u037.classList.contains('is-open')));
+    items.forEach(it => {
+      it.addEventListener('pointerenter', () => {
+        const list = it.closest('.u037-list');
+        u037.querySelectorAll('.u037-list').forEach(l => { if (l !== list) l.classList.remove('is-hl'); });
+        const bar = list.querySelector('.u037-hl');
+        bar.style.setProperty('--y', it.parentNode.offsetTop + 'px');
+        bar.style.setProperty('--h', it.offsetHeight + 'px');
+        list.classList.add('is-hl');
+      });
+      it.addEventListener('click', () => {
+        if (it.dataset.ws) {
+          items.forEach(x => { if (x.dataset.ws) x.setAttribute('aria-checked', String(x === it)); });
+          const ws = chip.querySelector('.u037-ws');
+          ws.textContent = it.dataset.ws;
+          ws.style.setProperty('--c', it.dataset.c);
+          chip.querySelector('b').textContent = it.dataset.name;
+          if ($('testSourceType')) {
+            $('testSourceType').value = it.dataset.ws === '我' ? 'personal_catalog' : 'admin';
+            onTestSourceTypeChange();
+          }
+          showToast(`🔄 Đã chuyển sang: ${it.dataset.name}`);
+        }
+        setOpen(false);
+      });
+    });
+    document.addEventListener('pointerdown', e => { if (!u037.contains(e.target)) setOpen(false); }, true);
+  }
+
+  // 4. #070 Stacking Toasts (thay thế toast đơn lẻ, mượt 120fps)
+  const toastZone = document.querySelector('#u070ToastStack .u070-zone');
+  if (toastZone) {
+    const stack = [];
+    let hoverOpen = false;
+    const layoutToasts = () => {
+      let acc = 0;
+      stack.forEach((t, i) => {
+        t.el.classList.toggle('back', !hoverOpen && i > 0);
+        if (hoverOpen) {
+          t.el.style.setProperty('--y', `${-acc}px`);
+          t.el.style.setProperty('--s', '1');
+          t.el.style.setProperty('--o', '1');
+          acc += t.el.offsetHeight + 8;
+        } else {
+          t.el.style.setProperty('--y', `${-(i * 12)}px`);
+          t.el.style.setProperty('--s', (1 - i * 0.05).toFixed(2));
+          t.el.style.setProperty('--o', i > 2 ? '0' : '1');
+        }
+        t.el.style.zIndex = String(50 - i);
+      });
+    };
+    const removeToast = (t, dir = 0) => {
+      const idx = stack.indexOf(t);
+      if (idx < 0) return;
+      stack.splice(idx, 1);
+      t.el.classList.add('leave');
+      if (dir) { t.el.style.setProperty('--dir', dir); t.el.classList.add('side'); }
+      setTimeout(() => t.el.remove(), 380);
+      layoutToasts();
+    };
+    window.showToast = function(msg) {
+      const text = String(msg || '');
+      const isErr = /lỗi|xóa|thất bại|cảnh báo|⚠|❌/i.test(text);
+      const color = isErr ? 'var(--ux-danger)' : 'var(--ux-mint)';
+      const el = document.createElement('div');
+      el.className = 'u070-t enter';
+      el.style.setProperty('--c', color);
+      el.setAttribute('role', 'status');
+      el.innerHTML = `<span class="u070-ic" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="${isErr ? 'M9 5v5M9 13h.01' : 'M4 9.4l3.2 3.2L14 5.6'}"/></svg></span><span class="u070-tx"><b>${isErr ? 'Lưu ý hệ thống' : 'Thông báo'}</b><small></small></span><button class="u070-x" type="button" aria-label="Đóng"><svg viewBox="0 0 14 14"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7"/></svg></button><span class="u070-bar" aria-hidden="true"></span>`;
+      el.querySelector('small').textContent = text;
+      toastZone.appendChild(el);
+      const item = { el, left: 3800 };
+      stack.unshift(item);
+      if (stack.length > 4) removeToast(stack[stack.length - 1]);
+      requestAnimationFrame(() => { el.classList.remove('enter'); layoutToasts(); });
+      el.querySelector('.u070-x').addEventListener('click', () => removeToast(item));
+      el.addEventListener('pointerenter', () => { hoverOpen = true; layoutToasts(); });
+      el.addEventListener('pointerleave', () => { hoverOpen = false; layoutToasts(); });
+    };
+    let lastT = performance.now();
+    (function tickToasts(now) {
+      const dt = now - lastT; lastT = now;
+      if (!hoverOpen && !document.hidden && stack.length > 0) {
+        const topItem = stack[0];
+        topItem.left -= dt;
+        topItem.el.style.setProperty('--left', Math.max(0, topItem.left / 3800).toFixed(3));
+        if (topItem.left <= 0) removeToast(topItem);
+      }
+      requestAnimationFrame(tickToasts);
+    })(lastT);
+  }
+
+  // 5. #041 Notched Bottom Tab Bar
+  const u041 = $('u041MobileNav');
+  if (u041) {
+    const tabs = Array.from(u041.querySelectorAll('.u041-tab'));
+    let x = 0, v = 0, target = 0, raf = 0;
+    const centerOf = t => t.parentNode.offsetLeft + t.offsetWidth / 2;
+    const step = () => {
+      const a = (target - x) * 0.18 - v * 0.44;
+      v += a; x += v;
+      u041.style.setProperty('--x', x.toFixed(2) + 'px');
+      if (Math.abs(target - x) > 0.3 || Math.abs(v) > 0.3) raf = requestAnimationFrame(step);
+      else { x = target; v = 0; u041.style.setProperty('--x', x + 'px'); raf = 0; }
+    };
+    window._syncU041Tab = (tabId) => {
+      const idx = tabs.findIndex(t => t.dataset.tab === tabId);
+      if (idx < 0) return;
+      tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === idx)));
+      target = centerOf(tabs[idx]);
+      if (rm || !target) { x = target || 44; u041.style.setProperty('--x', x + 'px'); }
+      else if (!raf) raf = requestAnimationFrame(step);
+    };
+    tabs.forEach(t => t.addEventListener('click', () => {
+      if (t.dataset.tab) switchTab(t.dataset.tab);
+    }));
+    const origSwitchTab = window.switchTab;
+    window.switchTab = function(tabId) {
+      origSwitchTab(tabId);
+      if (window._syncU041Tab) window._syncU041Tab(tabId);
+      if ($('u041WrongBadge')) $('u041WrongBadge').textContent = (getCurrentUser().wrongWords || []).length;
+    };
+    setTimeout(() => window._syncU041Tab('tab-test'), 80);
+  }
+
+  // 6. #001 Liquid Glass Button (#u001LiquidPublish)
+  window.triggerLiquidPublish001 = async function() {
+    const root = $('u001LiquidPublish');
+    if (!root || root.dataset.state === 'load') return;
+    root.dataset.state = 'load';
+    await publishAdminCatalogNow();
+    root.dataset.state = 'ok';
+    setTimeout(() => { root.dataset.state = 'idle'; }, 2400);
+  };
+
+  // 7. #004 Progress Download Button (#u004QuickDownload)
+  const u004 = $('u004QuickDownload');
+  if (u004) {
+    const btn = u004.querySelector('.u004-btn');
+    const pct = u004.querySelector('.u004-pct');
+    btn.addEventListener('click', () => {
+      if (u004.dataset.state !== 'idle') return;
+      u004.dataset.state = 'run';
+      let p = 0;
+      const timer = setInterval(() => {
+        p = Math.min(1, p + 0.14);
+        btn.style.setProperty('--p', p.toFixed(2));
+        pct.textContent = Math.round(p * 100) + '%';
+        if (p >= 1) {
+          clearInterval(timer);
+          u004.dataset.state = 'fold';
+          exportCopybookToPdf();
+          setTimeout(() => { u004.dataset.state = 'done'; }, 400);
+          setTimeout(() => { u004.dataset.state = 'idle'; btn.style.setProperty('--p', '0'); }, 2600);
+        }
+      }, 90);
+    });
+  }
+
+  // 8. #036 Password Strength Meter in Register Form
+  const regPassInput = $('regPass');
+  const u036 = $('u036PwMeter');
+  if (regPassInput && u036) {
+    const segs = u036.querySelectorAll('.u036-meter i');
+    const word = u036.querySelector('.u036-word');
+    const LV = [['Nhập mật khẩu', 'var(--ux-line-2)'], ['Yếu', 'var(--ux-danger)'], ['Trung bình', 'var(--ux-warn)'], ['Khá', '#eab308'], ['Mạnh', 'var(--ux-mint)']];
+    regPassInput.addEventListener('input', () => {
+      const v = regPassInput.value || '';
+      let score = 0;
+      if (v.length >= 8) score++;
+      if (/[A-Z]/.test(v)) score++;
+      if (/\d/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      const lv = v ? Math.max(1, score) : 0;
+      u036.style.setProperty('--lv', LV[lv][1]);
+      segs.forEach((s, i) => s.classList.toggle('on', i < lv));
+      word.textContent = LV[lv][0];
+    });
+  }
+
+  // 9. #069 Avatar Crop Editor
+  const u069 = $('u069AvatarCropper');
+  if (u069) {
+    const crop = u069.querySelector('.u069-crop');
+    const img = $('u069ImgCanvas');
+    const zoom = $('u069ZoomRange');
+    const PICS = [['#2563eb', '#7c3aed', '#e0e7ff'], ['#16a34a', '#0ea5e9', '#dcfce7'], ['#f59e0b', '#ef4444', '#fef3c7']];
+    let pic = 0, x = 0, y = 0, z = 1, r = 0, down = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    const renderSvg = c => `<svg viewBox="0 0 210 210" width="210" height="210"><defs><linearGradient id="g069_${pic}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs><rect width="210" height="210" fill="url(#g069_${pic})"/><circle cx="105" cy="84" r="36" fill="${c[2]}"/><path d="M42 210c8-42 34-62 63-62s55 20 63 62z" fill="${c[2]}"/></svg>`;
+    const paint = () => {
+      const m = (210 * z - 180) / 2;
+      x = Math.max(-m, Math.min(m, x)); y = Math.max(-m, Math.min(m, y));
+      img.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${r}deg) scale(${z.toFixed(2)})`;
+    };
+    img.innerHTML = renderSvg(PICS[0]); paint();
+    crop.addEventListener('pointerdown', e => { down = true; sx = e.clientX; sy = e.clientY; ox = x; oy = y; crop.classList.add('drag'); crop.setPointerCapture(e.pointerId); });
+    crop.addEventListener('pointermove', e => { if (!down) return; x = ox + (e.clientX - sx); y = oy + (e.clientY - sy); paint(); });
+    const endDrag = () => { down = false; crop.classList.remove('drag'); };
+    crop.addEventListener('pointerup', endDrag); crop.addEventListener('pointercancel', endDrag);
+    zoom.addEventListener('input', () => { z = zoom.value / 100; paint(); });
+    $('u069RotateBtn').addEventListener('click', () => { r += 90; paint(); });
+    $('u069NextThemeBtn').addEventListener('click', () => { pic = (pic + 1) % PICS.length; img.innerHTML = renderSvg(PICS[pic]); });
+    $('u069SaveAvatarBtn').addEventListener('click', () => {
+      const av = $('modalUserAvatar');
+      if (av) av.style.background = `linear-gradient(135deg,${PICS[pic][0]},${PICS[pic][1]})`;
+      u069.classList.remove('is-open');
+      showToast('✨ Đã cập nhật ảnh đại diện!');
+    });
+  }
+
+  // 10. #315 Drag-to-Trash Bin for Wrong Words
+  const trashBin = $('u315TrashBinBtn');
+  if (trashBin) {
+    trashBin.addEventListener('dragover', e => { e.preventDefault(); trashBin.classList.add('hot'); });
+    trashBin.addEventListener('dragleave', () => trashBin.classList.remove('hot'));
+    trashBin.addEventListener('drop', e => {
+      e.preventDefault();
+      trashBin.classList.remove('hot');
+      const idx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+      if (!isNaN(idx)) {
+        removeWrongWordAt(idx);
+        const cntEl = $('u315TrashCount');
+        if (cntEl) { cntEl.textContent = String((parseInt(cntEl.textContent || '0', 10) + 1)); cntEl.classList.add('on'); }
+      }
+    });
+  }
+
+  // 11. #306 Orbiting Integrations + #393 Platform-Aware Download
+  const u306 = $('u306OrbitHub');
+  if (u306) {
+    const st = u306.querySelector('.u306-st');
+    const cp = u306.querySelector('.u306-cp');
+    const NODES = [
+      ['Drive 400GB', 'Kho lưu trữ JSON bất tử', '#2563eb', 58, 34, 'normal', 0],
+      ['Firebase', 'Dự phòng thời gian thực', '#f59e0b', 58, 34, 'normal', 180],
+      ['AI OCR', 'Quét nhiều ảnh giáo trình', '#7c3aed', 98, 52, 'reverse', 30],
+      ['HanziWriter', 'Mô phỏng nét viết chuẩn', '#16a34a', 98, 52, 'reverse', 150],
+      ['Word / PDF', 'Xuất phiếu ôn 2 dòng A4', '#dc2626', 98, 52, 'reverse', 270]
+    ];
+    NODES.forEach(n => {
+      const rg = document.createElement('div');
+      rg.className = 'u306-rg';
+      rg.style.cssText = `--r:${n[3]}px;--t:${n[4]}s;--dir:${n[5]};--rdir:${n[5]==='normal'?'reverse':'normal'}`;
+      const sl = document.createElement('div');
+      sl.className = 'u306-sl';
+      sl.style.transform = `rotate(${n[6]}deg) translateX(${n[3]}px) rotate(${-n[6]}deg)`;
+      sl.innerHTML = `<div class="u306-up"><button type="button" class="u306-ic" style="--c:${n[2]}" aria-label="${n[0]}"><b style="font-size:10px">${n[0].slice(0,2)}</b></button></div>`;
+      const btn = sl.querySelector('button');
+      btn.addEventListener('pointerenter', () => { u306.classList.add('is-hold'); cp.innerHTML = `<b>${n[0]}</b> · ${n[1]}`; });
+      btn.addEventListener('pointerleave', () => { u306.classList.remove('is-hold'); cp.textContent = 'Chạm vào biểu tượng vệ tinh để xem trạng thái'; });
+      rg.appendChild(sl);
+      st.insertBefore(rg, st.firstChild);
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => {
+        u306.querySelectorAll('.u306-rg,.u306-up').forEach(el => { el.style.animationPlayState = es[0].isIntersecting ? '' : 'paused'; });
+      }).observe(u306);
+    }
+  }
+
+  const u393 = $('u393PlatformDownload');
+  if (u393) {
+    const tl = u393.querySelector('.u393-tl'), pl = u393.querySelector('.u393-pl'), dl = u393.querySelector('.u393-dl'), sw = u393.querySelector('.u393-sw'), mt = u393.querySelector('.u393-mt'), st = u393.querySelector('.u393-st');
+    const OS = [['Windows', 'Tải bản sao lưu Windows', 'JSON + Phiếu A4 · Nhẹ 100%'], ['iOS / Mac', 'Tải gói Apple / Safari', 'Tương thích iPad & iPhone'], ['Android', 'Tải gói Android Offline', 'Mở trực tiếp trên Chrome']];
+    const STEPS = [['1. Tải gói', 'Lưu tệp dữ liệu về máy'], ['2. Mở Web', 'Chạy không cần cài đặt'], ['3. Đồng bộ', 'Tự khớp Google Drive']];
+    const T = OS.map((o, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'u393-tb'; b.setAttribute('role', 'tab'); b.textContent = o[0];
+      b.addEventListener('click', () => pick(i)); tl.appendChild(b); return b;
+    });
+    const S = STEPS.map((s, i) => {
+      const d = document.createElement('div'); d.className = 'u393-sp'; d.innerHTML = `<i>${i+1}</i><b>${s[0]}</b><small>${s[1]}</small>`; st.appendChild(d); return d;
+    });
+    const pick = i => {
+      T.forEach((t, k) => t.setAttribute('aria-selected', String(k === i)));
+      pl.style.transform = `translateX(${i * 100}%)`;
+      sw.textContent = OS[i][1]; mt.textContent = OS[i][2];
+      dl.classList.remove('is-ok'); S.forEach(s => s.classList.remove('is-on'));
+    };
+    dl.addEventListener('click', () => {
+      dl.classList.add('is-ok'); sw.textContent = '✓ Đang tải gói dữ liệu...';
+      exportBackupJson();
+      S.forEach((s, k) => setTimeout(() => s.classList.add('is-on'), rm ? 0 : 250 + k * 300));
+    });
+    const ua = navigator.userAgent || '';
+    pick(/iPhone|iPad|Mac/.test(ua) ? 1 : /Android/.test(ua) ? 2 : 0);
+  }
+
+  // 12. #450 + #215 Back-to-Top Scroll Ring & Support Chat Bubble
+  const u450 = $('u450FloatAssist');
+  if (u450) {
+    const topBtn = u450.querySelector('.u450-top');
+    const openBtn = u450.querySelector('.u450-open');
+    const closeBtn = u450.querySelector('.u450-x');
+    const msgs = u450.querySelector('.u450-msgs');
+    const form = u450.querySelector('.u450-f');
+    const inp = u450.querySelector('.u450-in');
+    let scrollTick = false;
+    window.addEventListener('scroll', () => {
+      if (scrollTick) return;
+      scrollTick = true;
+      requestAnimationFrame(() => {
+        const docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        const p = Math.min(1, Math.max(0, window.scrollY / docH));
+        topBtn.style.setProperty('--p', p.toFixed(3));
+        topBtn.classList.toggle('is-hide', window.scrollY < 160);
+        scrollTick = false;
+      });
+    }, { passive: true });
+    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: rm ? 'auto' : 'smooth' }));
+    openBtn.addEventListener('click', () => { u450.classList.add('is-open'); openBtn.setAttribute('aria-expanded', 'true'); setTimeout(() => inp.focus(), 120); });
+    closeBtn.addEventListener('click', () => { u450.classList.remove('is-open'); openBtn.setAttribute('aria-expanded', 'false'); });
+    const addMsg = (txt, me = false) => {
+      const p = document.createElement('p');
+      p.className = 'u450-bb' + (me ? ' is-me' : '');
+      p.textContent = txt;
+      msgs.appendChild(p);
+      msgs.scrollTop = msgs.scrollHeight;
+    };
+    u450.querySelectorAll('.u450-qk').forEach(b => b.addEventListener('click', () => {
+      const q = b.dataset.q;
+      addMsg(q, true);
+      const ty = document.createElement('div'); ty.className = 'u215-ty'; ty.innerHTML = '<i></i><i></i><i></i>';
+      msgs.appendChild(ty); msgs.scrollTop = msgs.scrollHeight;
+      setTimeout(() => {
+        ty.remove();
+        if (q.includes('2 dòng')) { switchTab('tab-copybook'); addMsg('Đã mở Sổ Chép Cho Nhớ 2 dòng chuẩn A4 cho bạn!'); }
+        else if (q.includes('Drive')) { pullCloudState(false, true); addMsg('Đang kéo dữ liệu mới nhất từ Google Drive 400GB!'); }
+        else { openCreateTestModal(null, 'ai_exam'); addMsg('Đã mở Studio tạo đề AI 4 dạng bài!'); }
+      }, rm ? 0 : 450);
+    }));
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const v = inp.value.trim(); if (!v) return;
+      inp.value = ''; addMsg(v, true);
+      const ty = document.createElement('div'); ty.className = 'u215-ty'; ty.innerHTML = '<i></i><i></i><i></i>';
+      msgs.appendChild(ty); msgs.scrollTop = msgs.scrollHeight;
+      const res = await aiEnrichSingleWord(v);
+      ty.remove();
+      addMsg(`${v} (${res.pinyin || '—'}): ${res.vi}`);
+    });
+  }
+})();
 </script>
 </body>
 </html>
