@@ -3015,6 +3015,60 @@ body.is-admin .u041-admin-tab {
 .u440-exp-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 @media(max-width:480px){.u440-exp-list{grid-template-columns:1fr}}
 
+
+/* ==================== V6 BUTTON INTERACTION, STACKING & FILE-PICKER LABEL FIXES ==================== */
+.toolbar-4d > * {
+  position: relative;
+  z-index: 2;
+}
+.u001, .u475, .u004, .u037 {
+  position: relative;
+  z-index: 30;
+}
+.u037 { z-index: 140; }
+.u037-menu { z-index: 290; }
+.u475 { z-index: 180; }
+
+label.primary {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--primary) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: transform 0.16s ease, background 0.16s ease, filter 0.16s ease;
+}
+label.primary:hover { background: var(--primary-dark) !important; filter: brightness(1.04); }
+label.success {
+  background: var(--green) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--green) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+label.success:hover { filter: brightness(1.06); }
+label.warning {
+  background: #f59e0b !important;
+  color: #ffffff !important;
+  border: 1px solid #f59e0b !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+label.warning:hover { filter: brightness(1.06); }
+label.primary:active, label.success:active, label.warning:active {
+  transform: scale(0.97);
+}
+
 </style>
 
 </head>
@@ -3539,7 +3593,7 @@ body.is-admin .u041-admin-tab {
               <span class="u004-track" aria-hidden="true"><span class="u004-bar"></span></span>
               <span class="u004-idle" aria-hidden="true">
                 <span class="u004-arw"><svg viewBox="0 0 24 24"><path d="M12 4.5v11M7 11l5 5 5-5"/><path d="M5 19.5h14"/></svg></span>
-                <b>Tải nhanh PDF</b><small>A4</small>
+                <b>Xuất nhiều file</b><small>1 chạm</small>
               </span>
               <span class="u004-run" aria-hidden="true"><b class="u004-pct">0%</b><small class="u004-eta">Đang tạo...</small></span>
               <span class="u004-ok" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.4l3 3 6-6.4"/></svg><span>Đã tải xong</span></span>
@@ -3643,7 +3697,8 @@ body.is-admin .u041-admin-tab {
           <div style="display:flex;gap:6px;flex-wrap:wrap">
             <button type="button" class="primary" style="font-size:12.5px;padding:6px 12px" onclick="testPersonalSet()">🎯 Kiểm tra</button>
             <button type="button" class="success" style="font-size:12.5px;padding:6px 12px" onclick="sendPersonalSetToWrongCopybook()">✍️ Chép 2 dòng</button>
-            <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px" onclick="toggleMyAddBox()">➕ Thêm từ / File</button>
+            <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px" onclick="openAiSuperModal('personal', 'import')">🤖 Trợ Lý AI</button>
+            <button type="button" class="primary" style="font-size:12.5px;padding:6px 12px" onclick="toggleMyAddBox()">➕ Thêm từ / File</button>
             <button type="button" class="danger" style="font-size:12.5px;padding:6px 12px" onclick="toggleMyTextManager()">🗑️ Quản lý & Xóa bài Text</button>
           </div>
         </div>
@@ -3752,7 +3807,8 @@ body.is-admin .u041-admin-tab {
           <h2>🛡️ Quản Trị Kho HSK - Bài - Text</h2>
           <div class="small">Mọi thay đổi tự động lưu lên Google Drive 400GB & đồng bộ tới toàn bộ học viên</div>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button type="button" class="ai-btn toolbar-4d" onclick="openAiSuperModal('admin', 'import')" style="padding:9px 15px;font-size:13.5px">🤖 Mở Trợ Lý AI</button>
           <!-- Lucian UX/UI Prompt #001 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#001 -->
           <div class="ux u001" id="u001LiquidPublish" data-state="idle">
             <div class="u001-mag">
@@ -3832,6 +3888,7 @@ body.is-admin .u041-admin-tab {
               <textarea id="admMessyPasteInput" rows="3" style="width:100%;font-size:13.5px;background:white;margin-bottom:8px" placeholder="Dán danh sách từ vựng lộn xộn vào đây (VD: đảo thứ tự Nghĩa - Pinyin - Chữ Hán, dính số 1. 2. 3., bị vỡ xuống dòng từ bảng Word/PDF...):&#10;VD: 1. Thư viện — túshūguǎn (图书馆)   hoặc   yīyuàn | Bệnh viện | 医院"></textarea>
               <div style="display:flex;gap:7px;flex-wrap:wrap;align-items:center;justify-content:space-between">
                 <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
+                  <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px" onclick="openAiSuperModal('admin', 'import')">🤖 Mở Trợ Lý AI</button>
                   <label class="primary" style="cursor:pointer;padding:6px 11px;border-radius:9px;font-size:12.5px">
                     📄 Word
                     <input type="file" accept=".docx,.doc" style="display:none" onchange="handleAiFileUpload(event, 'word', 'admin')">
@@ -14061,6 +14118,303 @@ pullCloudState(true, true).then(() => {
       }
     };
   }
+
+  // 15. V6 Reliability & Action Button Fixes (Admin Toolbar, #001, #440 Direct Gesture Export, #470 Stable Row Delete)
+  (function applyActionButtonReliabilityV6() {
+
+  // Carry over any draft text from #admMessyPasteInput when opening AI modal directly
+  const origOpenAiForMessy = window.openAiSuperModal;
+  if (typeof origOpenAiForMessy === 'function') {
+    window.openAiSuperModal = function(target = 'personal', initialMode = 'import') {
+      origOpenAiForMessy(target, initialMode);
+      if (target === 'admin') {
+        const messyDraft = ($('admMessyPasteInput')?.value || '').trim();
+        const modalBox = $('aiRawSourceInput');
+        if (messyDraft && modalBox && !modalBox.value.trim()) {
+          modalBox.value = messyDraft;
+        }
+      }
+    };
+  }
+
+    // A. Safe try/finally for #001 Liquid Glass Sync Button ("☁️ Lưu & Đồng bộ ngay")
+    window.triggerLiquidPublish001 = async function() {
+      const root = $('u001LiquidPublish');
+      if (!root || root.dataset.state === 'load') return;
+      root.dataset.state = 'load';
+      try {
+        await publishAdminCatalogNow();
+        root.dataset.state = 'ok';
+      } catch (err) {
+        root.dataset.state = 'idle';
+        showToast('❌ Lỗi đồng bộ: ' + (err?.message || 'Vui lòng thử lại'));
+        return;
+      }
+      setTimeout(() => {
+        if (root && root.isConnected) root.dataset.state = 'idle';
+      }, 2200);
+    };
+
+    // B. Stable ID/Hanzi deletion so #470 5-second Undo never deletes the wrong row on rapid multi-deletes
+    window.admDeleteWordByKey = function(wordId, zhText) {
+      const { tObj } = getSelectedAdminTextObj();
+      if (!tObj || !Array.isArray(tObj.words)) return;
+      let idx = wordId ? tObj.words.findIndex(w => w && w.id === wordId) : -1;
+      if (idx < 0 && zhText) idx = tObj.words.findIndex(w => w && w.zh === zhText);
+      if (idx >= 0) admDeleteWord(idx);
+    };
+
+    window.deleteMyCatalogWordByKey = function(wordId, zhText) {
+      const { tObj } = getSelectedMyCatalogTextObj();
+      if (!tObj || !Array.isArray(tObj.words)) return;
+      let idx = wordId ? tObj.words.findIndex(w => w && w.id === wordId) : -1;
+      if (idx < 0 && zhText) idx = tObj.words.findIndex(w => w && w.zh === zhText);
+      if (idx >= 0) deleteMyCatalogWord(idx);
+    };
+
+    const origRenderAdminVocabTable = window.renderAdminVocabTable;
+    if (typeof origRenderAdminVocabTable === 'function') {
+      window.renderAdminVocabTable = function() {
+        origRenderAdminVocabTable.apply(this, arguments);
+        const { tObj } = getSelectedAdminTextObj();
+        const box = $('adminVocabTable');
+        if (!box || !tObj || !Array.isArray(tObj.words)) return;
+        const delBtns = box.querySelectorAll('.u470-del');
+        delBtns.forEach((btn, i) => {
+          const w = tObj.words[i];
+          if (!w) return;
+          const safeId = String(w.id || '').replace(/'/g, "\\'");
+          const safeZh = String(w.zh || '').replace(/'/g, "\\'");
+          btn.setAttribute('onclick', `triggerUndoDelete470(this, '${safeZh}', function(){ admDeleteWordByKey('${safeId}', '${safeZh}'); })`);
+        });
+      };
+    }
+
+    const origRenderPersonalVocabList = window.renderPersonalVocabList;
+    if (typeof origRenderPersonalVocabList === 'function') {
+      window.renderPersonalVocabList = function() {
+        origRenderPersonalVocabList.apply(this, arguments);
+        if (typeof myVocabViewMode !== 'undefined' && myVocabViewMode === 'catalog') {
+          const { tObj } = getSelectedMyCatalogTextObj();
+          const box = $('personalVocabContainer');
+          if (!box || !tObj || !Array.isArray(tObj.words)) return;
+          const delBtns = box.querySelectorAll('.u470-del');
+          delBtns.forEach((btn, i) => {
+            const w = tObj.words[i];
+            if (!w) return;
+            const safeId = String(w.id || '').replace(/'/g, "\\'");
+            const safeZh = String(w.zh || '').replace(/'/g, "\\'");
+            btn.setAttribute('onclick', `triggerUndoDelete470(this, '${safeZh}', function(){ deleteMyCatalogWordByKey('${safeId}', '${safeZh}'); })`);
+          });
+        }
+      };
+    }
+
+    // C. User-Gesture-Preserving #440 Export Engine (Never blocked by Chrome/Safari popup/download blockers)
+    const modal440 = $('u440ExportModal');
+    const widget440 = $('u440ExportWidget');
+    const runBtn440 = $('u440ExpRunBtn');
+    const titleIdle440 = $('u440ExpTitleIdle');
+    const titleDone440 = $('u440ExpTitleDone');
+    const sub440 = $('u440ExpSub');
+    const live440 = $('u440ExpLive');
+
+    if (modal440 && widget440 && runBtn440) {
+      // Grab the original raw export functions from the closure or global scope
+      // Note: inside setupUniversalExport440, window.exportCopybookToPdf etc. were already wrapped;
+      // let's provide clean direct implementations that preserve user gesture while animating #440!
+      const play440DropBurst = (idleTxt, doneTxt, subTxt) => {
+        if (titleIdle440) titleIdle440.textContent = idleTxt;
+        if (titleDone440) titleDone440.textContent = doneTxt;
+        if (sub440) sub440.textContent = subTxt;
+        widget440.classList.remove('is-done');
+        modal440.classList.add('open');
+        void widget440.offsetWidth;
+        widget440.classList.add('is-done');
+        if (live440) live440.textContent = doneTxt;
+      };
+
+      // Wire #004 button in Copybook header to open 1-click multi-file #440 batch export modal
+      const u004Btn = document.querySelector('#u004QuickDownload .u004-btn');
+      if (u004Btn) {
+        const freshU004Btn = u004Btn.cloneNode(true);
+        u004Btn.parentNode.replaceChild(freshU004Btn, u004Btn);
+        freshU004Btn.addEventListener('click', () => {
+          openUniversalExport440('batch', false);
+        });
+      }
+
+      // Direct gesture-safe wrappers for single-file exports with #440 animation
+      const prevPdf = window.exportCopybookToPdf;
+      const prevWord = window.exportCopybookToWord;
+      const prevExcelMy = window.exportMyCatalogTextToExcel;
+      const prevExcelAdm = window.exportAdminTextToExcel;
+      const prevJson = window.exportBackupJson;
+      const prevSampleWord = window.downloadSampleWordExamTemplate;
+
+      const triggerDirectWith440 = (preset, titleMsg, doneMsg) => {
+        if ($('u440ChkPdf')) $('u440ChkPdf').checked = (preset === 'pdf');
+        if ($('u440ChkWord')) $('u440ChkWord').checked = (preset === 'word' || preset === 'sampleWord');
+        if ($('u440ChkExcel')) $('u440ChkExcel').checked = (preset === 'excelMy' || preset === 'excelAdmin');
+        if ($('u440ChkJson')) $('u440ChkJson').checked = (preset === 'json');
+        widget440.dataset.preset = preset;
+        play440DropBurst(titleMsg, doneMsg, 'Tick thêm định dạng khác bên dưới nếu muốn tải nhiều file cùng lúc');
+        // Click runBtn440 synchronously inside the user gesture stack!
+        runBtn440.click();
+      };
+
+      // Re-bind runBtn440 so it executes immediately (0ms delay) on click, preserving browser download permission
+      const freshRunBtn = runBtn440.cloneNode(true);
+      runBtn440.parentNode.replaceChild(freshRunBtn, runBtn440);
+      const PLUS_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>';
+
+      const updateRunBtnLabel = (doneState) => {
+        const cnt = ['u440ChkPdf', 'u440ChkWord', 'u440ChkExcel', 'u440ChkJson'].filter(id => $(id)?.checked).length;
+        const txt = doneState
+          ? `Tải lại (${cnt} tệp)`
+          : (cnt > 1 ? `Tải ngay ${cnt} tệp cùng lúc` : 'Tải xuống ngay');
+        freshRunBtn.innerHTML = PLUS_ICON + `<span>${txt}</span>`;
+      };
+      ['u440ChkPdf', 'u440ChkWord', 'u440ChkExcel', 'u440ChkJson'].forEach(id => {
+        $(id)?.addEventListener('change', () => {
+          widget440.classList.remove('is-done');
+          updateRunBtnLabel(false);
+        });
+      });
+
+      // Extract the original raw export functions from the global scope before setupUniversalExport440 wrapped them
+      // Wait: setupUniversalExport440 captured rawExports in its closure; we can invoke raw export logic cleanly here:
+      const runDirectExcelAdmin = () => {
+        const { hObj, lObj, tObj } = getSelectedAdminTextObj();
+        if (!tObj) { showToast('⚠️ Chưa chọn bài Text nào để xuất Excel!'); return; }
+        if (typeof XLSX === 'undefined') { showToast('⚠️ Thư viện Excel đang tải, thử lại sau giây lát.'); return; }
+        const rows = [["Chữ Hán", "Pinyin", "Nghĩa tiếng Việt", "Ví dụ (Tiếng Trung)", "Pinyin ví dụ", "Nghĩa ví dụ"], ...tObj.words.map(w => [w.zh, w.pinyin, w.vi, w.exampleZh || "", w.examplePy || "", w.exampleVi || ""])];
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "TuVung");
+        XLSX.writeFile(wb, `${hObj.hsk}_${lObj.name}_${tObj.name}.xlsx`.replace(/\s+/g, '_'));
+      };
+
+      const runDirectExcelMy = () => {
+        const { hObj, lObj, tObj } = getSelectedMyCatalogTextObj();
+        if (!tObj) { showToast('⚠️ Chưa chọn bài Text cá nhân nào để xuất Excel!'); return; }
+        if (typeof XLSX === 'undefined') { showToast('⚠️ Thư viện Excel đang tải, thử lại sau giây lát.'); return; }
+        const rows = [["Chữ Hán", "Pinyin", "Nghĩa tiếng Việt", "Ví dụ (Tiếng Trung)", "Pinyin ví dụ", "Nghĩa ví dụ"], ...tObj.words.map(w => [w.zh, w.pinyin, w.vi, w.exampleZh || "", w.examplePy || "", w.exampleVi || ""])];
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "TuVungCaNhan");
+        XLSX.writeFile(wb, `CaNhan_${hObj.hsk}_${lObj.name}_${tObj.name}.xlsx`.replace(/\s+/g, '_'));
+      };
+
+      const runDirectJson = () => {
+        const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Sao_luu_Tu_vung_HSK_${new Date().toISOString().slice(0,10)}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+      };
+
+      freshRunBtn.addEventListener('click', () => {
+        const usePdf = $('u440ChkPdf')?.checked;
+        const useWord = $('u440ChkWord')?.checked;
+        const useExcel = $('u440ChkExcel')?.checked;
+        const useJson = $('u440ChkJson')?.checked;
+        const preset = widget440.dataset.preset || 'batch';
+
+        if (!usePdf && !useWord && !useExcel && !useJson) {
+          showToast('⚠️ Vui lòng chọn ít nhất 1 định dạng tệp để xuất!');
+          return;
+        }
+
+        widget440.classList.remove('is-done');
+        void widget440.offsetWidth;
+        widget440.classList.add('is-done');
+        updateRunBtnLabel(true);
+
+        // Execute selected downloads synchronously inside the click gesture!
+        if (useExcel) {
+          if (preset === 'excelAdmin') runDirectExcelAdmin();
+          else if (preset === 'excelMy') runDirectExcelMy();
+          else if (getSelectedMyCatalogTextObj?.().tObj) runDirectExcelMy();
+          else if (getSelectedAdminTextObj?.().tObj) runDirectExcelAdmin();
+        }
+        if (useJson) {
+          runDirectJson();
+        }
+        if (usePdf) {
+          // Trigger original PDF export via openUniversalExport440's original button if needed, or direct
+          const origBtn = document.createElement('button');
+          if (typeof prevPdf === 'function') {
+            // Call raw pdf export without re-opening modal
+            const sheet = $('wrongA4Sheet');
+            const list = getCurrentUser().wrongWords || [];
+            if (!list.length) {
+              showToast('⚠️ Sổ "Chép cho nhớ" đang trống — hãy thêm từ trước khi xuất PDF!');
+            } else if (typeof html2pdf !== 'undefined' && sheet) {
+              const prevZoom = sheet.style.zoom;
+              const prevShadow = sheet.style.boxShadow;
+              sheet.style.zoom = '1';
+              sheet.style.boxShadow = 'none';
+              const dateTag = new Date().toISOString().slice(0, 10);
+              html2pdf().set({
+                margin: [6, 6, 8, 6],
+                filename: `Phieu_on_tu_vung_${dateTag}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollY: 0 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+              }).from(sheet).save().finally(() => {
+                sheet.style.zoom = prevZoom;
+                sheet.style.boxShadow = prevShadow;
+                if (typeof autoScaleCopybookSheet === 'function') autoScaleCopybookSheet();
+              });
+            }
+          }
+        }
+        if (useWord) {
+          if (preset === 'sampleWord' && typeof prevSampleWord === 'function') {
+            // Invoke sample word download directly
+            const a = document.createElement('a');
+            const sampleTxt = 'ĐỀ KIỂM TRA TIẾNG TRUNG TỔNG HỢP (MẪU CHUẨN)\n1. 我每天去 ____ 看书。\nA. 图书馆   B. 医院   C. 银行   D. 商店\nĐáp án: A\n\n[Sắp xếp] 我 / 每天 / 去 / 图书馆 / 看书\nĐáp án: 我每天去图书馆看书。\n\n[Dịch] 我是高中学生，每天七点去学校学习汉语。';
+            const blob = new Blob([sampleTxt], { type: 'application/msword;charset=utf-8' });
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Mau_De_Kiem_Tra_Tieng_Trung.doc';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          } else {
+            const list = getCurrentUser().wrongWords || [];
+            if (!list.length) {
+              showToast('⚠️ Sổ "Chép cho nhớ" đang trống — hãy thêm từ trước khi xuất Word!');
+            } else {
+              // Build clean Word (.doc/.docx) directly within gesture
+              const dateTag = new Date().toISOString().slice(0, 10);
+              const rowsHtml = list.map((w, idx) => `<tr><td style="padding:6px;border:1px solid #b91c1c;font-weight:bold">${idx + 1}. ${w.zh}</td><td style="padding:6px;border:1px solid #b91c1c">${w.pinyin || ''}</td><td style="padding:6px;border:1px solid #b91c1c">${w.vi || ''}</td><td style="padding:6px;border:1px solid #b91c1c;font-family:KaiTi,serif;font-size:18pt;letter-spacing:6px">${w.zh} □ □ □ □ □ □</td></tr>`).join('');
+              const docHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Phiếu ôn từ vựng</title></head><body><h2 style="text-align:center;color:#b91c1c">PHIẾU ÔN TỪ VỰNG & CHÉP CHO NHỚ (${dateTag})</h2><table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif"><thead><tr style="background:#fef2f2"><th style="padding:6px;border:1px solid #b91c1c">Chữ Hán</th><th style="padding:6px;border:1px solid #b91c1c">Pinyin</th><th style="padding:6px;border:1px solid #b91c1c">Nghĩa</th><th style="padding:6px;border:1px solid #b91c1c">Luyện viết 2 dòng</th></tr></thead><tbody>${rowsHtml}</tbody></table></body></html>`;
+              const blob = new Blob(['\ufeff', docHtml], { type: 'application/msword;charset=utf-8' });
+              const a = document.createElement('a');
+              a.href = URL.createObjectURL(blob);
+              a.download = `Phieu_on_tu_vung_${dateTag}.doc`;
+              document.body.appendChild(a);
+              a.click();
+              a.remove();
+            }
+          }
+        }
+      });
+
+      window.exportAdminTextToExcel = () => triggerDirectWith440('excelAdmin', 'Đang xuất bảng Excel Admin...', 'Đã thả tệp Excel vào thư mục & tải xuống!');
+      window.exportMyCatalogTextToExcel = () => triggerDirectWith440('excelMy', 'Đang xuất bảng Excel cá nhân...', 'Đã thả tệp Excel vào thư mục & tải xuống!');
+      window.exportCopybookToPdf = () => triggerDirectWith440('pdf', 'Đang xuất Phiếu ôn PDF...', 'Đã thả tệp PDF vào thư mục & tải xuống!');
+      window.exportCopybookToWord = () => triggerDirectWith440('word', 'Đang xuất Phiếu ôn Word...', 'Đã thả tệp Word vào thư mục & tải xuống!');
+      window.exportBackupJson = () => triggerDirectWith440('json', 'Đang xuất sao lưu JSON...', 'Đã thả tệp JSON vào thư mục & tải xuống!');
+      window.downloadSampleWordExamTemplate = () => triggerDirectWith440('sampleWord', 'Đang tải file Word mẫu...', 'Đã thả file Word mẫu vào thư mục & tải xuống!');
+    }
+  })();
 })();
 </script>
 </body>
