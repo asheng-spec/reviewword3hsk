@@ -16,6 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
 :root{
   --primary:#2563eb;
@@ -1441,7 +1442,7 @@ body.is-admin .admin-only-block { display: block !important; }
 :root[data-theme="dark"] select,
 :root[data-theme="dark"] input,
 :root[data-theme="dark"] textarea,
-:root[data-theme="dark"] button:not(.primary):not(.ai-btn):not(.success):not(.warning):not(.crimson):not(.u401-b):not(.u403-go):not(.u404-go):not(.u408-av):not(.u408-it):not(.u436-ok):not(.u436-no):not(.u440-go):not(.u442-add):not(.u442-cart):not(.u447-b):not(.u448-b):not(.u458-b):not(.u470-del):not(.u470-undo):not(.u475-tg):not(.u475-it):not(.quiz-opt-btn):not(.reorder-chip) {
+:root[data-theme="dark"] button:not(.primary):not(.ai-btn):not(.success):not(.warning):not(.crimson):not(.u401-b):not(.u403-go):not(.u404-go):not(.u408-av):not(.u408-it):not(.u436-ok):not(.u436-no):not(.u440-go):not(.u442-add):not(.u442-cart):not(.u447-b):not(.u448-b):not(.u458-b):not(.u470-del):not(.u470-undo):not(.u475-tg):not(.u475-it):not(.quiz-opt-btn):not(.reorder-chip):not(.u438-b):not(.u449-n):not(.u449-ar):not(.u432-br) {
   background: rgba(15, 20, 34, 0.92);
   color: var(--ink);
   border-color: rgba(148, 163, 184, 0.25);
@@ -3069,6 +3070,283 @@ label.primary:active, label.success:active, label.warning:active {
   transform: scale(0.97);
 }
 
+
+/* ==================== LUCIAN UX/UI #449: Pagination ==================== */
+/* Lucian UX/UI Prompt #449 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#449 */
+.u449{position:relative;width:100%;max-width:360px;min-height:54px;margin:0 auto;display:grid;place-items:center}
+.u449-nav{display:flex;align-items:center;gap:6px;padding:6px;border-radius:16px;background:var(--ux-surface);box-shadow:inset 0 0 0 1px var(--ux-line),0 10px 26px -18px var(--ux-shadow-strong)}
+.u449-ar{width:32px;height:36px;min-height:36px!important;padding:0;display:grid;place-items:center;border:0;border-radius:10px;background:none;color:var(--ux-ink-2);transition:background .2s,color .2s,opacity .25s,transform .35s var(--ux-spring)}
+.u449-ar:hover:not(:disabled){background:var(--ux-surface-2);color:var(--ux-ink)}
+.u449-ar:active:not(:disabled){transform:scale(.9)}
+.u449-ar:disabled{opacity:.3;cursor:default}
+.u449-ar svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.u449 button:focus-visible{outline:2px solid var(--ux-accent);outline-offset:1px}
+.u449-sl{position:relative;display:grid;grid-template-columns:repeat(7,32px);gap:2px}
+.u449-pill{position:absolute;left:0;top:0;width:32px;height:36px;border-radius:10px;background:var(--ux-ink);transform:translateX(var(--x,0px));transition:transform .55s var(--ux-spring)}
+.u449-pill.is-sq{animation:u449-sq .55s var(--ux-ease)}
+@keyframes u449-sq{35%{scale:1.22 .9}}
+.u449-n{position:relative;width:32px;height:36px;min-height:36px!important;padding:0;border:0;border-radius:10px;background:none;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ux-ink-2);overflow:hidden;transition:color .3s,background .2s}
+.u449-n:hover:not(.is-dots):not([aria-current]){background:var(--ux-surface-2);color:var(--ux-ink)}
+.u449-n[aria-current]{color:var(--ux-surface)}
+.u449-n.is-dots{cursor:default;color:var(--ux-ink-3)}
+.u449-n span{position:absolute;inset:0;display:grid;place-items:center}
+.u449-n span.is-in{animation:u449-in .4s var(--ux-spring)}
+.u449-n span.is-out{animation:u449-out .3s var(--ux-ease) forwards}
+.u449-n.is-back span.is-in{animation-name:u449-in-b}
+.u449-n.is-back span.is-out{animation-name:u449-out-b}
+@keyframes u449-in{from{transform:translateY(22px);opacity:0}}
+@keyframes u449-out{to{transform:translateY(-22px);opacity:0}}
+@keyframes u449-in-b{from{transform:translateY(-22px);opacity:0}}
+@keyframes u449-out-b{to{transform:translateY(22px);opacity:0}}
+.u449-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:420px){
+  .u449-nav{gap:3px;padding:4px}
+  .u449-sl{grid-template-columns:repeat(7,28px);gap:1px}
+  .u449-pill,.u449-n,.u449-ar{width:28px;height:34px;min-height:34px!important;font-size:12.5px}
+}
+
+/* ==================== LUCIAN UX/UI #438: Loading to done button ==================== */
+/* Lucian UX/UI Prompt #438 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#438 */
+.u438{position:relative;display:inline-grid;place-items:center;vertical-align:middle}
+.u438-b{--w:auto;position:relative;width:var(--w);height:42px;min-height:42px!important;padding:0;border:0;border-radius:21px;background:var(--ux-accent);color:var(--ux-accent-ink);font-size:13.5px;font-weight:650;letter-spacing:-.01em;box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 10px 24px -12px var(--ux-accent),0 2px 4px -2px var(--ux-shadow);cursor:pointer;transform:scale(var(--k,1));transition:width .46s cubic-bezier(.65,0,.35,1),background-color .35s var(--ux-ease),box-shadow .3s var(--ux-ease),transform .5s cubic-bezier(.34,1.7,.5,1)}
+.u438-b:hover{--k:1.02}
+.u438-b.is-down{--k:.93;transition:width .46s cubic-bezier(.65,0,.35,1),background-color .35s var(--ux-ease),box-shadow .3s var(--ux-ease),transform .12s var(--ux-ease)}
+.u438-b.is-grow{transition:width .62s cubic-bezier(.34,1.32,.5,1),background-color .35s var(--ux-ease),box-shadow .3s var(--ux-ease),transform .5s cubic-bezier(.34,1.7,.5,1)}
+.u438 .u438-b:focus-visible{outline:2px solid var(--ux-accent);outline-offset:4px}
+.u438-l{display:block;padding:0 20px;white-space:nowrap;transition:opacity .22s var(--ux-ease),filter .22s var(--ux-ease),transform .3s var(--ux-ease)}
+.u438-b[data-s="busy"] .u438-l,.u438-b[data-s="ok"] .u438-l{opacity:0;filter:blur(4px);transform:scale(.9)}
+.u438-b[data-s="idle"].is-grow .u438-l{transition-delay:.16s}
+.u438-sp,.u438-ck{position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;opacity:0;transform:scale(.4);transition:opacity .2s var(--ux-ease),transform .4s cubic-bezier(.34,1.6,.5,1);pointer-events:none}
+.u438-sp{border-radius:50%;border:2.5px solid color-mix(in srgb,currentColor 28%,transparent);border-top-color:currentColor;animation:u438-spin .75s linear infinite}
+@keyframes u438-spin{to{rotate:360deg}}
+.u438-b[data-s="busy"] .u438-sp{opacity:1;transform:none;transition-delay:.22s}
+.u438-ck{fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.u438-ck path{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .38s var(--ux-ease) .12s}
+.u438-b[data-s="ok"]{background:var(--ux-mint);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 10px 24px -12px var(--ux-mint),0 2px 4px -2px var(--ux-shadow);animation:u438-pop .5s cubic-bezier(.34,1.7,.5,1)}
+@keyframes u438-pop{40%{transform:scale(1.12)}}
+.u438-b[data-s="ok"] .u438-ck{opacity:1;transform:none}
+.u438-b[data-s="ok"] .u438-ck path{stroke-dashoffset:0}
+.u438-ring{position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 2px var(--ux-mint);opacity:0;pointer-events:none}
+.u438-b[data-s="ok"] .u438-ring{animation:u438-ring .7s var(--ux-ease) .1s}
+@keyframes u438-ring{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.7)}}
+.u438-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ==================== BOOK LIBRARY & DIRECT PDF/WORD READER STYLES ==================== */
+.bk-upload-shelf-grid{
+  display:grid;
+  grid-template-columns:minmax(290px, 360px) minmax(0, 1fr);
+  gap:16px;
+  align-items:stretch;
+  margin-bottom:18px;
+}
+@media(max-width:900px){
+  .bk-upload-shelf-grid{grid-template-columns:1fr}
+}
+.bk-shelf-box{
+  background:var(--ux-surface-2);
+  border:1.5px solid var(--ux-line-2);
+  border-radius:18px;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.bk-shelf-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:240px;
+  overflow-y:auto;
+  margin-top:8px;
+}
+.bk-book-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:13px;
+  background:var(--ux-surface);
+  border:1.5px solid var(--ux-line);
+  cursor:pointer;
+  transition:border-color .18s, transform .18s, box-shadow .18s;
+}
+.bk-book-item:hover{
+  border-color:var(--ux-accent);
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px -8px var(--ux-shadow-strong);
+}
+.bk-book-item.active{
+  border-color:var(--ux-accent);
+  background:var(--ux-accent-soft);
+}
+.bk-ext-pill{
+  flex:none;
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:.4px;
+}
+.bk-ext-pill.pdf{background:linear-gradient(135deg,#e11d48,#be123c)}
+.bk-ext-pill.word{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+.bk-reader-shell{
+  background:var(--ux-surface);
+  border:1.5px solid var(--ux-line-2);
+  border-radius:18px;
+  padding:14px 16px;
+  box-shadow:0 10px 30px -16px var(--ux-shadow-strong);
+  transition:background-color .25s ease;
+}
+.bk-reader-shell.is-fullscreen{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:650 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  max-width:none !important;
+  max-height:none !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:space-between !important;
+  background:var(--ux-surface) !important;
+}
+body.bk-fullscreen-lock{
+  overflow:hidden !important;
+}
+.bk-reader-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
+  padding-bottom:10px;
+  margin-bottom:10px;
+  border-bottom:1px solid var(--ux-line);
+  flex:none;
+}
+.bk-reader-stage{
+  position:relative;
+  background:var(--ux-surface-2);
+  border:1.5px solid var(--ux-line-2);
+  border-radius:14px;
+  padding:10px;
+  margin:0 auto;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-overflow-scrolling:touch;
+  transition:width .2s ease, height .2s ease;
+}
+.bk-reader-stage.is-zoomed{
+  overflow:auto !important;
+  align-items:flex-start !important;
+  justify-content:flex-start !important;
+}
+.bk-reader-shell.is-fullscreen .bk-reader-stage{
+  flex:1 1 auto !important;
+  width:100% !important;
+  max-width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:none !important;
+}
+.bk-reader-stage.theme-sepia{
+  background:#f5eedc !important;
+  color:#2c2216 !important;
+}
+.bk-reader-stage.theme-night{
+  background:#0d111a !important;
+  color:#e2e8f0 !important;
+}
+#bookPdfCanvas{
+  display:block;
+  flex:none;
+  border-radius:6px;
+  box-shadow:0 8px 26px rgba(15,23,42,.18);
+  background:#fff;
+  margin:auto;
+}
+.bk-word-scaler{
+  position:relative;
+  flex:none;
+  margin:auto;
+}
+.bk-word-page{
+  position:absolute;
+  left:0;
+  top:0;
+  width:680px;
+  min-height:920px;
+  padding:34px 40px;
+  border-radius:10px;
+  background:#ffffff;
+  color:#0f172a;
+  box-shadow:0 8px 26px rgba(15,23,42,.12);
+  font-size:16.5px;
+  line-height:1.78;
+  font-family:"Noto Serif SC","KaiTi","STKaiti",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  word-break:break-word;
+  transform-origin:top left;
+}
+.bk-reader-stage.theme-sepia .bk-word-page{
+  background:#fbf6ea;
+  color:#2b2114;
+}
+.bk-reader-stage.theme-night .bk-word-page,
+:root[data-theme="dark"] .bk-word-page{
+  background:#141926;
+  color:#f1f5f9;
+}
+.bk-word-page h1,.bk-word-page h2,.bk-word-page h3{
+  color:var(--primary);
+  margin:0.5em 0 0.3em;
+  line-height:1.35;
+}
+.bk-word-page p{margin:0 0 0.68em}
+.bk-word-page table{width:100%;border-collapse:collapse;margin:8px 0;font-size:0.92em}
+.bk-word-page td,.bk-word-page th{border:1px solid var(--line);padding:5px 8px}
+.bk-reader-shell.is-fullscreen .bk-pagination-bar{
+  margin-top:8px;
+  padding-top:8px;
+  flex:none;
+}
+.bk-quick-dict{
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+  padding:11px 14px;
+  border-radius:13px;
+  background:linear-gradient(135deg, rgba(239,246,255,.95), rgba(245,243,255,.95));
+  border:1.5px solid #93c5fd;
+}
+:root[data-theme="dark"] .bk-quick-dict{
+  background:rgba(26,34,58,.95);
+  border-color:rgba(129,140,248,.4);
+}
+.bk-pagination-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid var(--ux-line);
+}
+
 </style>
 
 </head>
@@ -3089,6 +3367,7 @@ label.primary:active, label.success:active, label.warning:active {
       <button class="top-nav-item toolbar-4d active" data-tab="tab-test" onclick="switchTab('tab-test')">🎯 Kiểm tra</button>
       <button class="top-nav-item toolbar-4d" data-tab="tab-copybook" onclick="switchTab('tab-copybook')">✍️ Chép 2 dòng</button>
       <button class="top-nav-item toolbar-4d" data-tab="tab-myvocab" onclick="switchTab('tab-myvocab')">👤 Kho từ</button>
+      <button class="top-nav-item toolbar-4d" data-tab="tab-books" onclick="switchTab('tab-books')">📖 Đọc sách</button>
       <button class="top-nav-item toolbar-4d" data-tab="tab-progress" onclick="switchTab('tab-progress')">📊 Lộ trình</button>
       <button class="top-nav-item toolbar-4d admin-only-inline-flex" data-tab="tab-admin" onclick="switchTab('tab-admin')">🛡️ Quản trị</button>
       <button class="top-nav-item toolbar-4d admin-only-inline-flex" data-tab="tab-cloud" onclick="switchTab('tab-cloud')">🌐 Cloud</button>
@@ -3232,6 +3511,10 @@ label.primary:active, label.success:active, label.warning:active {
         <button class="side-btn toolbar-4d" data-tab="tab-myvocab" onclick="switchTab('tab-myvocab')">
           <span>👤 Kho từ vựng</span>
           <span class="side-badge" id="sideMyVocabBadge">0</span>
+        </button>
+        <button class="side-btn toolbar-4d" data-tab="tab-books" onclick="switchTab('tab-books')">
+          <span>📖 Sách PDF / Word</span>
+          <span class="side-badge" id="sideBooksBadge">0</span>
         </button>
         <button class="side-btn toolbar-4d" data-tab="tab-progress" onclick="switchTab('tab-progress')">
           <span>📊 Lộ trình & Lịch sử</span>
@@ -3699,6 +3982,7 @@ label.primary:active, label.success:active, label.warning:active {
             <button type="button" class="success" style="font-size:12.5px;padding:6px 12px" onclick="sendPersonalSetToWrongCopybook()">✍️ Chép 2 dòng</button>
             <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 12px" onclick="openAiSuperModal('personal', 'import')">🤖 Trợ Lý AI</button>
             <button type="button" class="primary" style="font-size:12.5px;padding:6px 12px" onclick="toggleMyAddBox()">➕ Thêm từ / File</button>
+            <button type="button" class="success" style="font-size:12.5px;padding:6px 12px" onclick="openExportHskZip440('personal')">📦 Xuất ZIP HSK</button>
             <button type="button" class="danger" style="font-size:12.5px;padding:6px 12px" onclick="toggleMyTextManager()">🗑️ Quản lý & Xóa bài Text</button>
           </div>
         </div>
@@ -3759,11 +4043,148 @@ label.primary:active, label.success:active, label.warning:active {
           </label>
           <button type="button" style="font-size:12.5px;padding:6px 11px" id="btnMyFillAllExamples" onclick="aiFillMissingExamplesForCurrentText('personal')">💬 AI bổ sung ví dụ</button>
           <button type="button" style="font-size:12.5px;padding:6px 11px" onclick="exportMyCatalogTextToExcel()">⬇️ Xuất Excel</button>
+          <button type="button" class="success" style="font-size:12.5px;padding:6px 11px" onclick="openExportHskZip440('personal')">📦 Xuất ZIP HSK</button>
           <button type="button" class="ai-btn" style="font-size:12.5px;padding:6px 11px" onclick="openAiSuperModal('personal')">✨ Mở Studio AI</button>
         </div>
       </div>
 
       <div class="vocab-list" id="personalVocabContainer"></div>
+    </section>
+
+
+    <!-- ==================== TAB 3B: THƯ VIỆN & ĐỌC TRỰC TIẾP SÁCH PDF / WORD ==================== -->
+    <section id="tab-books" class="tab-content panel">
+      <div class="section-header glass-bar toolbar-4d" style="margin-bottom:14px">
+        <div>
+          <h2>📖 Thư Viện & Đọc Trực Tiếp Sách PDF / Word</h2>
+          <div class="small">Kéo thả 1 hoặc nhiều tệp sách PDF / Word (.docx) · Đọc trực tiếp từng trang, tra từ Hán & trích xuất từ vựng bằng AI</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <span class="badge default" id="bookLibraryCountBadge">0 cuốn sách</span>
+          <button type="button" class="danger" id="btnClearAllBooks" style="display:none;font-size:12.5px;padding:6px 11px" onclick="clearAllUploadedBooks()">🗑️ Xóa tủ sách</button>
+        </div>
+      </div>
+
+      <!-- HÀNG TRÊN: KHU VỰC TẢI LÊN (#432) + DANH SÁCH SÁCH ĐÃ TẢI -->
+      <div class="bk-upload-shelf-grid">
+        <!-- Lucian UX/UI Prompt #432 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#432 -->
+        <div class="ux u432" id="bookUploadDropzone432" style="max-width:100%;margin:0">
+          <div class="u432-dz" tabindex="0" role="button" aria-label="Tải lên tệp sách PDF hoặc Word" style="max-width:100%;height:228px">
+            <div class="u432-idle">
+              <span class="u432-ar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V5M7 9.5 12 4.5l5 5"/><path d="M5 15v2.5A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5V15"/></svg></span>
+              <b>Kéo thả sách PDF / Word vào đây</b><b aria-hidden="true">Thả tệp để nạp vào tủ sách</b>
+              <small>hoặc <button type="button" class="u432-br" tabindex="-1">chọn 1 hoặc nhiều tệp</button> · .pdf, .docx, .doc · không giới hạn dung lượng</small>
+            </div>
+            <div class="u432-up" aria-hidden="true">
+              <div class="u432-st">
+                <svg class="u432-ring" viewBox="0 0 100 100"><circle class="tk" cx="50" cy="50" r="46"/><circle class="pg" cx="50" cy="50" r="46"/></svg>
+                <svg class="u432-doc" viewBox="0 0 50 62"><path class="pp" d="M6 1h26l15 15v39a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V7a6 6 0 0 1 6-6z"/><path class="fd" d="M32 1v10a5 5 0 0 0 5 5h10z"/><rect class="ln" x="9" y="22" width="24" height="3" rx="1.5"/><rect class="ln" x="9" y="29" width="30" height="3" rx="1.5"/><rect class="tg" x="-4" y="40" width="28" height="14" rx="3.5"/><text x="10" y="50" text-anchor="middle">PDF</text></svg>
+                <span class="u432-ok"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+              </div>
+              <p class="u432-nm"></p>
+            </div>
+            <input class="u432-file" type="file" accept=".pdf,.docx,.doc,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" multiple tabindex="-1" aria-hidden="true">
+          </div>
+          <p class="u432-live" role="status"></p>
+        </div>
+
+        <!-- TỦ SÁCH ĐÃ TẢI LÊN -->
+        <div class="bk-shelf-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+            <strong style="font-size:14.5px;color:var(--primary-dark)">📚 Tủ Sách PDF & Word Của Bạn</strong>
+            <span class="small" id="bookShelfHint">Tự động lưu vị trí trang đang đọc</span>
+          </div>
+          <div class="bk-shelf-list" id="bookShelfList">
+            <div style="padding:26px 12px;text-align:center;color:var(--muted);font-size:13px">
+              Chưa có cuốn sách nào. Hãy kéo thả file <b>.pdf</b> hoặc <b>.docx</b> vào khung bên trái (hỗ trợ chọn nhiều tệp cùng lúc)!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HÀNG DƯỚI: TRÌNH ĐỌC SÁCH TRỰC TIẾP VỚI PAGINATION #449 & NÚT LOADING-TO-DONE #438 -->
+      <div class="bk-reader-shell" id="bookReaderShell" style="display:none">
+        <div class="bk-reader-toolbar" id="bookReaderToolbar">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 210px">
+            <span class="bk-ext-pill pdf" id="readerBookTypePill">PDF</span>
+            <div style="min-width:0">
+              <strong style="display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="readerBookTitle">Tên sách</strong>
+              <span class="small" id="readerBookMeta">Trang 1 / 1</span>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <button type="button" style="padding:5px 10px;min-height:34px;font-size:12.5px" onclick="adjustBookReaderScale(-1)" title="Thu nhỏ">A−</button>
+            <button type="button" class="badge default" id="readerZoomBadge" onclick="resetBookReaderScale()" title="Bấm để đặt lại vừa trang (100%)" style="border:0;cursor:pointer;padding:6px 10px;min-height:34px">100%</button>
+            <button type="button" style="padding:5px 10px;min-height:34px;font-size:12.5px" onclick="adjustBookReaderScale(1)" title="Phóng to (cuộn khi zoom > 100%)">A+</button>
+
+            <select id="readerThemeSelect" onchange="setBookReaderTheme(this.value)" style="font-size:12.5px;padding:5px 26px 5px 9px;min-height:34px" title="Nền đọc sách">
+              <option value="default">☀️ Nền chuẩn</option>
+              <option value="sepia">📜 Vàng dịu mắt</option>
+              <option value="night">🌙 Nền tối</option>
+            </select>
+
+            <button type="button" class="primary" id="btnToggleBookFullscreen" onclick="toggleBookReaderFullscreen()" style="padding:5px 12px;min-height:34px;font-size:12.5px" title="Chế độ đọc toàn màn hình (Phím F)">⛶ Toàn màn hình</button>
+
+            <!-- Lucian UX/UI Prompt #438 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#438 -->
+            <div class="ux u438" id="u438ExtractPageVocabBtn">
+              <button type="button" class="u438-b" data-s="idle"><span class="u438-l">✨ AI Trích từ trang này</span><i class="u438-sp" aria-hidden="true"></i><svg class="u438-ck" viewBox="0 0 24 24" aria-hidden="true"><path d="m5.5 12.5 4.5 4.5 8.5-9.5"/></svg><i class="u438-ring" aria-hidden="true"></i></button>
+              <p class="u438-live" role="status"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- KHUNG HIỂN THỊ NỘI DUNG TRANG SÁCH (TỈ LỆ CHUẨN THEO TRANG SÁCH, VỪA KHÍT KHÔNG CẦN CUỘN TRỪ KHI ZOOM) -->
+        <div class="bk-reader-stage" id="bookReaderStage">
+          <div id="bookPageLoadingHint" style="display:none;padding:24px;font-weight:700;color:var(--primary)">⏳ Đang kết xuất trang sách...</div>
+          <canvas id="bookPdfCanvas" style="display:none"></canvas>
+          <iframe id="bookPdfFallbackFrame" title="Trình xem PDF dự phòng" style="display:none;width:100%;height:100%;border:0;border-radius:10px"></iframe>
+          <div id="bookWordScaler" class="bk-word-scaler" style="display:none">
+            <article id="bookWordPageArticle" class="bk-word-page"></article>
+          </div>
+        </div>
+
+        <!-- Văn bản trích xuất từ trang PDF hiện tại để bôi đen / chạm tra từ Hán -->
+        <details id="bookPdfExtractedTextDetails" style="display:none;width:100%;max-width:780px;margin:10px auto 0;background:var(--ux-surface-2);border:1px solid var(--ux-line-2);border-radius:12px;padding:8px 12px">
+          <summary style="cursor:pointer;font-size:12.5px;font-weight:700;color:var(--primary-dark)">📝 Văn bản chữ trên trang PDF này (Bôi đen hoặc chạm chữ Hán để tra từ nhanh)</summary>
+          <div id="bookPdfPageTextContent" style="margin-top:8px;font-size:15px;line-height:1.7;font-family:'KaiTi','STKaiti',sans-serif;white-space:pre-wrap;max-height:160px;overflow-y:auto"></div>
+        </details>
+
+        <!-- THANH TRA TỪ NHANH KHI CHẠM / BÔI ĐEN CHỮ HÁN TRONG SÁCH -->
+        <div class="bk-quick-dict" id="bookQuickDictBar">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <strong style="font-size:22px;font-family:'KaiTi',serif;color:var(--primary-dark)" id="bkDictZh">你好</strong>
+            <span style="font-weight:700;color:var(--accent)" id="bkDictPy">nǐ hǎo</span>
+            <span style="font-weight:600" id="bkDictVi">Xin chào</span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button type="button" class="speaker-btn" onclick="speakBookDictWord()">🔊 Nghe</button>
+            <button type="button" class="primary" style="font-size:12px;padding:5px 10px;min-height:32px" onclick="saveBookDictWordToPersonal()">➕ Lưu Kho từ</button>
+            <button type="button" class="crimson" style="font-size:12px;padding:5px 10px;min-height:32px" onclick="saveBookDictWordToCopybook()">✍️ Chép 2 dòng</button>
+          </div>
+        </div>
+
+        <!-- THANH CHUYỂN TRANG #449 (7 SLOTS SPRING PILL) -->
+        <div class="bk-pagination-bar">
+          <span class="small" id="readerPageSummaryLabel">Trang 1 / 1</span>
+
+          <!-- Lucian UX/UI Prompt #449 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#449 -->
+          <div class="ux u449" id="u449BookPagination">
+            <nav class="u449-nav" aria-label="Phân trang đọc sách">
+              <button type="button" class="u449-ar u449-pv" aria-label="Trang trước"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5"/></svg></button>
+              <div class="u449-sl"><span class="u449-pill" aria-hidden="true"></span></div>
+              <button type="button" class="u449-ar u449-nx" aria-label="Trang sau"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg></button>
+            </nav>
+            <p class="u449-live" role="status"></p>
+          </div>
+
+          <div class="bk-jump-box" style="display:flex;align-items:center;gap:6px;position:relative;z-index:5">
+            <label class="small" for="bookJumpPageInput" style="font-weight:700">Đến trang:</label>
+            <input type="number" id="bookJumpPageInput" min="1" value="1" inputmode="numeric" style="width:72px;padding:5px 8px;text-align:center;min-height:34px;font-weight:700" onkeydown="handleBookJumpInputKeydown(event)">
+            <button type="button" id="btnBookJumpGo" class="primary" style="padding:5px 12px;min-height:34px;font-size:12.5px;position:relative;z-index:6;pointer-events:auto" onclick="triggerBookPageJump(event)">Đi</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ==================== TAB 4: LỘ TRÌNH & LỊCH SỬ (TỐI GIẢN) ==================== -->
@@ -3809,6 +4230,7 @@ label.primary:active, label.success:active, label.warning:active {
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
           <button type="button" class="ai-btn toolbar-4d" onclick="openAiSuperModal('admin', 'import')" style="padding:9px 15px;font-size:13.5px">🤖 Mở Trợ Lý AI</button>
+          <button type="button" class="success toolbar-4d" onclick="openExportHskZip440('admin')" style="padding:9px 14px;font-size:13.5px">📦 Xuất ZIP HSK</button>
           <!-- Lucian UX/UI Prompt #001 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#001 -->
           <div class="ux u001" id="u001LiquidPublish" data-state="idle">
             <div class="u001-mag">
@@ -3904,6 +4326,7 @@ label.primary:active, label.success:active, label.warning:active {
                   <button type="button" style="font-size:12.5px;padding:6px 11px" id="btnAdmFillAllExamples" onclick="aiFillMissingExamplesForCurrentText('admin')">💬 AI bổ sung ví dụ bài này</button>
                   <button type="button" style="font-size:12.5px;padding:6px 11px" onclick="openCreateTestModal('admin_catalog')">📝 Tạo Test</button>
                   <button type="button" style="font-size:12.5px;padding:6px 11px" onclick="exportAdminTextToExcel()">⬇️ Excel</button>
+                  <button type="button" class="success" style="font-size:12.5px;padding:6px 11px" onclick="openExportHskZip440('admin')">📦 Xuất ZIP HSK</button>
                 </div>
                 <button type="button" class="ai-btn" id="btnAdmSmartParse" onclick="runAdminMessyPasteAi()" style="font-size:13px;padding:7px 15px">✨ AI Xếp chuẩn & Tạo ví dụ</button>
               </div>
@@ -4813,6 +5236,7 @@ label.primary:active, label.success:active, label.warning:active {
   <button type="button" class="dock-item active" data-tab="tab-test" onclick="switchTab('tab-test')"><span>🎯</span><span>Kiểm tra</span></button>
   <button type="button" class="dock-item" data-tab="tab-copybook" onclick="switchTab('tab-copybook')"><span>✍️</span><span>Chép 2 dòng</span></button>
   <button type="button" class="dock-item" data-tab="tab-myvocab" onclick="switchTab('tab-myvocab')"><span>👤</span><span>Kho từ</span></button>
+  <button type="button" class="dock-item" data-tab="tab-books" onclick="switchTab('tab-books')"><span>📖</span><span>Đọc sách</span></button>
   <button type="button" class="dock-item" data-tab="tab-progress" onclick="switchTab('tab-progress')"><span>📊</span><span>Lộ trình</span></button>
   <button type="button" class="dock-item admin-only-flex" data-tab="tab-admin" onclick="switchTab('tab-admin')"><span>🛡️</span><span>Admin</span></button>
   <button type="button" class="dock-item admin-only-flex" data-tab="tab-cloud" onclick="switchTab('tab-cloud')"><span>🌐</span><span>Cloud</span></button>
@@ -4839,6 +5263,7 @@ label.primary:active, label.success:active, label.warning:active {
     <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-test" aria-selected="true"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z"/></svg></span><span class="u041-lab">Kiểm tra</span></button></li>
     <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-copybook" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><em class="u041-bd" id="u041WrongBadge">0</em><span class="u041-lab">Chép 2 dòng</span></button></li>
     <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-myvocab" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4.5-6.5 4.5v-16a1 1 0 0 1 1-1z"/></svg></span><span class="u041-lab">Kho từ</span></button></li>
+    <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-books" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v17H6.5A2.5 2.5 0 0 0 4 22zM20 5.5A2.5 2.5 0 0 0 17.5 3H12v17h5.5a2.5 2.5 0 0 1 2.5 2z"/></svg></span><span class="u041-lab">Đọc sách</span></button></li>
     <li role="none"><button class="u041-tab" type="button" role="tab" data-tab="tab-progress" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16V9M12 16V5M17 16v-4"/></svg></span><span class="u041-lab">Lộ trình</span></button></li>
     <li role="none" class="u041-admin-tab"><button class="u041-tab" type="button" role="tab" data-tab="tab-admin" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8.2-7 9-4-.8-7-4.5-7-9V6l7-3z"/></svg></span><span class="u041-lab">Admin</span></button></li>
     <li role="none" class="u041-admin-tab"><button class="u041-tab" type="button" role="tab" data-tab="tab-cloud" aria-selected="false"><span class="u041-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.8 9.5h16.4M3.8 14.5h16.4M12 3.5a12 12 0 0 1 0 17M12 3.5a12 12 0 0 0 0 17"/></svg></span><span class="u041-lab">Cloud</span></button></li>
@@ -4911,12 +5336,77 @@ label.primary:active, label.success:active, label.warning:active {
         <label class="u440-exp-chk"><input type="checkbox" id="u440ChkWord" checked> 📝 Phiếu Word (.docx)</label>
         <label class="u440-exp-chk"><input type="checkbox" id="u440ChkExcel"> 📊 Bảng từ Excel (.xlsx)</label>
         <label class="u440-exp-chk"><input type="checkbox" id="u440ChkJson"> 💾 Sao lưu JSON (.json)</label>
+        <label class="u440-exp-chk" style="grid-column:1/-1"><input type="checkbox" id="u440ChkZipHsk"> 📦 Toàn bộ từ vựng HSK theo Bài & Text (.zip)</label>
       </div>
 
       <div class="u440-exp-acts">
         <button type="button" class="u440-go" id="u440ExpRunBtn"></button>
       </div>
       <p class="u440-live" id="u440ExpLive" role="status"></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Lucian UX/UI Prompt #440 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#440 -->
+<div class="u440-exp-backdrop no-print" id="u440MultiBookModal" onclick="if(event.target===this)closeMultiBookModal440()">
+  <div class="u440-exp-card" style="max-width:420px">
+    <button type="button" class="u440-exp-close" onclick="closeMultiBookModal440()" aria-label="Đóng hộp thoại tải sách">✕</button>
+    <div class="ux u440" id="u440MultiBookWidget" style="height:auto;min-height:240px;padding:6px 0">
+      <div class="u440-ill" aria-hidden="true">
+        <svg class="u440-il" viewBox="0 0 160 120">
+          <ellipse class="sh" cx="80" cy="116" rx="50" ry="5"/>
+          <path class="sp" d="M138 22l1.8 4.4 4.4 1.8-4.4 1.8-1.8 4.4-1.8-4.4-4.4-1.8 4.4-1.8z"/>
+          <path class="sp" d="M20 40l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z"/>
+          <path class="sp" d="M128 70l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/>
+          <g class="fol">
+            <path class="bk" d="M28 34a8 8 0 0 1 8-8h22a6 6 0 0 1 4.6 2.2l4.6 5.8H124a8 8 0 0 1 8 8v58a8 8 0 0 1-8 8H36a8 8 0 0 1-8-8z"/>
+            <g class="doc"><rect class="p" x="50" y="24" width="60" height="58" rx="6"/><rect class="hd" x="57" y="31" width="20" height="5" rx="2.5"/><rect class="ln" x="57" y="42" width="44" height="3.5" rx="1.75"/><rect class="ln" x="57" y="50" width="36" height="3.5" rx="1.75"/></g>
+            <path class="fr" d="M22 56a8 8 0 0 1 8-8h100a8 8 0 0 1 8 8.6l-4.4 44a8 8 0 0 1-8 7.4H34.4a8 8 0 0 1-8-7.4z"/>
+            <path class="fh" d="M30 48h100a8 8 0 0 1 8 8.6l-.3 3H22.1l-.1-3.6A8 8 0 0 1 30 48z"/>
+          </g>
+        </svg>
+        <span class="u440-burst"><i style="--a:-60deg;--c:var(--ux-warn)"></i><i style="--a:-25deg;--c:var(--ux-mint)"></i><i style="--a:10deg;--c:var(--ux-accent-2)"></i><i style="--a:45deg;--c:var(--ux-warn)"></i><i style="--a:-95deg;--c:var(--ux-accent)"></i><i style="--a:80deg;--c:var(--ux-mint)"></i></span>
+      </div>
+      <div class="u440-h"><b id="u440MultiBookTitleIdle">Đang xếp sách vào thư mục...</b><b id="u440MultiBookTitleDone" aria-hidden="true">Đã nạp nhiều sách thành công!</b></div>
+      <p class="small" id="u440MultiBookSummary" style="margin:0 0 12px;max-width:340px">Các tệp sách PDF / Word của bạn đã được lưu sẵn sàng để đọc trực tiếp.</p>
+      <button type="button" class="u440-go" id="u440MultiBookOpenBtn"></button>
+      <p class="u440-live" id="u440MultiBookLive" role="status"></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Lucian UX/UI Prompt #440 · MIT License (c) 2026 Seokwoooo · https://lucianlabs.dev/uxui-prompt/#440 -->
+<div class="u440-exp-backdrop no-print" id="u440HskZipModal" onclick="if(event.target===this)closeHskZipModal440()">
+  <div class="u440-exp-card" style="max-width:440px">
+    <button type="button" class="u440-exp-close" onclick="closeHskZipModal440()" aria-label="Đóng hộp thoại xuất ZIP HSK">✕</button>
+    <div class="ux u440" id="u440HskZipWidget" style="height:auto;min-height:250px;padding:6px 0">
+      <div class="u440-ill" aria-hidden="true">
+        <svg class="u440-il" viewBox="0 0 160 120">
+          <ellipse class="sh" cx="80" cy="116" rx="50" ry="5"/>
+          <path class="sp" d="M138 22l1.8 4.4 4.4 1.8-4.4 1.8-1.8 4.4-1.8-4.4-4.4-1.8 4.4-1.8z"/>
+          <path class="sp" d="M20 40l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z"/>
+          <path class="sp" d="M128 70l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/>
+          <g class="fol">
+            <path class="bk" d="M28 34a8 8 0 0 1 8-8h22a6 6 0 0 1 4.6 2.2l4.6 5.8H124a8 8 0 0 1 8 8v58a8 8 0 0 1-8 8H36a8 8 0 0 1-8-8z"/>
+            <g class="doc"><rect class="p" x="50" y="24" width="60" height="58" rx="6"/><rect class="hd" x="57" y="31" width="20" height="5" rx="2.5"/><rect class="ln" x="57" y="42" width="44" height="3.5" rx="1.75"/><rect class="ln" x="57" y="50" width="36" height="3.5" rx="1.75"/></g>
+            <path class="fr" d="M22 56a8 8 0 0 1 8-8h100a8 8 0 0 1 8 8.6l-4.4 44a8 8 0 0 1-8 7.4H34.4a8 8 0 0 1-8-7.4z"/>
+            <path class="fh" d="M30 48h100a8 8 0 0 1 8 8.6l-.3 3H22.1l-.1-3.6A8 8 0 0 1 30 48z"/>
+          </g>
+        </svg>
+        <span class="u440-burst"><i style="--a:-60deg;--c:var(--ux-warn)"></i><i style="--a:-25deg;--c:var(--ux-mint)"></i><i style="--a:10deg;--c:var(--ux-accent-2)"></i><i style="--a:45deg;--c:var(--ux-warn)"></i><i style="--a:-95deg;--c:var(--ux-accent)"></i><i style="--a:80deg;--c:var(--ux-mint)"></i></span>
+      </div>
+      <div class="u440-h"><b id="u440ZipTitleIdle">Xuất từ vựng HSK ra file ZIP</b><b id="u440ZipTitleDone" aria-hidden="true">Đã nén ZIP theo Bài & Text!</b></div>
+      <p class="small" id="u440ZipSummary" style="margin:0 0 10px;max-width:360px">Mỗi Bài là 1 thư mục (Bai_01_...), bên trong gồm các file Excel theo từng Text (Bai_01_Text_1.xlsx).</p>
+
+      <div style="width:100%;max-width:340px;margin:0 auto 12px;text-align:left">
+        <label class="small" for="u440ZipScopeSelect" style="display:block;font-weight:700;margin-bottom:4px">Chọn phạm vi HSK muốn xuất ZIP:</label>
+        <select id="u440ZipScopeSelect" onchange="updateHskZip440Preview()" style="width:100%;font-size:13px;padding:7px 28px 7px 10px"></select>
+      </div>
+
+      <button type="button" class="u440-go" id="u440ZipRunBtn"></button>
+      <p class="u440-live" id="u440ZipLive" role="status"></p>
     </div>
   </div>
 </div>
@@ -7761,6 +8251,9 @@ function switchTab(tabId) {
     sec.classList.toggle('active', sec.id === tabId);
   });
   if (tabId === 'tab-copybook') renderWrongCopybookA4();
+  if (tabId === 'tab-books' && typeof renderBookLibraryUI === 'function') {
+    renderBookLibraryUI();
+  }
   if (tabId === 'tab-myvocab') {
     renderPersonalVocabList();
     if ($('myTextManagerBox')?.style.display !== 'none') renderMyTextManagerList();
@@ -7805,6 +8298,7 @@ function refreshAllUI() {
   if ($('u408AuthLabel')) $('u408AuthLabel').textContent = user.uid === 'guest_local' ? 'Đăng nhập / Đăng ký' : 'Hồ sơ tài khoản';
   if ($('u408LogoutLabel')) $('u408LogoutLabel').textContent = user.uid === 'guest_local' ? 'Tạo tài khoản mới' : 'Đăng xuất';
   if (typeof syncU442BasketBadge === 'function') syncU442BasketBadge();
+  if ($('sideBooksBadge') && typeof bookLibraryMeta !== 'undefined') $('sideBooksBadge').textContent = bookLibraryMeta.length;
   $('heroRoleBadge').textContent = isAdm ? `🛡️ Admin: ${user.name}` : `👤 ${user.name}`;
 
   $('statUserScore').textContent = user.totalScore || 0;
@@ -14005,7 +14499,7 @@ pullCloudState(true, true).then(() => {
       runBtn.innerHTML = PLUS + `<span>${label}</span>`;
     };
 
-    ['u440ChkPdf', 'u440ChkWord', 'u440ChkExcel', 'u440ChkJson'].forEach(id => {
+    ['u440ChkPdf', 'u440ChkWord', 'u440ChkExcel', 'u440ChkJson', 'u440ChkZipHsk'].forEach(id => {
       $(id)?.addEventListener('change', () => { isDone = false; syncBtn(); });
     });
 
@@ -14043,9 +14537,10 @@ pullCloudState(true, true).then(() => {
       const useWord = $('u440ChkWord')?.checked;
       const useExcel = $('u440ChkExcel')?.checked;
       const useJson = $('u440ChkJson')?.checked;
+      const useZipHsk = $('u440ChkZipHsk')?.checked;
       const preset = widget.dataset.preset || 'batch';
 
-      if (!usePdf && !useWord && !useExcel && !useJson) {
+      if (!usePdf && !useWord && !useExcel && !useJson && !useZipHsk) {
         showToast('⚠️ Vui lòng chọn ít nhất 1 định dạng tệp để xuất!');
         return;
       }
@@ -14085,6 +14580,9 @@ pullCloudState(true, true).then(() => {
       if (useJson && typeof rawExports.json === 'function') {
         tasks.push(() => rawExports.json());
       }
+      if (useZipHsk && typeof buildAndDownloadHskZip === 'function') {
+        tasks.push(() => buildAndDownloadHskZip('all', 'auto'));
+      }
 
       for (let i = 0; i < tasks.length; i++) {
         try {
@@ -14106,6 +14604,1429 @@ pullCloudState(true, true).then(() => {
     window.exportAdminTextToExcel = () => openUniversalExport440('excelAdmin', true);
     window.exportBackupJson = () => openUniversalExport440('json', true);
     window.downloadSampleWordExamTemplate = () => openUniversalExport440('sampleWord', true);
+  })();
+
+
+  // ==================== 16. THƯ VIỆN & TRÌNH ĐỌC SÁCH PDF / WORD TRỰC TIẾP (#432 + #440 + #449 + #438) ====================
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+
+  const BOOK_DB_NAME = 'cvm_books_library_db_v1';
+  const BOOK_STORE_NAME = 'books';
+  let bookLibraryMeta = (() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('cvm_book_library_meta_v1'));
+      return Array.isArray(saved) ? saved : [];
+    } catch (e) { return []; }
+  })();
+
+  let activeBookState = {
+    id: null,
+    name: '',
+    ext: 'pdf',
+    totalPages: 1,
+    curPage: 1,
+    zoomPct: 100,
+    pdfDoc: null,
+    pdfBlobUrl: null,
+    pdfRenderTask: null,
+    pdfPageCache: new Map(),
+    pdfPrefetching: new Set(),
+    renderSeq: 0,
+    wordPages: [], // [{ html, text }]
+    currentPageText: '',
+    selectedDictWord: null
+  };
+
+  function saveBookLibraryMeta() {
+    try {
+      localStorage.setItem('cvm_book_library_meta_v1', JSON.stringify(bookLibraryMeta));
+    } catch (e) {}
+    if ($('sideBooksBadge')) $('sideBooksBadge').textContent = bookLibraryMeta.length;
+    if ($('bookLibraryCountBadge')) $('bookLibraryCountBadge').textContent = `${bookLibraryMeta.length} cuốn sách`;
+    if ($('btnClearAllBooks')) $('btnClearAllBooks').style.display = bookLibraryMeta.length ? 'inline-flex' : 'none';
+  }
+
+  function openBookIndexedDb() {
+    return new Promise((resolve, reject) => {
+      if (!window.indexedDB) return reject(new Error('IndexedDB không khả dụng'));
+      const req = indexedDB.open(BOOK_DB_NAME, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(BOOK_STORE_NAME)) {
+          db.createObjectStore(BOOK_STORE_NAME, { keyPath: 'id' });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+  }
+
+  async function putBookRecordInDb(record) {
+    // Keep fast in-memory reference so huge multi-GB files always open instantaneously
+    window._memBookStore = window._memBookStore || {};
+    window._memBookStore[record.id] = record;
+    try {
+      const db = await openBookIndexedDb();
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction(BOOK_STORE_NAME, 'readwrite');
+        tx.objectStore(BOOK_STORE_NAME).put(record);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
+      });
+    } catch (e) {
+      // If disk quota is exceeded for massive multi-GB files, keep streaming directly from the live File handle
+      return true;
+    }
+  }
+
+  async function getBookRecordFromDb(bookId) {
+    if (window._memBookStore && window._memBookStore[bookId]) return window._memBookStore[bookId];
+    try {
+      const db = await openBookIndexedDb();
+      return await new Promise((resolve, reject) => {
+        const tx = db.transaction(BOOK_STORE_NAME, 'readonly');
+        const req = tx.objectStore(BOOK_STORE_NAME).get(bookId);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => reject(req.error);
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function deleteBookRecordFromDb(bookId) {
+    if (window._memBookStore) delete window._memBookStore[bookId];
+    try {
+      const db = await openBookIndexedDb();
+      await new Promise((resolve) => {
+        const tx = db.transaction(BOOK_STORE_NAME, 'readwrite');
+        tx.objectStore(BOOK_STORE_NAME).delete(bookId);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => resolve();
+      });
+    } catch (e) {}
+  }
+
+  function formatBookFileSize(bytes) {
+    if (bytes < 1048576) return Math.max(1, Math.round(bytes / 1024)) + ' KB';
+    if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + ' MB';
+    return (bytes / 1073741824).toFixed(2) + ' GB';
+  }
+
+  // Non-blocking chunked pagination for large Word/Text e-books so UI stays smooth at any file size
+  async function paginateWordHtmlIntoPagesAsync(rawHtml, plainText) {
+    const pages = [];
+    const holder = document.createElement('div');
+    holder.innerHTML = rawHtml || '';
+    const blocks = Array.from(holder.children);
+
+    if (blocks.length > 0) {
+      let curHtml = '';
+      let curText = '';
+      let curChars = 0;
+
+      for (let i = 0; i < blocks.length; i++) {
+        const el = blocks[i];
+        const txt = (el.textContent || '').trim();
+        if (!txt && el.tagName !== 'TABLE') continue;
+        const isHeading = /^H[1-3]$/.test(el.tagName);
+        if (curChars > 0 && (curChars + txt.length > 1120 || (isHeading && curChars > 450))) {
+          pages.push({ html: curHtml, text: curText.trim() });
+          curHtml = '';
+          curText = '';
+          curChars = 0;
+        }
+        curHtml += el.outerHTML;
+        curText += txt + '\n';
+        curChars += txt.length;
+        if (i > 0 && i % 400 === 0) {
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+      if (curHtml.trim()) {
+        pages.push({ html: curHtml, text: curText.trim() });
+      }
+    }
+
+    if (!pages.length) {
+      const lines = String(plainText || '').split(/\r?\n/);
+      let chunk = [];
+      let len = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        if (len > 0 && len + line.length > 1100) {
+          pages.push({
+            html: chunk.map(p => `<p>${escVocabHtml(p)}</p>`).join(''),
+            text: chunk.join('\n')
+          });
+          chunk = [];
+          len = 0;
+        }
+        chunk.push(line);
+        len += line.length;
+        if (i > 0 && i % 1200 === 0) {
+          await new Promise(r => setTimeout(r, 0));
+        }
+      }
+      if (chunk.length) {
+        pages.push({
+          html: chunk.map(p => `<p>${escVocabHtml(p)}</p>`).join(''),
+          text: chunk.join('\n')
+        });
+      }
+    }
+
+    return pages.length ? pages : [{ html: '<p>(Tệp trống)</p>', text: '' }];
+  }
+
+  async function parseAndStoreBookFile(file) {
+    const ext = (/\.([a-z0-9]+)$/i.exec(file.name) || [, 'pdf'])[1].toLowerCase();
+    const bookId = 'bk_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+
+    let totalPages = 1;
+    let wordPages = null;
+
+    if (ext === 'pdf') {
+      // Zero-copy streaming inspection via Blob URL + rangeChunkSize: handles multi-GB PDFs without loading whole file into RAM
+      if (typeof pdfjsLib !== 'undefined') {
+        const probeUrl = URL.createObjectURL(file);
+        try {
+          const loadingTask = pdfjsLib.getDocument({
+            url: probeUrl,
+            rangeChunkSize: 524288,
+            disableAutoFetch: true
+          });
+          const doc = await loadingTask.promise;
+          totalPages = doc.numPages || 1;
+          await doc.destroy();
+        } catch (e) {
+          totalPages = 1;
+        } finally {
+          URL.revokeObjectURL(probeUrl);
+        }
+      }
+    } else {
+      // Word (.docx, .doc, .txt)
+      let htmlContent = '';
+      let plainContent = '';
+      if (ext === 'txt') {
+        plainContent = await file.text();
+      } else {
+        const buf = await file.arrayBuffer();
+        if (typeof mammoth !== 'undefined') {
+          try {
+            const resHtml = await mammoth.convertToHtml({ arrayBuffer: buf.slice(0) });
+            htmlContent = resHtml.value || '';
+            const resTxt = await mammoth.extractRawText({ arrayBuffer: buf.slice(0) });
+            plainContent = resTxt.value || '';
+          } catch (e) {}
+        }
+        if (!htmlContent && !plainContent && typeof JSZip !== 'undefined') {
+          try {
+            const zip = await JSZip.loadAsync(buf.slice(0));
+            const xmlFile = zip.file('word/document.xml');
+            if (xmlFile) {
+              const xmlStr = await xmlFile.async('string');
+              const xml = new DOMParser().parseFromString(xmlStr, 'application/xml');
+              const paras = [...xml.getElementsByTagName('w:p')]
+                .map(p => [...p.getElementsByTagName('w:t')].map(t => t.textContent).join('').trim())
+                .filter(Boolean);
+              plainContent = paras.join('\n');
+            }
+          } catch (e) {}
+        }
+        if (!htmlContent && !plainContent) {
+          plainContent = new TextDecoder('utf-8', { fatal: false }).decode(buf).replace(/[^\u0020-\u007E\u00A0-\u024F\u1E00-\u1EFF\u4E00-\u9FA5\n\r\t]/g, ' ');
+        }
+      }
+      wordPages = await paginateWordHtmlIntoPagesAsync(htmlContent, plainContent);
+      totalPages = wordPages.length;
+    }
+
+    await putBookRecordInDb({
+      id: bookId,
+      name: file.name,
+      ext,
+      size: file.size,
+      totalPages,
+      fileBlob: file,
+      wordPages
+    });
+
+    const metaEntry = {
+      id: bookId,
+      name: file.name,
+      ext,
+      size: file.size,
+      totalPages,
+      lastPage: 1,
+      addedAt: new Date().toLocaleString('vi-VN')
+    };
+    bookLibraryMeta.unshift(metaEntry);
+    saveBookLibraryMeta();
+    return metaEntry;
+  }
+
+  window.renderBookLibraryUI = function() {
+    saveBookLibraryMeta();
+    const listEl = $('bookShelfList');
+    if (!listEl) return;
+
+    if (!bookLibraryMeta.length) {
+      listEl.innerHTML = '<div style="padding:26px 12px;text-align:center;color:var(--muted);font-size:13px">Chưa có cuốn sách nào. Hãy kéo thả file <b>.pdf</b> hoặc <b>.docx</b> vào khung bên trái (hỗ trợ chọn nhiều tệp cùng lúc, không giới hạn dung lượng)!</div>';
+      if ($('bookReaderShell')) $('bookReaderShell').style.display = 'none';
+      return;
+    }
+
+    listEl.innerHTML = bookLibraryMeta.map(bk => {
+      const isPdf = bk.ext === 'pdf';
+      const isActive = activeBookState.id === bk.id;
+      return `
+        <div class="bk-book-item ${isActive ? 'active' : ''}" onclick="openBookInReader('${bk.id}')">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
+            <span class="bk-ext-pill ${isPdf ? 'pdf' : 'word'}">${escVocabHtml(bk.ext.toUpperCase())}</span>
+            <div style="min-width:0;flex:1">
+              <strong style="display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escVocabHtml(bk.name)}</strong>
+              <span class="small" style="font-size:12px">${bk.totalPages} trang · ${formatBookFileSize(bk.size)} · Đã đọc trang ${bk.lastPage || 1}</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:5px;align-items:center;flex-shrink:0" onclick="event.stopPropagation()">
+            <button type="button" class="primary" style="font-size:12px;padding:5px 10px;min-height:32px" onclick="openBookInReader('${bk.id}')">📖 Đọc</button>
+            <button type="button" class="danger" style="font-size:12px;padding:5px 8px;min-height:32px" onclick="deleteUploadedBook('${bk.id}')" title="Xóa sách">🗑️</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  window.deleteUploadedBook = async function(bookId) {
+    bookLibraryMeta = bookLibraryMeta.filter(b => b.id !== bookId);
+    await deleteBookRecordFromDb(bookId);
+    saveBookLibraryMeta();
+    if (activeBookState.id === bookId) {
+      if (activeBookState.pdfDoc) {
+        try { await activeBookState.pdfDoc.destroy(); } catch (e) {}
+      }
+      if (activeBookState.pdfBlobUrl) {
+        URL.revokeObjectURL(activeBookState.pdfBlobUrl);
+      }
+      activeBookState.id = null;
+      activeBookState.pdfDoc = null;
+    activeBookState.pdfPageCache.clear();
+    activeBookState.pdfPrefetching.clear();
+      activeBookState.pdfBlobUrl = null;
+      if (bookLibraryMeta.length) {
+        openBookInReader(bookLibraryMeta[0].id);
+      } else if ($('bookReaderShell')) {
+        $('bookReaderShell').style.display = 'none';
+      }
+    }
+    renderBookLibraryUI();
+    showToast('🗑️ Đã xóa sách khỏi tủ sách.');
+  };
+
+  window.clearAllUploadedBooks = async function() {
+    for (const bk of bookLibraryMeta) {
+      await deleteBookRecordFromDb(bk.id);
+    }
+    if (activeBookState.pdfDoc) {
+      try { await activeBookState.pdfDoc.destroy(); } catch (e) {}
+    }
+    if (activeBookState.pdfBlobUrl) {
+      URL.revokeObjectURL(activeBookState.pdfBlobUrl);
+    }
+    bookLibraryMeta = [];
+    activeBookState.id = null;
+    activeBookState.pdfDoc = null;
+    activeBookState.pdfBlobUrl = null;
+    saveBookLibraryMeta();
+    renderBookLibraryUI();
+    showToast('🗑️ Đã xóa toàn bộ tủ sách PDF / Word.');
+  };
+
+  // #449 Pagination Controller Instance for Book Reader
+  let _u449BookPager = null;
+  (function initLucian449Pagination() {
+    var root = $('u449BookPagination');
+    if (!root) return;
+    var T = { page: function (n) { return 'Trang ' + n; } };
+    var TOTAL = 1, cur = 1;
+    var sl = root.querySelector('.u449-sl'), pill = root.querySelector('.u449-pill'), pv = root.querySelector('.u449-pv'), nx = root.querySelector('.u449-nx'), live = root.querySelector('.u449-live');
+    var slots = [];
+    for (var k = 0; k < 7; k++) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'u449-n';
+      b.innerHTML = '<span></span>';
+      sl.appendChild(b);
+      slots.push(b);
+    }
+    function win(c) {
+      if (TOTAL <= 7) {
+        var arr = [];
+        for (var i = 1; i <= 7; i++) arr.push(i <= TOTAL ? i : '');
+        return arr;
+      }
+      if (c <= 4) return [1, 2, 3, 4, 5, '', TOTAL];
+      if (c >= TOTAL - 3) return [1, '', TOTAL - 4, TOTAL - 3, TOTAL - 2, TOTAL - 1, TOTAL];
+      return [1, '', c - 1, c, c + 1, '', TOTAL];
+    }
+    function render(back) {
+      var w = win(cur);
+      w.forEach(function (v, k) {
+        var b = slots[k], old = b.getAttribute('data-v');
+        var isDotSlot = (v === '');
+        var isTrailingEmpty = (TOTAL < 7 && k >= TOTAL);
+        b.classList.toggle('is-dots', isDotSlot);
+        b.style.visibility = isTrailingEmpty ? 'hidden' : 'visible';
+        if (isDotSlot) {
+          b.setAttribute('aria-hidden', 'true');
+          b.tabIndex = -1;
+          b.removeAttribute('aria-label');
+        } else {
+          b.removeAttribute('aria-hidden');
+          b.tabIndex = 0;
+          b.setAttribute('aria-label', T.page(v));
+        }
+        if (v === cur) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+        if (old === String(v)) return;
+        b.setAttribute('data-v', v);
+        var txt = isDotSlot ? (isTrailingEmpty ? '' : '…') : String(v);
+        if (old === null) { b.firstChild.textContent = txt; return; }
+        b.querySelectorAll('.is-out').forEach(function (s) { s.remove(); });
+        var o = b.querySelector('span'), s = document.createElement('span');
+        s.textContent = txt; s.className = 'is-in';
+        b.classList.toggle('is-back', !!back);
+        o.className = 'is-out'; b.appendChild(s);
+        setTimeout(function () { if (o.isConnected) o.remove(); }, 320);
+      });
+      var at = Math.max(0, w.indexOf(cur));
+      var colGap = parseFloat(getComputedStyle(sl).columnGap) || (window.innerWidth <= 420 ? 1 : 2);
+      var slotStep = (slots[0]?.offsetWidth || (window.innerWidth <= 420 ? 28 : 32)) + colGap;
+      pill.style.setProperty('--x', (at * slotStep) + 'px');
+      pv.disabled = cur <= 1;
+      nx.disabled = cur >= TOTAL;
+    }
+    function go(n, triggerPageLoad = true) {
+      n = Math.max(1, Math.min(TOTAL, n));
+      var back = n < cur;
+      var changed = (n !== cur);
+      cur = n;
+      if (changed) {
+        pill.classList.remove('is-sq');
+        void pill.offsetWidth;
+        pill.classList.add('is-sq');
+      }
+      render(back);
+      live.textContent = T.page(cur);
+      if (triggerPageLoad && typeof renderActiveBookPage === 'function') {
+        renderActiveBookPage(cur);
+      }
+    }
+    slots.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-v');
+        if (v) go(+v, true);
+      });
+    });
+    pv.addEventListener('click', function () { go(cur - 1, true); });
+    nx.addEventListener('click', function () { go(cur + 1, true); });
+
+    _u449BookPager = {
+      sync: function(totalPages, currentPage) {
+        TOTAL = Math.max(1, totalPages || 1);
+        cur = Math.max(1, Math.min(TOTAL, currentPage || 1));
+        slots.forEach(b => b.removeAttribute('data-v'));
+        render(false);
+      },
+      go: go
+    };
+    render(false);
+  })();
+
+  window.clampBookPageNumber = function(rawVal) {
+    const total = Math.max(1, activeBookState.totalPages || 1);
+    const parsed = parseInt(String(rawVal ?? '').trim(), 10);
+    if (Number.isNaN(parsed)) return activeBookState.curPage || 1;
+    return Math.max(1, Math.min(total, parsed));
+  };
+
+  window.jumpToBookPage = function(val) {
+    if (!activeBookState.id) {
+      showToast('⚠️ Hãy chọn hoặc tải một cuốn sách PDF / Word trước!');
+      return;
+    }
+    const targetP = clampBookPageNumber(val);
+    if ($('bookJumpPageInput')) $('bookJumpPageInput').value = targetP;
+    if (_u449BookPager) _u449BookPager.go(targetP, true);
+    else renderActiveBookPage(targetP);
+  };
+
+  window.triggerBookPageJump = function(ev) {
+    if (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+    }
+    const inp = $('bookJumpPageInput');
+    jumpToBookPage(inp ? inp.value : 1);
+  };
+
+  window.handleBookJumpInputKeydown = function(ev) {
+    if (!ev) return;
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      ev.stopPropagation();
+      jumpToBookPage(ev.currentTarget.value);
+    } else if (ev.key === 'ArrowUp') {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const nextP = clampBookPageNumber((parseInt(ev.currentTarget.value, 10) || activeBookState.curPage || 1) + 1);
+      ev.currentTarget.value = nextP;
+      jumpToBookPage(nextP);
+    } else if (ev.key === 'ArrowDown') {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const prevP = clampBookPageNumber((parseInt(ev.currentTarget.value, 10) || activeBookState.curPage || 1) - 1);
+      ev.currentTarget.value = prevP;
+      jumpToBookPage(prevP);
+    }
+  };
+
+  window.updateBookFullscreenBtnUI = function() {
+    const shell = $('bookReaderShell');
+    const btn = $('btnToggleBookFullscreen');
+    if (!shell || !btn) return;
+    const isFs = shell.classList.contains('is-fullscreen');
+    btn.innerHTML = isFs ? '✕ Thoát toàn màn hình' : '⛶ Toàn màn hình';
+    btn.className = isFs ? 'warning' : 'primary';
+  };
+
+  window.toggleBookReaderFullscreen = async function(forceState) {
+    const shell = $('bookReaderShell');
+    if (!shell) return;
+    const wantFs = (typeof forceState === 'boolean') ? forceState : !shell.classList.contains('is-fullscreen');
+
+    if (wantFs) {
+      shell.classList.add('is-fullscreen');
+      document.body.classList.add('bk-fullscreen-lock');
+      if (!document.fullscreenElement && shell.requestFullscreen) {
+        try { await shell.requestFullscreen(); } catch (e) {}
+      } else if (!document.fullscreenElement && shell.webkitRequestFullscreen) {
+        try { shell.webkitRequestFullscreen(); } catch (e) {}
+      }
+    } else {
+      shell.classList.remove('is-fullscreen');
+      document.body.classList.remove('bk-fullscreen-lock');
+      if (document.fullscreenElement && document.exitFullscreen) {
+        try { await document.exitFullscreen(); } catch (e) {}
+      } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+        try { document.webkitExitFullscreen(); } catch (e) {}
+      }
+    }
+    updateBookFullscreenBtnUI();
+    if (activeBookState.id) {
+      await renderActiveBookPage(activeBookState.curPage);
+    }
+  };
+
+  document.addEventListener('fullscreenchange', () => {
+    const shell = $('bookReaderShell');
+    if (!shell) return;
+    if (!document.fullscreenElement && shell.classList.contains('is-fullscreen')) {
+      shell.classList.remove('is-fullscreen');
+      document.body.classList.remove('bk-fullscreen-lock');
+      updateBookFullscreenBtnUI();
+      if (activeBookState.id) renderActiveBookPage(activeBookState.curPage);
+    }
+  });
+
+  window.resetBookReaderScale = function() {
+    activeBookState.zoomPct = 100;
+    if ($('readerZoomBadge')) $('readerZoomBadge').textContent = '100%';
+    if (activeBookState.id) {
+      renderActiveBookPage(activeBookState.curPage);
+    }
+  };
+
+  window.adjustBookReaderScale = function(delta) {
+    activeBookState.zoomPct = Math.max(70, Math.min(220, (activeBookState.zoomPct || 100) + delta * 15));
+    if ($('readerZoomBadge')) $('readerZoomBadge').textContent = `${activeBookState.zoomPct}%`;
+    if (activeBookState.id) {
+      renderActiveBookPage(activeBookState.curPage);
+    }
+  };
+
+  window.setBookReaderTheme = function(theme) {
+    const stage = $('bookReaderStage');
+    if (!stage) return;
+    stage.classList.remove('theme-sepia', 'theme-night');
+    if (theme === 'sepia') stage.classList.add('theme-sepia');
+    else if (theme === 'night') stage.classList.add('theme-night');
+  };
+
+  function computeAvailableReaderBounds() {
+    const shell = $('bookReaderShell');
+    const isFs = shell?.classList.contains('is-fullscreen');
+    const toolbarH = $('bookReaderToolbar')?.offsetHeight || 54;
+    const pagerH = shell?.querySelector('.bk-pagination-bar')?.offsetHeight || 64;
+    const shellPadW = isFs ? 28 : 34;
+    const availW = Math.max(260, (shell?.clientWidth || window.innerWidth) - shellPadW);
+
+    if (isFs) {
+      const availH = Math.max(260, window.innerHeight - toolbarH - pagerH - 36);
+      return { isFs: true, availW, availH };
+    } else {
+      // Reserve space for toolbar, pagination bar, and small top/bottom margin so entire reader fits in viewport without scrolling!
+      const reservedChrome = toolbarH + pagerH + 54;
+      const availH = Math.max(300, window.innerHeight - reservedChrome);
+      return { isFs: false, availW, availH };
+    }
+  }
+
+  window.openBookInReader = async function(bookId) {
+    const meta = bookLibraryMeta.find(b => b.id === bookId);
+    if (!meta) return;
+
+    const record = await getBookRecordFromDb(bookId);
+    if (!record) {
+      showToast('⚠️ Không tìm thấy nội dung sách trong bộ nhớ trình duyệt. Vui lòng tải lại tệp!');
+      return;
+    }
+
+    if (activeBookState.pdfDoc) {
+      try { await activeBookState.pdfDoc.destroy(); } catch (e) {}
+      activeBookState.pdfDoc = null;
+    }
+    if (activeBookState.pdfBlobUrl) {
+      URL.revokeObjectURL(activeBookState.pdfBlobUrl);
+      activeBookState.pdfBlobUrl = null;
+    }
+
+    activeBookState.id = meta.id;
+    activeBookState.name = meta.name;
+    activeBookState.ext = meta.ext;
+    activeBookState.totalPages = meta.totalPages || 1;
+    activeBookState.curPage = Math.max(1, Math.min(activeBookState.totalPages, meta.lastPage || 1));
+    activeBookState.zoomPct = 100;
+    activeBookState.wordPages = record.wordPages || [];
+    if ($('readerZoomBadge')) $('readerZoomBadge').textContent = '100%';
+
+    const shell = $('bookReaderShell');
+    if (shell) shell.style.display = 'block';
+    updateBookFullscreenBtnUI();
+
+    const pill = $('readerBookTypePill');
+    if (pill) {
+      pill.textContent = meta.ext.toUpperCase();
+      pill.className = 'bk-ext-pill ' + (meta.ext === 'pdf' ? 'pdf' : 'word');
+    }
+    if ($('readerBookTitle')) $('readerBookTitle').textContent = meta.name;
+
+    const pdfSourceBlob = record.fileBlob || (record.buffer ? new Blob([record.buffer], { type: 'application/pdf' }) : null);
+    if (meta.ext === 'pdf' && pdfSourceBlob) {
+      activeBookState.pdfBlobUrl = URL.createObjectURL(pdfSourceBlob);
+      if (typeof pdfjsLib !== 'undefined') {
+        try {
+          $('bookPageLoadingHint').style.display = 'block';
+          const doc = await pdfjsLib.getDocument({
+            url: activeBookState.pdfBlobUrl,
+            rangeChunkSize: 524288,
+            disableAutoFetch: true
+          }).promise;
+          activeBookState.pdfDoc = doc;
+          activeBookState.totalPages = doc.numPages || activeBookState.totalPages;
+          meta.totalPages = activeBookState.totalPages;
+          saveBookLibraryMeta();
+        } catch (e) {
+          activeBookState.pdfDoc = null;
+        }
+      }
+    }
+
+    renderBookLibraryUI();
+    if (_u449BookPager) _u449BookPager.sync(activeBookState.totalPages, activeBookState.curPage);
+    await renderActiveBookPage(activeBookState.curPage);
+
+    if (shell && !shell.classList.contains('is-fullscreen')) {
+      const topY = shell.getBoundingClientRect().top + window.scrollY - 10;
+      window.scrollTo({ top: Math.max(0, topY), behavior: 'smooth' });
+    }
+  };
+
+  async function renderPdfPageToCacheEntry(pdfDoc, pageNum, availW, availH, zoomPct) {
+    const cacheKey = `${activeBookState.id || 'pdf'}_${pageNum}_${Math.round(availW)}x${Math.round(availH)}_z${zoomPct}`;
+    if (activeBookState.pdfPageCache.has(cacheKey)) {
+      return activeBookState.pdfPageCache.get(cacheKey);
+    }
+    const page = await pdfDoc.getPage(pageNum);
+    const baseViewport = page.getViewport({ scale: 1 });
+    const stagePad = 20;
+    const fitScale = Math.max(0.1, Math.min(
+      (availW - stagePad) / baseViewport.width,
+      (availH - stagePad) / baseViewport.height
+    ));
+    const fittedW = Math.max(120, Math.floor(baseViewport.width * fitScale));
+    const fittedH = Math.max(140, Math.floor(baseViewport.height * fitScale));
+
+    const effectiveScale = fitScale * (zoomPct / 100);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const viewport = page.getViewport({ scale: effectiveScale * dpr });
+
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = Math.max(1, Math.floor(viewport.width));
+    offCanvas.height = Math.max(1, Math.floor(viewport.height));
+    const ctx = offCanvas.getContext('2d', { alpha: false });
+    await page.render({ canvasContext: ctx, viewport }).promise;
+
+    let pageText = '';
+    try {
+      const txtContent = await page.getTextContent();
+      pageText = (txtContent.items || []).map(it => it.str || '').join(' ').replace(/\s+/g, ' ').trim();
+    } catch (e) {}
+
+    const entry = {
+      bitmapCanvas: offCanvas,
+      cssW: Math.max(120, Math.floor(viewport.width / dpr)),
+      cssH: Math.max(140, Math.floor(viewport.height / dpr)),
+      fittedW,
+      fittedH,
+      pageText
+    };
+    activeBookState.pdfPageCache.set(cacheKey, entry);
+    if (activeBookState.pdfPageCache.size > 18) {
+      const oldestKey = activeBookState.pdfPageCache.keys().next().value;
+      activeBookState.pdfPageCache.delete(oldestKey);
+    }
+    return entry;
+  }
+
+  function scheduleAdjacentPdfPrefetch(centerPage, total, availW, availH, zoomPct) {
+    if (!activeBookState.pdfDoc) return;
+    const neighbors = [centerPage + 1, centerPage - 1, centerPage + 2];
+    neighbors.forEach(async (n) => {
+      if (n < 1 || n > total || n === centerPage) return;
+      const cacheKey = `${activeBookState.id || 'pdf'}_${n}_${Math.round(availW)}x${Math.round(availH)}_z${zoomPct}`;
+      if (activeBookState.pdfPageCache.has(cacheKey) || activeBookState.pdfPrefetching.has(cacheKey)) return;
+      activeBookState.pdfPrefetching.add(cacheKey);
+      try {
+        await renderPdfPageToCacheEntry(activeBookState.pdfDoc, n, availW, availH, zoomPct);
+      } catch (e) {}
+      finally {
+        activeBookState.pdfPrefetching.delete(cacheKey);
+      }
+    });
+  }
+
+  window.renderActiveBookPage = async function(pageNum) {
+    if (!activeBookState.id) return;
+    const total = Math.max(1, activeBookState.totalPages || 1);
+    const p = Math.max(1, Math.min(total, pageNum || 1));
+    const seq = ++activeBookState.renderSeq;
+    activeBookState.curPage = p;
+
+    const meta = bookLibraryMeta.find(b => b.id === activeBookState.id);
+    if (meta) {
+      meta.lastPage = p;
+      saveBookLibraryMeta();
+    }
+
+    if ($('readerBookMeta')) $('readerBookMeta').textContent = `Trang ${p} / ${total}`;
+    if ($('readerPageSummaryLabel')) $('readerPageSummaryLabel').textContent = `Trang ${p} / ${total}`;
+    if ($('bookJumpPageInput')) {
+      $('bookJumpPageInput').max = total;
+      if (document.activeElement !== $('bookJumpPageInput')) {
+        $('bookJumpPageInput').value = p;
+      }
+    }
+
+    const stage = $('bookReaderStage');
+    const canvas = $('bookPdfCanvas');
+    const iframe = $('bookPdfFallbackFrame');
+    const wordScaler = $('bookWordScaler');
+    const wordArticle = $('bookWordPageArticle');
+    const pdfTextDetails = $('bookPdfExtractedTextDetails');
+    const loadingHint = $('bookPageLoadingHint');
+
+    const zoomPct = activeBookState.zoomPct || 100;
+    const isZoomed = zoomPct > 100;
+    stage.classList.toggle('is-zoomed', isZoomed);
+
+    const { isFs, availW, availH } = computeAvailableReaderBounds();
+    const stagePad = 20;
+
+    if (activeBookState.ext === 'pdf') {
+      if (wordScaler) wordScaler.style.display = 'none';
+      if (activeBookState.pdfDoc) {
+        iframe.style.display = 'none';
+        canvas.style.display = 'block';
+        const cacheKey = `${activeBookState.id || 'pdf'}_${p}_${Math.round(availW)}x${Math.round(availH)}_z${zoomPct}`;
+        const hasCache = activeBookState.pdfPageCache.has(cacheKey);
+        if (!hasCache) loadingHint.style.display = 'block';
+        try {
+          const entry = await renderPdfPageToCacheEntry(activeBookState.pdfDoc, p, availW, availH, zoomPct);
+          if (seq !== activeBookState.renderSeq) return;
+
+          if (!isFs) {
+            stage.style.width = Math.min(availW, entry.fittedW + stagePad) + 'px';
+            stage.style.height = (entry.fittedH + stagePad) + 'px';
+          } else {
+            stage.style.width = '';
+            stage.style.height = '';
+          }
+
+          canvas.width = entry.bitmapCanvas.width;
+          canvas.height = entry.bitmapCanvas.height;
+          canvas.style.width = entry.cssW + 'px';
+          canvas.style.height = entry.cssH + 'px';
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(entry.bitmapCanvas, 0, 0);
+
+          activeBookState.currentPageText = entry.pageText || '';
+          if (entry.pageText && !isFs) {
+            pdfTextDetails.style.display = 'block';
+            $('bookPdfPageTextContent').textContent = entry.pageText;
+          } else {
+            pdfTextDetails.style.display = 'none';
+          }
+
+          scheduleAdjacentPdfPrefetch(p, total, availW, availH, zoomPct);
+        } catch (err) {
+          if (seq === activeBookState.renderSeq) {
+            showToast('⚠️ Lỗi hiển thị trang PDF: ' + (err?.message || ''));
+          }
+        } finally {
+          if (seq === activeBookState.renderSeq) loadingHint.style.display = 'none';
+        }
+      } else if (activeBookState.pdfBlobUrl) {
+        canvas.style.display = 'none';
+        pdfTextDetails.style.display = 'none';
+        loadingHint.style.display = 'none';
+        if (!isFs) {
+          const fallbackH = Math.max(360, availH);
+          stage.style.width = Math.min(availW, Math.round(fallbackH * 0.72)) + 'px';
+          stage.style.height = fallbackH + 'px';
+        } else {
+          stage.style.width = '';
+          stage.style.height = '';
+        }
+        iframe.style.display = 'block';
+        iframe.src = activeBookState.pdfBlobUrl + `#page=${p}`;
+      }
+    } else {
+      canvas.style.display = 'none';
+      iframe.style.display = 'none';
+      pdfTextDetails.style.display = 'none';
+      loadingHint.style.display = 'none';
+      if (wordScaler) wordScaler.style.display = 'block';
+
+      const pageObj = activeBookState.wordPages[p - 1] || { html: '<p>(Trang trống)</p>', text: '' };
+      wordArticle.innerHTML = pageObj.html;
+      activeBookState.currentPageText = pageObj.text || wordArticle.textContent || '';
+
+      const natW = 680;
+      wordArticle.style.width = natW + 'px';
+      wordArticle.style.transform = 'none';
+      const natH = Math.max(920, wordArticle.scrollHeight || 920);
+
+      const fitScale = Math.max(0.1, Math.min(
+        (availW - stagePad) / natW,
+        (availH - stagePad) / natH
+      ));
+      const fittedW = Math.floor(natW * fitScale);
+      const fittedH = Math.floor(natH * fitScale);
+
+      if (!isFs) {
+        stage.style.width = Math.min(availW, fittedW + stagePad) + 'px';
+        stage.style.height = (fittedH + stagePad) + 'px';
+      } else {
+        stage.style.width = '';
+        stage.style.height = '';
+      }
+
+      const effectiveScale = fitScale * (zoomPct / 100);
+      wordArticle.style.transform = `scale(${effectiveScale})`;
+      if (wordScaler) {
+        wordScaler.style.width = Math.floor(natW * effectiveScale) + 'px';
+        wordScaler.style.height = Math.floor(natH * effectiveScale) + 'px';
+      }
+    }
+  };
+
+  let _bkResizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(_bkResizeTimer);
+    _bkResizeTimer = setTimeout(() => {
+      const tabBooks = $('tab-books');
+      if (tabBooks && tabBooks.classList.contains('active') && activeBookState.id) {
+        renderActiveBookPage(activeBookState.curPage);
+      }
+    }, 80);
+  });
+
+  // Interactive Chinese Lookup when selecting or clicking text in the reader
+  async function lookupSelectedChineseInReader() {
+    const sel = window.getSelection()?.toString().trim() || '';
+    const zhMatch = sel.match(/[\u4e00-\u9fa5]{1,12}/);
+    if (!zhMatch) return;
+    const zh = zhMatch[0];
+    const bar = $('bookQuickDictBar');
+    if (!bar) return;
+    bar.style.display = 'flex';
+    $('bkDictZh').textContent = zh;
+    $('bkDictPy').textContent = '...';
+    $('bkDictVi').textContent = 'Đang tra nghĩa...';
+    const enriched = await aiEnrichSingleWord(zh);
+    activeBookState.selectedDictWord = { zh, pinyin: enriched.pinyin || '', vi: enriched.vi || '' };
+    $('bkDictPy').textContent = enriched.pinyin || '—';
+    $('bkDictVi').textContent = enriched.vi || '(Chưa có nghĩa)';
+  }
+  $('bookReaderStage')?.addEventListener('mouseup', lookupSelectedChineseInReader);
+  $('bookReaderStage')?.addEventListener('touchend', () => setTimeout(lookupSelectedChineseInReader, 120));
+
+  window.speakBookDictWord = function() {
+    const zh = $('bkDictZh')?.textContent?.trim();
+    if (zh) speakChinese(zh);
+  };
+
+  window.saveBookDictWordToPersonal = async function() {
+    const w = activeBookState.selectedDictWord;
+    if (!w || !w.zh) return;
+    const user = getCurrentUser();
+    if (!Array.isArray(user.personalSets) || !user.personalSets.length) {
+      user.personalSets = [{ id: 'pset_book', name: 'Từ vựng trích từ sách', words: [] }];
+    }
+    const targetSet = user.personalSets.find(s => s.id !== 'pset_admin_auto_master') || user.personalSets[0];
+    if (!targetSet.words.some(x => x.zh === w.zh)) {
+      targetSet.words.unshift({ id: 'bkw_' + Date.now(), zh: w.zh, pinyin: w.pinyin, vi: w.vi });
+      await pushCloudState(`Lưu từ "${w.zh}" từ sách đọc`);
+      showToast(`✅ Đã lưu "${w.zh}" vào "${targetSet.name}"!`);
+    } else {
+      showToast(`ℹ️ Từ "${w.zh}" đã có trong "${targetSet.name}".`);
+    }
+  };
+
+  window.saveBookDictWordToCopybook = async function() {
+    const w = activeBookState.selectedDictWord;
+    if (!w || !w.zh) return;
+    const user = getCurrentUser();
+    if (!Array.isArray(user.wrongWords)) user.wrongWords = [];
+    if (!user.wrongWords.some(x => x.zh === w.zh)) {
+      user.wrongWords.unshift({ id: 'bkw_cb_' + Date.now(), zh: w.zh, pinyin: w.pinyin, vi: w.vi });
+      await pushCloudState(`Thêm từ "${w.zh}" từ sách vào Sổ chép 2 dòng`);
+      showToast(`✍️ Đã thêm "${w.zh}" vào Sổ "Chép cho nhớ" (2 dòng)!`);
+    } else {
+      showToast(`ℹ️ Từ "${w.zh}" đã có trong Sổ "Chép cho nhớ".`);
+    }
+  };
+
+  // Keyboard Left/Right arrow navigation + Fullscreen (F / Esc) when reading a book on #tab-books
+  window.addEventListener('keydown', function(e) {
+    const tabBooks = $('tab-books');
+    if (!tabBooks || !tabBooks.classList.contains('active')) return;
+    const activeEl = document.activeElement;
+    const tag = activeEl?.tagName;
+    if (tag === 'TEXTAREA' || tag === 'SELECT' || activeEl?.isContentEditable) return;
+    if (tag === 'INPUT' && activeEl.id !== 'bookJumpPageInput') return;
+    if (!activeBookState.id || !_u449BookPager) return;
+
+    if (e.key === 'Escape' && $('bookReaderShell')?.classList.contains('is-fullscreen')) {
+      e.preventDefault();
+      toggleBookReaderFullscreen(false);
+    } else if (tag !== 'INPUT' && (e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      toggleBookReaderFullscreen();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (tag === 'INPUT') activeEl.blur();
+      _u449BookPager.go(activeBookState.curPage - 1, true);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (tag === 'INPUT') activeEl.blur();
+      _u449BookPager.go(activeBookState.curPage + 1, true);
+    }
+  }, true);
+
+  // #438 Loading-to-Done Button Controller ("✨ AI Trích từ trang này")
+  (function initLucian438BookExtractBtn() {
+    var root = $('u438ExtractPageVocabBtn');
+    if (!root) return;
+    var b = root.querySelector('.u438-b'), lbl = root.querySelector('.u438-l'), live = root.querySelector('.u438-live');
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var T = { busy: 'Đang trích xuất', ok: 'Đã trích từ vựng' };
+    var full = 0, t2 = 0, t3 = 0;
+
+    function measure() {
+      if (b.dataset.s !== 'idle') return;
+      b.style.setProperty('--w', 'auto');
+      var w = lbl.getBoundingClientRect().width / (root.getBoundingClientRect().width / root.offsetWidth || 1);
+      if (!w) { full = 0; return; }
+      full = Math.ceil(w);
+      b.style.setProperty('--w', full + 'px');
+    }
+    function set(s) {
+      b.dataset.s = s;
+      if (s === 'busy') { b.setAttribute('aria-busy', 'true'); b.setAttribute('aria-disabled', 'true'); }
+      else b.removeAttribute('aria-busy');
+      if (s === 'idle') b.removeAttribute('aria-disabled');
+    }
+    b.addEventListener('pointerdown', function (e) {
+      if (e.button === 0 && b.dataset.s === 'idle') b.classList.add('is-down');
+    });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (t) {
+      b.addEventListener(t, function () { b.classList.remove('is-down'); });
+    });
+
+    b.addEventListener('click', async function () {
+      if (b.dataset.s !== 'idle') return;
+      const pageText = (activeBookState.currentPageText || '').trim();
+      if (!pageText || !/[\u4e00-\u9fa5]/.test(pageText)) {
+        showToast('⚠️ Trang sách hiện tại chưa có ký tự chữ Hán để AI trích xuất!');
+        return;
+      }
+
+      if (!full) measure();
+      b.classList.remove('is-down', 'is-grow');
+      set('busy');
+      b.style.setProperty('--w', '42px');
+      live.textContent = T.busy;
+      clearTimeout(t2); clearTimeout(t3);
+
+      const minAnimPromise = new Promise(r => setTimeout(r, rm ? 350 : 950));
+      const extracted = smartExtractChineseEntries(pageText, true).slice(0, 25);
+      await minAnimPromise;
+
+      if (!root.isConnected) return;
+      set('ok');
+      live.textContent = T.ok;
+
+      // Open AI Studio pre-loaded with extracted Chinese vocabulary from this book page!
+      openAiSuperModal('personal', 'import');
+      if ($('aiRawSourceInput')) {
+        $('aiRawSourceInput').value = extracted.map(w => w.zh).join(', ');
+      }
+      await enrichWordListWithAi(extracted);
+
+      t2 = setTimeout(function () {
+        if (!root.isConnected) return;
+        b.classList.add('is-grow');
+        set('idle');
+        b.style.setProperty('--w', full + 'px');
+        t3 = setTimeout(function () {
+          if (root.isConnected) b.classList.remove('is-grow');
+        }, rm ? 0 : 700);
+      }, rm ? 600 : 1000);
+    });
+
+    measure();
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { if (root.isConnected) measure(); });
+    }
+  })();
+
+  // #440 Multi-File Batch Book Upload Modal Controller
+  (function initLucian440MultiBookOverlay() {
+    const modal = $('u440MultiBookModal');
+    const widget = $('u440MultiBookWidget');
+    const openBtn = $('u440MultiBookOpenBtn');
+    const titleIdle = $('u440MultiBookTitleIdle');
+    const titleDone = $('u440MultiBookTitleDone');
+    const summaryEl = $('u440MultiBookSummary');
+    const live = $('u440MultiBookLive');
+    if (!modal || !widget || !openBtn) return;
+
+    const PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    let latestFirstBookId = null;
+
+    window.closeMultiBookModal440 = function() {
+      modal.classList.remove('open');
+    };
+
+    window.triggerMultiBookFolderAnimation440 = function(addedBooks) {
+      if (!addedBooks || !addedBooks.length) return;
+      latestFirstBookId = addedBooks[0].id;
+      titleIdle.textContent = `Đang xếp ${addedBooks.length} cuốn sách vào thư mục...`;
+      titleDone.textContent = `Đã nạp ${addedBooks.length} cuốn sách vào tủ sách!`;
+      summaryEl.textContent = addedBooks.map(b => b.name).join(' · ');
+      openBtn.innerHTML = PLUS + `<span>Mở đọc ngay (${addedBooks.length} sách)</span>`;
+
+      widget.classList.remove('is-done');
+      titleIdle.setAttribute('aria-hidden', 'false');
+      titleDone.setAttribute('aria-hidden', 'true');
+      modal.classList.add('open');
+
+      void widget.offsetWidth;
+      widget.classList.add('is-done');
+      titleIdle.setAttribute('aria-hidden', 'true');
+      titleDone.setAttribute('aria-hidden', 'false');
+      live.textContent = titleDone.textContent;
+    };
+
+    openBtn.addEventListener('click', function() {
+      closeMultiBookModal440();
+      if (latestFirstBookId) openBookInReader(latestFirstBookId);
+    });
+  })();
+
+  // #432 File Upload Controller for Book Library (Unlimited File Size · Single & Multi-File PDF / Word)
+  (function initLucian432BookUpload() {
+    var root = $('bookUploadDropzone432');
+    if (!root) return;
+    var q = function (s) { return root.querySelector(s); };
+    var dz = q('.u432-dz'), ring = q('.u432-ring .pg'), nm = q('.u432-nm'), tag = q('.u432-doc .tg'), tagT = q('.u432-doc text'), file = q('.u432-file'), live = q('.u432-live');
+    var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var T = { ok: 'Đã nạp sách' };
+    var COL = { pdf: '#E5484D', doc: '#2B63D9', docx: '#2B63D9', txt: '#119C72' };
+    var busy = false, raf = 0, timers = [];
+    function later(fn, ms) { timers.push(setTimeout(function () { if (root.isConnected) fn(); }, ms)); }
+    function size(b) {
+      if (b < 1048576) return Math.max(1, Math.round(b / 1024)) + 'KB';
+      if (b < 1073741824) return (b / 1048576).toFixed(1) + 'MB';
+      return (b / 1073741824).toFixed(2) + 'GB';
+    }
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    async function handleBookFiles(fileList) {
+      const files = Array.from(fileList || []).filter(f => /\.(pdf|docx|doc|txt)$/i.test(f.name));
+      if (!files.length) {
+        showToast('⚠️ Vui lòng chọn tệp sách định dạng PDF (.pdf) hoặc Word (.docx, .doc)!');
+        return;
+      }
+      if (busy) return;
+      busy = true;
+
+      const firstFile = files[0];
+      const ext = (/\.([a-z0-9]+)$/i.exec(firstFile.name) || [, 'pdf'])[1].toLowerCase();
+      tag.style.setProperty('--c', COL[ext] || '#2B63D9');
+      tagT.textContent = files.length > 1 ? `${files.length} FILE` : ext.slice(0, 4).toUpperCase();
+      root.classList.remove('is-done', 'is-out', 'is-err', 'is-drag');
+      root.classList.add('is-up');
+      ring.style.strokeDashoffset = 289;
+
+      const totalBytes = files.reduce((acc, f) => acc + f.size, 0);
+      const displayLabel = files.length > 1 ? `${files.length} tệp sách (${firstFile.name}...)` : firstFile.name;
+      nm.innerHTML = esc(displayLabel) + ' <small>· 0%</small>';
+
+      // Stream-index & store all files (supports arbitrary multi-hundred-MB or multi-GB files)
+      let addedBooks = [];
+      let parseFinished = false;
+      const parsePromise = (async () => {
+        for (const f of files) {
+          try {
+            const added = await parseAndStoreBookFile(f);
+            addedBooks.push(added);
+          } catch (err) {}
+        }
+        parseFinished = true;
+      })();
+
+      var t0 = performance.now() + (rm ? 0 : 450), dur = rm ? 300 : 1400;
+      cancelAnimationFrame(raf);
+      (function step(now) {
+        if (!root.isConnected) return;
+        var rawK = Math.max(0, Math.min(1, (now - t0) / dur));
+        var k = (!parseFinished && rawK > 0.92) ? 0.92 : rawK;
+        var e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        ring.style.strokeDashoffset = (289 * (1 - e)).toFixed(1);
+        nm.querySelector('small').textContent = '· ' + Math.round(e * 100) + '%';
+        if (k < 1) { raf = requestAnimationFrame(step); return; }
+
+        root.classList.add('is-done');
+        nm.querySelector('small').textContent = '· ' + size(totalBytes);
+        live.textContent = displayLabel + ' ' + T.ok;
+        renderBookLibraryUI();
+
+        if (addedBooks.length > 1) {
+          if (typeof triggerMultiBookFolderAnimation440 === 'function') {
+            triggerMultiBookFolderAnimation440(addedBooks);
+          }
+        } else if (addedBooks.length === 1) {
+          openBookInReader(addedBooks[0].id);
+        }
+
+        later(function () {
+          root.classList.add('is-out');
+          later(function () {
+            root.classList.remove('is-up', 'is-done', 'is-out', 'is-err');
+            busy = false;
+          }, 350);
+        }, rm ? 900 : 1600);
+      })(performance.now());
+    }
+
+    dz.addEventListener('click', function (e) { if (!busy && e.target !== file) file.click(); });
+    dz.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && !busy) { e.preventDefault(); file.click(); } });
+    file.addEventListener('change', function () { handleBookFiles(file.files); file.value = ''; });
+    var depth = 0;
+    dz.addEventListener('dragenter', function (e) { e.preventDefault(); depth++; if (!busy) root.classList.add('is-drag'); });
+    dz.addEventListener('dragover', function (e) { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy'; });
+    dz.addEventListener('dragleave', function () { depth = Math.max(0, depth - 1); if (!depth) root.classList.remove('is-drag'); });
+    dz.addEventListener('drop', function (e) {
+      e.preventDefault();
+      depth = 0;
+      root.classList.remove('is-drag');
+      if (e.dataTransfer && e.dataTransfer.files.length) handleBookFiles(e.dataTransfer.files);
+    });
+  })();
+
+  // Initial sync of book shelf badge & list
+  saveBookLibraryMeta();
+  if (bookLibraryMeta.length) {
+    renderBookLibraryUI();
+  }
+
+
+  // ==================== 17. XUẤT TẤT CẢ TỪ VỰNG HSK RA FILE ZIP THEO TỪNG BÀI & TỪNG TEXT (#440) ====================
+  function sanitizeZipPathPart(str, replaceSpaces = true) {
+    let s = String(str || '').trim()
+      .replace(/[\\/:*?"<>|\x00-\x1F]/g, '_')
+      .replace(/\.+$/g, '')
+      .trim();
+    if (replaceSpaces) s = s.replace(/\s+/g, '_');
+    return s || 'Muc';
+  }
+
+  function formatHskFolderName(hskLabel) {
+    const clean = sanitizeZipPathPart(hskLabel, true);
+    if (/^tu_vung_/i.test(clean)) return clean;
+    return `Tu_Vung_${clean}`;
+  }
+
+  function formatLessonFolderName(lessonName, lessonIndex) {
+    const raw = String(lessonName || '').trim();
+    const m = raw.match(/^(?:bài|bai|lesson|第)\s*0*(\d+)\s*(?:课|[:：.\-–—])?\s*(.*)$/i);
+    if (m) {
+      const numStr = String(parseInt(m[1], 10) || (lessonIndex + 1)).padStart(2, '0');
+      const rest = sanitizeZipPathPart(m[2] || '', false).replace(/\s+/g, ' ').trim();
+      return rest ? `Bai_${numStr}_${rest}` : `Bai_${numStr}`;
+    }
+    const numStr = String(lessonIndex + 1).padStart(2, '0');
+    const clean = sanitizeZipPathPart(raw, false).replace(/\s+/g, ' ').trim();
+    return clean ? `Bai_${numStr}_${clean}` : `Bai_${numStr}`;
+  }
+
+  function formatTextExcelFileName(lessonNumPad, textName, textIndex, usedNamesSet) {
+    const raw = String(textName || '').trim();
+    const m = raw.match(/(?:text|bài\s*khóa|bai\s*khoa|phần|phan)\s*0*(\d+)/i);
+    const tNum = m ? String(parseInt(m[1], 10) || (textIndex + 1)) : String(textIndex + 1);
+    let base = `Bai_${lessonNumPad}_Text_${tNum}`;
+    let candidate = `${base}.xlsx`;
+    let suffix = 2;
+    while (usedNamesSet.has(candidate.toLowerCase())) {
+      candidate = `${base}_${suffix}.xlsx`;
+      suffix++;
+    }
+    usedNamesSet.add(candidate.toLowerCase());
+    return candidate;
+  }
+
+  function resolveHskCatalogForZip(sourceMode = 'auto') {
+    const user = getCurrentUser();
+    const pCat = Array.isArray(user?.personalCatalog) ? user.personalCatalog : [];
+    const aCat = Array.isArray(appState?.adminCatalog) ? appState.adminCatalog : [];
+    if (sourceMode === 'admin') return aCat.length ? aCat : pCat;
+    if (sourceMode === 'personal') return pCat.length ? pCat : aCat;
+    return pCat.length ? pCat : aCat;
+  }
+
+  function buildSingleTextExcelArrayBuffer(words = [], sheetTitle = 'TuVung') {
+    const rows = [
+      ['STT', 'Chữ Hán', 'Pinyin', 'Nghĩa tiếng Việt', 'Ví dụ (Tiếng Trung)', 'Pinyin ví dụ', 'Nghĩa ví dụ'],
+      ...(words || []).map((w, i) => [
+        i + 1,
+        w.zh || '',
+        w.pinyin || '',
+        w.vi || '',
+        w.exampleZh || '',
+        w.examplePy || '',
+        w.exampleVi || ''
+      ])
+    ];
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [
+      { wch: 6 },
+      { wch: 16 },
+      { wch: 22 },
+      { wch: 30 },
+      { wch: 34 },
+      { wch: 34 },
+      { wch: 36 }
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, String(sheetTitle || 'TuVung').slice(0, 31));
+    return XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  }
+
+  window.buildAndDownloadHskZip = async function(scopeValue = 'all', sourceMode = 'auto') {
+    if (typeof JSZip === 'undefined' || typeof XLSX === 'undefined') {
+      showToast('⚠️ Thư viện JSZip hoặc XLSX chưa sẵn sàng, vui lòng tải lại trang!');
+      return false;
+    }
+    const catalog = resolveHskCatalogForZip(sourceMode);
+    if (!catalog.length) {
+      showToast('⚠️ Chưa có dữ liệu từ vựng HSK nào để xuất ZIP!');
+      return false;
+    }
+
+    const selectedHskList = (scopeValue === 'all')
+      ? catalog
+      : catalog.filter((_, idx) => String(idx) === String(scopeValue));
+
+    if (!selectedHskList.length) {
+      showToast('⚠️ Không tìm thấy cấp độ HSK đã chọn!');
+      return false;
+    }
+
+    const zip = new JSZip();
+    let totalFiles = 0;
+    let totalLessons = 0;
+    let totalWords = 0;
+
+    selectedHskList.forEach((hObj) => {
+      const hskFolderName = formatHskFolderName(hObj.hsk || 'HSK');
+      const hskDir = zip.folder(hskFolderName);
+
+      (hObj.lessons || []).forEach((lObj, lIdx) => {
+        totalLessons++;
+        const lessonFolderName = formatLessonFolderName(lObj.name, lIdx);
+        const lessonNumMatch = lessonFolderName.match(/^Bai_(\d+)/);
+        const lessonNumPad = lessonNumMatch ? lessonNumMatch[1] : String(lIdx + 1).padStart(2, '0');
+        const lessonDir = hskDir.folder(lessonFolderName);
+        const usedFileNames = new Set();
+
+        const texts = Array.isArray(lObj.texts) ? lObj.texts : [];
+        texts.forEach((tObj, tIdx) => {
+          const words = Array.isArray(tObj.words) ? tObj.words : [];
+          totalWords += words.length;
+          const fileName = formatTextExcelFileName(lessonNumPad, tObj.name, tIdx, usedFileNames);
+          const xlsxBuf = buildSingleTextExcelArrayBuffer(words, tObj.name || `Text_${tIdx + 1}`);
+          lessonDir.file(fileName, xlsxBuf);
+          totalFiles++;
+        });
+      });
+    });
+
+    if (!totalFiles) {
+      showToast('⚠️ Các bài học được chọn chưa có mục Text nào để xuất!');
+      return false;
+    }
+
+    const zipBlob = await zip.generateAsync({
+      type: 'blob',
+      compression: 'DEFLATE',
+      compressionOptions: { level: 6 }
+    });
+
+    const zipFileName = (selectedHskList.length === 1)
+      ? `${formatHskFolderName(selectedHskList[0].hsk)}_Theo_Bai_Va_Text.zip`
+      : `Tu_Vung_Tat_Ca_HSK_Theo_Bai_Va_Text.zip`;
+
+    const url = URL.createObjectURL(zipBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = zipFileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+
+    showToast(`📦 Đã tải "${zipFileName}" (${totalLessons} Bài · ${totalFiles} file Excel · ${totalWords} từ)!`);
+    return true;
+  };
+
+  // #440 First-run empty state Controller for HSK ZIP Export (#u440HskZipModal)
+  (function initLucian440HskZipModal() {
+    const modal = $('u440HskZipModal');
+    const widget = $('u440HskZipWidget');
+    const scopeSel = $('u440ZipScopeSelect');
+    const runBtn = $('u440ZipRunBtn');
+    const titleIdle = $('u440ZipTitleIdle');
+    const titleDone = $('u440ZipTitleDone');
+    const summaryEl = $('u440ZipSummary');
+    const live = $('u440ZipLive');
+    if (!modal || !widget || !scopeSel || !runBtn) return;
+
+    const PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+    let curSourceMode = 'auto';
+    let isDone = false;
+    let isBusy = false;
+
+    function syncBtn() {
+      widget.classList.toggle('is-done', isDone);
+      titleIdle.setAttribute('aria-hidden', isDone ? 'true' : 'false');
+      titleDone.setAttribute('aria-hidden', isDone ? 'false' : 'true');
+      const label = isDone ? 'Tải lại gói ZIP HSK' : 'Đóng gói & Tải ZIP ngay';
+      runBtn.innerHTML = PLUS + `<span>${label}</span>`;
+    }
+
+    window.updateHskZip440Preview = function() {
+      const catalog = resolveHskCatalogForZip(curSourceMode);
+      const val = scopeSel.value || 'all';
+      const subset = (val === 'all') ? catalog : catalog.filter((_, idx) => String(idx) === val);
+      let lessons = 0, texts = 0, words = 0;
+      subset.forEach(h => {
+        (h.lessons || []).forEach(l => {
+          lessons++;
+          (l.texts || []).forEach(t => {
+            texts++;
+            words += (t.words || []).length;
+          });
+        });
+      });
+      summaryEl.textContent = `Gồm ${subset.length} cấp HSK · ${lessons} thư mục Bài (Bai_01_...) · ${texts} file Excel (.xlsx) · ${words} từ vựng.`;
+      isDone = false;
+      syncBtn();
+    };
+
+    window.closeHskZipModal440 = function() {
+      modal.classList.remove('open');
+    };
+
+    window.openExportHskZip440 = function(sourceMode = 'auto') {
+      curSourceMode = sourceMode;
+      const catalog = resolveHskCatalogForZip(sourceMode);
+      if (!catalog.length) {
+        showToast('⚠️ Chưa có dữ liệu từ vựng HSK nào trong kho để xuất ZIP!');
+        return;
+      }
+
+      const opts = [`<option value="all">🌐 Tất cả các cấp HSK (${catalog.length} cấp)</option>`];
+      catalog.forEach((h, idx) => {
+        const wCount = (h.lessons || []).reduce((s, l) => s + (l.texts || []).reduce((st, t) => st + (t.words || []).length, 0), 0);
+        opts.push(`<option value="${idx}">📚 Chỉ ${escVocabHtml(h.hsk)} (${(h.lessons || []).length} Bài · ${wCount} từ)</option>`);
+      });
+      scopeSel.innerHTML = opts.join('');
+      scopeSel.value = 'all';
+
+      isDone = false;
+      updateHskZip440Preview();
+      modal.classList.add('open');
+    };
+
+    runBtn.addEventListener('click', async function() {
+      if (isBusy) return;
+      isBusy = true;
+      if (isDone) {
+        widget.classList.remove('is-done');
+        void widget.offsetWidth;
+      }
+      isDone = true;
+      syncBtn();
+      live.textContent = titleDone.textContent;
+
+      // Let the #440 document-drop & folder-bounce animation play cleanly before triggering the ZIP download
+      await new Promise(r => setTimeout(r, 460));
+      try {
+        await buildAndDownloadHskZip(scopeSel.value || 'all', curSourceMode);
+      } finally {
+        isBusy = false;
+        syncBtn();
+      }
+    });
+
+    syncBtn();
   })();
 
   // Automatically collapse setup drawer on narrow mobile screens when a test launches so the question is immediately visible
