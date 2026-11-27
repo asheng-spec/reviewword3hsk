@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1Q.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="汉语不太难 AI">
@@ -3244,8 +3244,132 @@ body.bk-fullscreen-lock{
   display:flex;
   align-items:center;
   justify-content:center;
+  perspective:1900px;
+  transform-style:preserve-3d;
   -webkit-overflow-scrolling:touch;
   transition:width .2s ease, height .2s ease;
+}
+/* Book spine crease shadow on bound left edge */
+#bookPdfCanvas,
+.bk-word-page{
+  box-shadow:
+    inset 16px 0 24px -14px rgba(15,23,42,.24),
+    inset 2px 0 4px rgba(15,23,42,.10),
+    0 10px 26px rgba(15,23,42,.16);
+}
+/* 100% GPU-Composited 3D Book Page-Flip Layer (animates ONLY transform & opacity -> locked 60/120fps) */
+.bk-flip-layer{
+  position:absolute;
+  inset:0;
+  z-index:24;
+  pointer-events:none;
+  overflow:hidden;
+  border-radius:inherit;
+  contain:layout paint;
+}
+.bk-flip-cast{
+  position:absolute;
+  border-radius:6px;
+  pointer-events:none;
+  background:linear-gradient(90deg, rgba(15,23,42,.30) 0%, rgba(15,23,42,.10) 35%, transparent 75%);
+  transform-origin:0% 50%;
+  will-change:transform, opacity;
+  opacity:0;
+}
+.bk-flip-cast.is-active{
+  animation:bkCastGpu .42s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes bkCastGpu{
+  0%{opacity:.9;transform:translateZ(0) scaleX(1)}
+  55%{opacity:.38;transform:translateZ(0) scaleX(.48)}
+  100%{opacity:0;transform:translateZ(0) scaleX(.08)}
+}
+.bk-flip-leaf{
+  position:absolute;
+  border-radius:6px;
+  overflow:hidden;
+  transform-origin:0% 50%;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform, opacity;
+  background:#ffffff;
+  box-shadow:14px 12px 30px rgba(15,23,42,.26), inset 14px 0 22px -12px rgba(15,23,42,.25);
+  opacity:0;
+}
+:root[data-theme="dark"] .bk-flip-leaf{
+  background:#141926;
+}
+.bk-flip-leaf::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(
+    90deg,
+    rgba(15,23,42,.24) 0%,
+    rgba(255,255,255,.24) 16%,
+    rgba(15,23,42,.03) 50%,
+    rgba(15,23,42,.20) 100%
+  );
+  opacity:0;
+  will-change:opacity;
+}
+.bk-flip-leaf.flip-next{
+  animation:bkFlipNextGpu .42s cubic-bezier(.16,1,.3,1) forwards;
+}
+.bk-flip-leaf.flip-next::after,
+.bk-flip-leaf.flip-prev::after{
+  animation:bkLeafSheenGpu .42s cubic-bezier(.16,1,.3,1) forwards;
+}
+.bk-flip-leaf.flip-prev{
+  animation:bkFlipPrevGpu .42s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes bkLeafSheenGpu{
+  0%{opacity:.1}
+  38%{opacity:.92}
+  100%{opacity:.15}
+}
+@keyframes bkFlipNextGpu{
+  0%{
+    opacity:1;
+    transform:perspective(1800px) rotateY(0deg) translateZ(0);
+  }
+  40%{
+    opacity:.98;
+    transform:perspective(1800px) rotateY(-48deg) skewY(-1deg) translateZ(0);
+  }
+  80%{
+    opacity:.72;
+    transform:perspective(1800px) rotateY(-94deg) skewY(-.5deg) translateZ(0);
+  }
+  100%{
+    opacity:0;
+    transform:perspective(1800px) rotateY(-112deg) translateZ(0);
+  }
+}
+@keyframes bkFlipPrevGpu{
+  0%{
+    opacity:0;
+    transform:perspective(1800px) rotateY(-108deg) skewY(.8deg) translateZ(0);
+  }
+  22%{
+    opacity:.92;
+    transform:perspective(1800px) rotateY(-72deg) skewY(.8deg) translateZ(0);
+  }
+  68%{
+    opacity:1;
+    transform:perspective(1800px) rotateY(-20deg) skewY(.3deg) translateZ(0);
+  }
+  100%{
+    opacity:1;
+    transform:perspective(1800px) rotateY(0deg) translateZ(0);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .bk-flip-layer,.bk-flip-leaf,.bk-flip-cast{
+    animation:none !important;
+    display:none !important;
+  }
 }
 .bk-reader-stage.is-zoomed{
   overflow:auto !important;
@@ -4180,8 +4304,7 @@ body.bk-fullscreen-lock{
 
           <div class="bk-jump-box" style="display:flex;align-items:center;gap:6px;position:relative;z-index:5">
             <label class="small" for="bookJumpPageInput" style="font-weight:700">Đến trang:</label>
-            <input type="number" id="bookJumpPageInput" min="1" value="1" inputmode="numeric" style="width:72px;padding:5px 8px;text-align:center;min-height:34px;font-weight:700" onkeydown="handleBookJumpInputKeydown(event)">
-            <button type="button" id="btnBookJumpGo" class="primary" style="padding:5px 12px;min-height:34px;font-size:12.5px;position:relative;z-index:6;pointer-events:auto" onclick="triggerBookPageJump(event)">Đi</button>
+            <input type="number" id="bookJumpPageInput" min="1" value="1" inputmode="numeric" title="Nhập số trang rồi nhấn Enter" style="width:76px;padding:5px 8px;text-align:center;min-height:34px;font-weight:700" oninput="scheduleDebouncedBookJump(this.value)" onchange="jumpToBookPage(this.value)" onkeydown="handleBookJumpInputKeydown(event)">
           </div>
         </div>
       </div>
@@ -10936,7 +11059,7 @@ async function exportCopybookToWord() {
     }
 
     // Fallback HTML-Word (.doc) nếu không có JSZip
-    const fallbackHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Phiếu ôn từ vựng</title></head><body>${$('wrongA4Sheet')?.innerHTML || ''}</body></html>`;
+    const fallbackHtml = `\x3Chtml xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Phiếu ôn từ vựng</title></head>\x3Cbody>${$('wrongA4Sheet')?.innerHTML || ''}<\/body><\/html>`;
     const blob = new Blob(['\ufeff', fallbackHtml], { type: 'application/msword' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -14639,13 +14762,20 @@ pullCloudState(true, true).then(() => {
     selectedDictWord: null
   };
 
-  function saveBookLibraryMeta() {
-    try {
-      localStorage.setItem('cvm_book_library_meta_v1', JSON.stringify(bookLibraryMeta));
-    } catch (e) {}
+  let _saveBookMetaTimer = 0;
+  function saveBookLibraryMeta(immediate = false) {
     if ($('sideBooksBadge')) $('sideBooksBadge').textContent = bookLibraryMeta.length;
     if ($('bookLibraryCountBadge')) $('bookLibraryCountBadge').textContent = `${bookLibraryMeta.length} cuốn sách`;
     if ($('btnClearAllBooks')) $('btnClearAllBooks').style.display = bookLibraryMeta.length ? 'inline-flex' : 'none';
+    if (immediate) {
+      clearTimeout(_saveBookMetaTimer);
+      try { localStorage.setItem('cvm_book_library_meta_v1', JSON.stringify(bookLibraryMeta)); } catch (e) {}
+      return;
+    }
+    clearTimeout(_saveBookMetaTimer);
+    _saveBookMetaTimer = setTimeout(() => {
+      try { localStorage.setItem('cvm_book_library_meta_v1', JSON.stringify(bookLibraryMeta)); } catch (e) {}
+    }, 450);
   }
 
   function openBookIndexedDb() {
@@ -15045,8 +15175,10 @@ pullCloudState(true, true).then(() => {
       go: go
     };
     render(false);
+
   })();
 
+  let _bookJumpDebounceTimer = 0;
   window.clampBookPageNumber = function(rawVal) {
     const total = Math.max(1, activeBookState.totalPages || 1);
     const parsed = parseInt(String(rawVal ?? '').trim(), 10);
@@ -15055,23 +15187,35 @@ pullCloudState(true, true).then(() => {
   };
 
   window.jumpToBookPage = function(val) {
+    clearTimeout(_bookJumpDebounceTimer);
     if (!activeBookState.id) {
+      const firstBook = Array.isArray(bookLibraryMeta) ? bookLibraryMeta[0] : null;
+      if (firstBook) {
+        const requested = Math.max(1, parseInt(String(val ?? '1').trim(), 10) || 1);
+        firstBook.lastPage = requested;
+        openBookInReader(firstBook.id);
+        return;
+      }
       showToast('⚠️ Hãy chọn hoặc tải một cuốn sách PDF / Word trước!');
       return;
     }
     const targetP = clampBookPageNumber(val);
     if ($('bookJumpPageInput')) $('bookJumpPageInput').value = targetP;
-    if (_u449BookPager) _u449BookPager.go(targetP, true);
-    else renderActiveBookPage(targetP);
+    if (_u449BookPager) {
+      _u449BookPager.go(targetP, false);
+    }
+    if (activeBookState.curPage !== targetP) {
+      renderActiveBookPage(targetP);
+    }
   };
 
-  window.triggerBookPageJump = function(ev) {
-    if (ev) {
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-    const inp = $('bookJumpPageInput');
-    jumpToBookPage(inp ? inp.value : 1);
+  window.scheduleDebouncedBookJump = function(rawVal) {
+    clearTimeout(_bookJumpDebounceTimer);
+    const str = String(rawVal ?? '').trim();
+    if (!str) return;
+    _bookJumpDebounceTimer = setTimeout(() => {
+      jumpToBookPage(str);
+    }, 550);
   };
 
   window.handleBookJumpInputKeydown = function(ev) {
@@ -15079,16 +15223,21 @@ pullCloudState(true, true).then(() => {
     if (ev.key === 'Enter') {
       ev.preventDefault();
       ev.stopPropagation();
-      jumpToBookPage(ev.currentTarget.value);
+      clearTimeout(_bookJumpDebounceTimer);
+      const val = ev.currentTarget.value;
+      ev.currentTarget.blur();
+      jumpToBookPage(val);
     } else if (ev.key === 'ArrowUp') {
       ev.preventDefault();
       ev.stopPropagation();
+      clearTimeout(_bookJumpDebounceTimer);
       const nextP = clampBookPageNumber((parseInt(ev.currentTarget.value, 10) || activeBookState.curPage || 1) + 1);
       ev.currentTarget.value = nextP;
       jumpToBookPage(nextP);
     } else if (ev.key === 'ArrowDown') {
       ev.preventDefault();
       ev.stopPropagation();
+      clearTimeout(_bookJumpDebounceTimer);
       const prevP = clampBookPageNumber((parseInt(ev.currentTarget.value, 10) || activeBookState.curPage || 1) - 1);
       ev.currentTarget.value = prevP;
       jumpToBookPage(prevP);
@@ -15205,6 +15354,8 @@ pullCloudState(true, true).then(() => {
       activeBookState.pdfBlobUrl = null;
     }
 
+    activeBookState._renderedBookId = null;
+    activeBookState._renderedPage = null;
     activeBookState.id = meta.id;
     activeBookState.name = meta.name;
     activeBookState.ext = meta.ext;
@@ -15281,20 +15432,31 @@ pullCloudState(true, true).then(() => {
     const ctx = offCanvas.getContext('2d', { alpha: false });
     await page.render({ canvasContext: ctx, viewport }).promise;
 
-    let pageText = '';
-    try {
-      const txtContent = await page.getTextContent();
-      pageText = (txtContent.items || []).map(it => it.str || '').join(' ').replace(/\s+/g, ' ').trim();
-    } catch (e) {}
-
     const entry = {
       bitmapCanvas: offCanvas,
       cssW: Math.max(120, Math.floor(viewport.width / dpr)),
       cssH: Math.max(140, Math.floor(viewport.height / dpr)),
       fittedW,
       fittedH,
-      pageText
+      pageText: '',
+      _textReady: false
     };
+    // Defer text extraction to idle time so page rendering & 3D flip stay 100% lag-free
+    setTimeout(() => {
+      page.getTextContent().then(txtContent => {
+        entry.pageText = (txtContent.items || []).map(it => it.str || '').join(' ').replace(/\s+/g, ' ').trim();
+        entry._textReady = true;
+        if (activeBookState.curPage === pageNum) {
+          activeBookState.currentPageText = entry.pageText;
+          const shell = $('bookReaderShell');
+          const pdfTextDetails = $('bookPdfExtractedTextDetails');
+          if (entry.pageText && pdfTextDetails && !shell?.classList.contains('is-fullscreen')) {
+            pdfTextDetails.style.display = 'block';
+            if ($('bookPdfPageTextContent')) $('bookPdfPageTextContent').textContent = entry.pageText;
+          }
+        }
+      }).catch(() => {});
+    }, 30);
     activeBookState.pdfPageCache.set(cacheKey, entry);
     if (activeBookState.pdfPageCache.size > 18) {
       const oldestKey = activeBookState.pdfPageCache.keys().next().value;
@@ -15320,17 +15482,132 @@ pullCloudState(true, true).then(() => {
     });
   }
 
+  let _bkFlipTimer = 0;
+  let _bkFlipRaf = 0;
+
+  function ensurePersistentFlipNodes(stage) {
+    let layer = stage.querySelector('.bk-flip-layer');
+    if (!layer) {
+      layer = document.createElement('div');
+      layer.className = 'bk-flip-layer';
+      layer.innerHTML = '<div class="bk-flip-cast"></div><div class="bk-flip-leaf"></div>';
+      stage.appendChild(layer);
+    }
+    return {
+      layer,
+      cast: layer.querySelector('.bk-flip-cast'),
+      leaf: layer.querySelector('.bk-flip-leaf')
+    };
+  }
+
+  function captureOutgoingBookPageSnapshot() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+    const stage = $('bookReaderStage');
+    if (!stage || stage.offsetParent === null) return null;
+    const stageRect = stage.getBoundingClientRect();
+
+    if (activeBookState.ext === 'pdf') {
+      const canvas = $('bookPdfCanvas');
+      if (!canvas || canvas.style.display === 'none' || !canvas.width || !canvas.height) return null;
+      const cRect = canvas.getBoundingClientRect();
+      if (cRect.width < 40 || cRect.height < 40) return null;
+      // 1x CSS pixel snapshot (4x lighter than Retina 2x -> zero GPU upload stall)
+      const snapW = Math.max(120, Math.round(cRect.width));
+      const snapH = Math.max(140, Math.round(cRect.height));
+      let snapCanvas = window._bkReusableSnapCanvas;
+      if (!snapCanvas) {
+        snapCanvas = document.createElement('canvas');
+        snapCanvas.style.cssText = 'width:100%;height:100%;display:block;';
+        window._bkReusableSnapCanvas = snapCanvas;
+      }
+      snapCanvas.width = snapW;
+      snapCanvas.height = snapH;
+      const sCtx = snapCanvas.getContext('2d', { alpha: false });
+      sCtx.drawImage(canvas, 0, 0, snapW, snapH);
+      return {
+        left: Math.max(0, Math.round(cRect.left - stageRect.left)),
+        top: Math.max(0, Math.round(cRect.top - stageRect.top)),
+        width: snapW,
+        height: snapH,
+        node: snapCanvas
+      };
+    } else {
+      const scaler = $('bookWordScaler');
+      const article = $('bookWordPageArticle');
+      if (!scaler || scaler.style.display === 'none' || !article) return null;
+      const sRect = scaler.getBoundingClientRect();
+      if (sRect.width < 40 || sRect.height < 40) return null;
+      const cloneWrap = document.createElement('div');
+      cloneWrap.style.cssText = 'position:relative;width:100%;height:100%;overflow:hidden;';
+      const clonedArticle = article.cloneNode(true);
+      clonedArticle.removeAttribute('id');
+      cloneWrap.appendChild(clonedArticle);
+      return {
+        left: Math.max(0, Math.round(sRect.left - stageRect.left)),
+        top: Math.max(0, Math.round(sRect.top - stageRect.top)),
+        width: Math.round(sRect.width),
+        height: Math.round(sRect.height),
+        node: cloneWrap
+      };
+    }
+  }
+
+  function playBookPageFlipAnimation(snapshot, direction) {
+    if (!snapshot || !direction) return;
+    const stage = $('bookReaderStage');
+    if (!stage) return;
+
+    cancelAnimationFrame(_bkFlipRaf);
+    clearTimeout(_bkFlipTimer);
+
+    const { layer, cast, leaf } = ensurePersistentFlipNodes(stage);
+
+    // Reset previous animation cleanly
+    cast.classList.remove('is-active');
+    leaf.classList.remove('flip-next', 'flip-prev');
+
+    const boxStyle = `left:${snapshot.left}px;top:${snapshot.top}px;width:${snapshot.width}px;height:${snapshot.height}px;`;
+    cast.style.cssText = boxStyle;
+    leaf.style.cssText = boxStyle;
+
+    if (leaf.firstChild !== snapshot.node) {
+      leaf.replaceChildren(snapshot.node);
+    }
+    layer.style.display = 'block';
+
+    // Wait 1 paint frame so the new page underneath is already composited before starting 3D flip
+    _bkFlipRaf = requestAnimationFrame(() => {
+      void leaf.offsetWidth;
+      cast.classList.add('is-active');
+      leaf.classList.add(direction === 'next' ? 'flip-next' : 'flip-prev');
+    });
+
+    _bkFlipTimer = setTimeout(() => {
+      cast.classList.remove('is-active');
+      leaf.classList.remove('flip-next', 'flip-prev');
+      layer.style.display = 'none';
+    }, 440);
+  }
+
   window.renderActiveBookPage = async function(pageNum) {
     if (!activeBookState.id) return;
     const total = Math.max(1, activeBookState.totalPages || 1);
     const p = Math.max(1, Math.min(total, pageNum || 1));
+    const prevBookId = activeBookState._renderedBookId;
+    const prevPage = activeBookState._renderedPage;
+    const shouldFlip = (prevBookId === activeBookState.id && typeof prevPage === 'number' && prevPage !== p);
+    const flipDirection = shouldFlip ? (p > prevPage ? 'next' : 'prev') : null;
+    const outgoingSnapshot = shouldFlip ? captureOutgoingBookPageSnapshot() : null;
+
     const seq = ++activeBookState.renderSeq;
     activeBookState.curPage = p;
+    activeBookState._renderedBookId = activeBookState.id;
+    activeBookState._renderedPage = p;
 
     const meta = bookLibraryMeta.find(b => b.id === activeBookState.id);
     if (meta) {
       meta.lastPage = p;
-      saveBookLibraryMeta();
+      saveBookLibraryMeta(false);
     }
 
     if ($('readerBookMeta')) $('readerBookMeta').textContent = `Trang ${p} / ${total}`;
@@ -15381,8 +15658,12 @@ pullCloudState(true, true).then(() => {
           canvas.height = entry.bitmapCanvas.height;
           canvas.style.width = entry.cssW + 'px';
           canvas.style.height = entry.cssH + 'px';
-          const ctx = canvas.getContext('2d');
+          const ctx = canvas.getContext('2d', { alpha: false });
           ctx.drawImage(entry.bitmapCanvas, 0, 0);
+
+          if (flipDirection && outgoingSnapshot) {
+            playBookPageFlipAnimation(outgoingSnapshot, flipDirection);
+          }
 
           activeBookState.currentPageText = entry.pageText || '';
           if (entry.pageText && !isFs) {
@@ -15428,8 +15709,11 @@ pullCloudState(true, true).then(() => {
 
       const natW = 680;
       wordArticle.style.width = natW + 'px';
-      wordArticle.style.transform = 'none';
-      const natH = Math.max(920, wordArticle.scrollHeight || 920);
+      if (!pageObj._cachedNatH) {
+        wordArticle.style.transform = 'none';
+        pageObj._cachedNatH = Math.max(920, wordArticle.scrollHeight || 920);
+      }
+      const natH = pageObj._cachedNatH;
 
       const fitScale = Math.max(0.1, Math.min(
         (availW - stagePad) / natW,
@@ -15451,6 +15735,9 @@ pullCloudState(true, true).then(() => {
       if (wordScaler) {
         wordScaler.style.width = Math.floor(natW * effectiveScale) + 'px';
         wordScaler.style.height = Math.floor(natH * effectiveScale) + 'px';
+      }
+      if (flipDirection && outgoingSnapshot) {
+        playBookPageFlipAnimation(outgoingSnapshot, flipDirection);
       }
     }
   };
@@ -15485,6 +15772,20 @@ pullCloudState(true, true).then(() => {
   }
   $('bookReaderStage')?.addEventListener('mouseup', lookupSelectedChineseInReader);
   $('bookReaderStage')?.addEventListener('touchend', () => setTimeout(lookupSelectedChineseInReader, 120));
+  $('bookReaderStage')?.addEventListener('click', function(e) {
+    if (!activeBookState.id || !_u449BookPager) return;
+    if ((activeBookState.zoomPct || 100) > 100) return;
+    const selText = window.getSelection()?.toString().trim() || '';
+    if (selText.length > 0) return;
+    if (e.target.closest('button, input, select, summary, details, a')) return;
+    const rect = this.getBoundingClientRect();
+    const relX = (e.clientX - rect.left) / Math.max(1, rect.width);
+    if (relX <= 0.12 && activeBookState.curPage > 1) {
+      _u449BookPager.go(activeBookState.curPage - 1, true);
+    } else if (relX >= 0.88 && activeBookState.curPage < activeBookState.totalPages) {
+      _u449BookPager.go(activeBookState.curPage + 1, true);
+    }
+  });
 
   window.speakBookDictWord = function() {
     const zh = $('bkDictZh')?.textContent?.trim();
@@ -16315,7 +16616,7 @@ pullCloudState(true, true).then(() => {
               // Build clean Word (.doc/.docx) directly within gesture
               const dateTag = new Date().toISOString().slice(0, 10);
               const rowsHtml = list.map((w, idx) => `<tr><td style="padding:6px;border:1px solid #b91c1c;font-weight:bold">${idx + 1}. ${w.zh}</td><td style="padding:6px;border:1px solid #b91c1c">${w.pinyin || ''}</td><td style="padding:6px;border:1px solid #b91c1c">${w.vi || ''}</td><td style="padding:6px;border:1px solid #b91c1c;font-family:KaiTi,serif;font-size:18pt;letter-spacing:6px">${w.zh} □ □ □ □ □ □</td></tr>`).join('');
-              const docHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Phiếu ôn từ vựng</title></head><body><h2 style="text-align:center;color:#b91c1c">PHIẾU ÔN TỪ VỰNG & CHÉP CHO NHỚ (${dateTag})</h2><table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif"><thead><tr style="background:#fef2f2"><th style="padding:6px;border:1px solid #b91c1c">Chữ Hán</th><th style="padding:6px;border:1px solid #b91c1c">Pinyin</th><th style="padding:6px;border:1px solid #b91c1c">Nghĩa</th><th style="padding:6px;border:1px solid #b91c1c">Luyện viết 2 dòng</th></tr></thead><tbody>${rowsHtml}</tbody></table></body></html>`;
+              const docHtml = `\x3Chtml xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Phiếu ôn từ vựng</title></head>\x3Cbody><h2 style="text-align:center;color:#b91c1c">PHIẾU ÔN TỪ VỰNG & CHÉP CHO NHỚ (${dateTag})</h2><table style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif"><thead><tr style="background:#fef2f2"><th style="padding:6px;border:1px solid #b91c1c">Chữ Hán</th><th style="padding:6px;border:1px solid #b91c1c">Pinyin</th><th style="padding:6px;border:1px solid #b91c1c">Nghĩa</th><th style="padding:6px;border:1px solid #b91c1c">Luyện viết 2 dòng</th></tr></thead><tbody>${rowsHtml}</tbody></table><\/body><\/html>`;
               const blob = new Blob(['\ufeff', docHtml], { type: 'application/msword;charset=utf-8' });
               const a = document.createElement('a');
               a.href = URL.createObjectURL(blob);
